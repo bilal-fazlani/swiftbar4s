@@ -16,7 +16,7 @@ object MenuItem {
 
   case class ShellCommand(
       text: String,
-      script: String,
+      executable: String,
       params: Seq[String] = Seq.empty,
       terminal: Boolean = false,
       refresh: Boolean = true,

@@ -1,5 +1,11 @@
 package tech.bilal.bitbar4s.parser
 
+import tech.bilal.bitbar4s.models.Attribute.{
+  Executable,
+  Params,
+  Refresh,
+  Terminal
+}
 import tech.bilal.bitbar4s.models.{Attribute, MenuItem}
 import tech.bilal.bitbar4s.models.MenuItem._
 
@@ -36,13 +42,20 @@ class Parser {
         render(s"$text | href=$url", level, attributes)
       case ShellCommand(
             text,
-            script,
+            executable,
             params,
             terminal,
             refresh,
             attributes
           ) =>
-        render(text, level, attributes)
+        val additionalAttributes = Seq(
+          Some(Executable(executable)),
+          if (params.nonEmpty) Some(Params(params)) else None,
+          if (terminal) Some(Terminal) else None,
+          if (refresh) Some(Refresh) else None
+        ).flatten
+
+        render(text, level, attributes ++ additionalAttributes)
       case Menu(text, items) =>
         render(text.text, level, text.attributes)
           .merge(

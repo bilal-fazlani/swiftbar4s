@@ -11,6 +11,16 @@ sealed trait Attribute {
       case TemplateImage(value) => s"templateImage=$value"
       case Image(value)         => s"image=$value"
       case Emojize              => s"emojize=true"
+      case Href(url)            => s"href=$url"
+      case Executable(path)     => s"bash=$path"
+      case Params(values) =>
+        values.zipWithIndex
+          .map {
+            case (str, i) => s"param${i + 1}=$str"
+          }
+          .mkString(" | ")
+      case Refresh  => s"refresh=true"
+      case Terminal => s"terminal=true"
     }
 }
 
@@ -21,4 +31,10 @@ object Attribute {
   case class TemplateImage(value: String) extends Attribute
   case class Image(value: String)         extends Attribute
   case object Emojize                     extends Attribute
+  //privates
+  private[bitbar4s] case class Href(url: String)           extends Attribute
+  private[bitbar4s] case class Executable(path: String)    extends Attribute
+  private[bitbar4s] case class Params(values: Seq[String]) extends Attribute
+  private[bitbar4s] case object Refresh                    extends Attribute
+  private[bitbar4s] case object Terminal                   extends Attribute
 }

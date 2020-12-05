@@ -19,7 +19,8 @@ object Main extends BitBarApp {
             Text("Nested", attributes = Set(Color("orange"))),
             Seq(
               Text("Item 5"),
-              Text("Item 6")
+              Text("Item 6"),
+              ShellCommand("Item 7", "echo", Seq("hello"))
             )
           )
         )
