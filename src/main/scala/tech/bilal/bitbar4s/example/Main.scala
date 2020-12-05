@@ -1,10 +1,10 @@
 package tech.bilal.bitbar4s.example
 
+import tech.bilal.bitbar4s.BitBarApp
 import tech.bilal.bitbar4s.models.MenuItem._
-import tech.bilal.bitbar4s.parser.Parser
 
-object Main extends App {
-  val menu = Menu(
+object Main extends BitBarApp {
+  override val menu: Menu = Menu(
     Text("MyApp"),
     Seq(
       Text("Item 1"),
@@ -25,8 +25,4 @@ object Main extends App {
       )
     )
   )
-
-  val output = new Parser().parse(menu)
-
-  output.lines.foreach(println)
 }

@@ -12,10 +12,10 @@ class Parser {
   def parse(menu: Menu): Output = {
     Output(menu.text.text)
       .pipe(_.append(HEADER_SEPARATOR))
-      .add(
+      .merge(
         menu.items
           .map(i => parse(i, 0))
-          .reduce(_ add _)
+          .reduce(_ merge _)
       )
   }
 
@@ -31,10 +31,10 @@ class Parser {
         render(text, level)
       case Menu(text, items) =>
         render(text.text, level)
-          .add(
+          .merge(
             items
               .map(i => parse(i, level + 1))
-              .reduce(_ add _)
+              .reduce(_ merge _)
           )
     }
   }
