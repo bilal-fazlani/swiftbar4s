@@ -5,8 +5,6 @@ import tech.bilal.bitbar4s.models.MenuItem
 import tech.bilal.bitbar4s.models.MenuItem._
 
 object Main2 extends BitBarApp {
-  override val echoMode = true
-
   override val app: MenuItem = ShellCommand(
     "command",
     "echo",

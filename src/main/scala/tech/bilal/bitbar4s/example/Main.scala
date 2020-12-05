@@ -5,8 +5,6 @@ import tech.bilal.bitbar4s.models.Attribute._
 import tech.bilal.bitbar4s.models.MenuItem._
 
 object Main extends BitBarApp {
-  override val echoMode = true
-
   override val app: Menu = Menu(
     Text("MyApp", attributes = Set(Color("red"), TextSize(20))),
     Seq(
