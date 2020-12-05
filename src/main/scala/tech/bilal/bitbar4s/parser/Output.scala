@@ -1,0 +1,9 @@
+package tech.bilal.bitbar4s.parser
+
+case class Output(lines: Seq[String] = Seq.empty) {
+  def append(value: String): Output = this.copy(lines.appended(value))
+  def add(out: Output): Output      = Output(lines ++ out.lines)
+}
+object Output {
+  def apply(value: String): Output = Output(Seq(value))
+}
