@@ -31,15 +31,14 @@ class Parser {
 
   private def parse(item: MenuItem, level: Int): Output = {
     item match {
-      case Text(text, emojize, attributes) => render(text, level, attributes)
-      case Link(text, url, emojize, refresh, attributes) =>
+      case Text(text, attributes) => render(text, level, attributes)
+      case Link(text, url, attributes) =>
         render(s"$text | href=$url", level, attributes)
       case ShellCommand(
             text,
             script,
             params,
             terminal,
-            emojize,
             refresh,
             attributes
           ) =>

@@ -10,6 +10,7 @@ sealed trait Attribute {
       case TextSize(value)      => s"size=$value"
       case TemplateImage(value) => s"templateImage=$value"
       case Image(value)         => s"image=$value"
+      case Emojize              => s"emojize=true"
     }
 }
 
@@ -19,4 +20,5 @@ object Attribute {
   case class TextSize(value: Int)         extends Attribute
   case class TemplateImage(value: String) extends Attribute
   case class Image(value: String)         extends Attribute
+  case object Emojize                     extends Attribute
 }
