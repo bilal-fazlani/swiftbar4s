@@ -14,26 +14,26 @@ class Parser {
       .pipe(_.append(HEADER_SEPARATOR))
       .add(
         menu.items
-          .map(i => parse(i, 0, Output()))
+          .map(i => parse(i, 0))
           .reduce(_ add _)
       )
   }
 
-  private def render(value: String, level: Int, output: Output): Output =
-    output.append(s"${LEVEL_SEPARATOR * level}$value")
+  private def render(value: String, level: Int): Output =
+    Output(s"${LEVEL_SEPARATOR * level}$value")
 
-  private def parse(item: MenuItem, level: Int, output: Output): Output = {
+  private def parse(item: MenuItem, level: Int): Output = {
     item match {
-      case Text(text, emojize) => render(text, level, output)
+      case Text(text, emojize) => render(text, level)
       case Link(text, url, emojize, refresh) =>
-        render(s"$text | href=$url", level, output)
+        render(s"$text | href=$url", level)
       case ShellCommand(text, script, params, terminal, emojize, refresh) =>
-        render(text, level, output)
+        render(text, level)
       case Menu(text, items) =>
-        render(text.text, level, output)
+        render(text.text, level)
           .add(
             items
-              .map(i => parse(i, level + 1, Output()))
+              .map(i => parse(i, level + 1))
               .reduce(_ add _)
           )
     }
