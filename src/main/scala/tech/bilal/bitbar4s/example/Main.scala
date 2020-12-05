@@ -1,13 +1,14 @@
 package tech.bilal.bitbar4s.example
 
 import tech.bilal.bitbar4s.BitBarApp
+import tech.bilal.bitbar4s.models.Attribute._
 import tech.bilal.bitbar4s.models.MenuItem._
 
 object Main extends BitBarApp {
   override val menu: Menu = Menu(
-    Text("MyApp"),
+    Text("MyApp", attributes = Set(Color("red"), TextSize(20))),
     Seq(
-      Text("Item 1"),
+      Text("Item 1", attributes = Set(Font("Times New Roman"))),
       Text("Item 2"),
       Menu(
         Text("Submenu"),
@@ -15,7 +16,7 @@ object Main extends BitBarApp {
           Text("Item 3"),
           Text("Item 4"),
           Menu(
-            Text("Nested"),
+            Text("Nested", attributes = Set(Color("orange"))),
             Seq(
               Text("Item 5"),
               Text("Item 6")

@@ -1,6 +1,6 @@
 package tech.bilal.bitbar4s.parser
 
-import tech.bilal.bitbar4s.models.MenuItem
+import tech.bilal.bitbar4s.models.{Attribute, MenuItem}
 import tech.bilal.bitbar4s.models.MenuItem._
 
 import scala.util.chaining._
@@ -10,7 +10,7 @@ class Parser {
   private val LEVEL_SEPARATOR  = "--"
 
   def parse(menu: Menu): Output = {
-    Output(menu.text.text)
+    render(menu.text.text, 0, menu.text.attributes)
       .pipe(_.append(HEADER_SEPARATOR))
       .merge(
         menu.items
@@ -19,18 +19,33 @@ class Parser {
       )
   }
 
-  private def render(value: String, level: Int): Output =
-    Output(s"${LEVEL_SEPARATOR * level}$value")
+  private def render(
+      value: String,
+      level: Int,
+      attributes: Set[Attribute]
+  ): Output = {
+    val separator = if (attributes.isEmpty) "" else " | "
+    val suffix    = attributes.map(_.toString).mkString(" ")
+    Output(s"${LEVEL_SEPARATOR * level}$value$separator$suffix")
+  }
 
   private def parse(item: MenuItem, level: Int): Output = {
     item match {
-      case Text(text, emojize) => render(text, level)
-      case Link(text, url, emojize, refresh) =>
-        render(s"$text | href=$url", level)
-      case ShellCommand(text, script, params, terminal, emojize, refresh) =>
-        render(text, level)
+      case Text(text, emojize, attributes) => render(text, level, attributes)
+      case Link(text, url, emojize, refresh, attributes) =>
+        render(s"$text | href=$url", level, attributes)
+      case ShellCommand(
+            text,
+            script,
+            params,
+            terminal,
+            emojize,
+            refresh,
+            attributes
+          ) =>
+        render(text, level, attributes)
       case Menu(text, items) =>
-        render(text.text, level)
+        render(text.text, level, text.attributes)
           .merge(
             items
               .map(i => parse(i, level + 1))
