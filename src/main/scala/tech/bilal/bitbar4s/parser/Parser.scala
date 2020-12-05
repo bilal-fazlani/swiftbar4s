@@ -1,11 +1,6 @@
 package tech.bilal.bitbar4s.parser
 
-import tech.bilal.bitbar4s.models.Attribute.{
-  Executable,
-  Params,
-  Refresh,
-  Terminal
-}
+import tech.bilal.bitbar4s.models.Attribute._
 import tech.bilal.bitbar4s.models.{Attribute, MenuItem}
 import tech.bilal.bitbar4s.models.MenuItem._
 
@@ -15,15 +10,7 @@ class Parser {
   private val HEADER_SEPARATOR = "---"
   private val LEVEL_SEPARATOR  = "--"
 
-  def parse(menu: Menu): Output = {
-    render(menu.text.text, 0, menu.text.attributes)
-      .pipe(_.append(HEADER_SEPARATOR))
-      .merge(
-        menu.items
-          .map(i => parse(i, 0))
-          .reduce(_ merge _)
-      )
-  }
+  def parse(item: MenuItem): Output = parse(item, -1)
 
   private def render(
       value: String,
@@ -32,7 +19,8 @@ class Parser {
   ): Output = {
     val separator = if (attributes.isEmpty) "" else " | "
     val suffix    = attributes.map(_.toString).mkString(" ")
-    Output(s"${LEVEL_SEPARATOR * level}$value$separator$suffix")
+    val l         = level.max(0)
+    Output(s"${LEVEL_SEPARATOR * l}$value$separator$suffix")
   }
 
   private def parse(item: MenuItem, level: Int): Output = {
@@ -58,6 +46,7 @@ class Parser {
         render(text, level, attributes ++ additionalAttributes)
       case Menu(text, items) =>
         render(text.text, level, text.attributes)
+          .pipe(o => if (level == -1) o.append(HEADER_SEPARATOR) else o)
           .merge(
             items
               .map(i => parse(i, level + 1))
