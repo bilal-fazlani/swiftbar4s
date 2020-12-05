@@ -10,7 +10,7 @@ sealed trait Attribute {
       case TextSize(value)      => s"size=$value"
       case TemplateImage(value) => s"templateImage=$value"
       case Image(value)         => s"image=$value"
-      case Emojize              => s"emojize=true"
+      case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
       case Href(url)            => s"href=$url"
       case Executable(path)     => s"bash=$path"
       case Params(values) =>
@@ -19,8 +19,8 @@ sealed trait Attribute {
             case (str, i) => s"param${i + 1}=$str"
           }
           .mkString(" | ")
-      case Refresh  => s"refresh=true"
-      case Terminal => s"terminal=true"
+      case Refresh(enable)  => s"refresh=${enable.toString.toLowerCase}"
+      case Terminal(enable) => s"terminal=${enable.toString.toLowerCase}"
     }
 }
 
@@ -30,11 +30,11 @@ object Attribute {
   case class TextSize(value: Int)         extends Attribute
   case class TemplateImage(value: String) extends Attribute
   case class Image(value: String)         extends Attribute
-  case object Emojize                     extends Attribute
+  case class Emojize(value: Boolean)      extends Attribute
   //privates
   private[bitbar4s] case class Href(url: String)           extends Attribute
   private[bitbar4s] case class Executable(path: String)    extends Attribute
   private[bitbar4s] case class Params(values: Seq[String]) extends Attribute
-  private[bitbar4s] case object Refresh                    extends Attribute
-  private[bitbar4s] case object Terminal                   extends Attribute
+  private[bitbar4s] case class Refresh(enable: Boolean)    extends Attribute
+  private[bitbar4s] case class Terminal(enable: Boolean)   extends Attribute
 }

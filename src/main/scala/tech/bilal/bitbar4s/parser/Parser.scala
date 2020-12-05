@@ -37,11 +37,11 @@ class Parser {
             attributes
           ) =>
         val additionalAttributes = Seq(
-          Some(Executable(executable)),
-          if (params.nonEmpty) Some(Params(params)) else None,
-          if (terminal) Some(Terminal) else None,
-          if (refresh) Some(Refresh) else None
-        ).flatten
+          Executable(executable),
+          Params(params),
+          Terminal(terminal),
+          Refresh(refresh)
+        )
 
         render(text, level, attributes ++ additionalAttributes)
       case Menu(text, items) =>
