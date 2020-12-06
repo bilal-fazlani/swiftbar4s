@@ -1,4 +1,4 @@
-package tech.bilal.bitbar4s.example
+package tech.bilal.myplugin
 
 import tech.bilal.bitbar4s.BitBarApp
 import tech.bilal.bitbar4s.dsl.BitBarDsl
@@ -6,7 +6,7 @@ import tech.bilal.bitbar4s.models.MenuItem
 
 object Main extends BitBarApp with BitBarDsl {
 
-  override val pluginName: String = "my-plugin"
+  override val pluginName: String = "myplugin"
 
   override val handler: Handler = {
     case (action, metaData) =>
@@ -35,6 +35,7 @@ object Main extends BitBarApp with BitBarDsl {
               shellCommand("item 7", "echo", "hello world")
                 .showTerminal()
           )
-      )
+      ),
+      text(s"version: "),
   )
 }
