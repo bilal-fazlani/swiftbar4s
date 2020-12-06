@@ -6,13 +6,11 @@ import tech.bilal.bitbar4s.models.MenuItem
 
 object Main extends BitBarApp with BitBarDsl {
 
-  override def handler(action: String, metadata: Option[String]): Unit = {
-    println(s"""
-         |ACTION: $action
-         |METADATA: $metadata
-         |""".stripMargin)
+  override val handler: Handler = {
+    case (action, metaData) =>
+      println(action)
+      println(metaData)
   }
-
   override val pluginName: String = "my-plugin"
 
   override val menu: MenuItem = text("bilal")
