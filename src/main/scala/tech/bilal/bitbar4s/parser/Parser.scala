@@ -1,7 +1,7 @@
 package tech.bilal.bitbar4s.parser
 
 import tech.bilal.bitbar4s.models.Attribute._
-import tech.bilal.bitbar4s.models.{Attribute, MenuItem}
+import tech.bilal.bitbar4s.models.MenuItem
 import tech.bilal.bitbar4s.models.MenuItem._
 
 import java.util.Base64

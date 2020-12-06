@@ -4,8 +4,6 @@ import tech.bilal.bitbar4s.SelfPath
 import tech.bilal.bitbar4s.models.Attribute
 import tech.bilal.bitbar4s.models.Attribute._
 
-import java.nio.file.Paths
-
 class Renderer(selfPath: SelfPath) {
   private val LEVEL_SEPARATOR = "--"
 
@@ -16,8 +14,7 @@ class Renderer(selfPath: SelfPath) {
   ): Output = {
     val separator = if (attributes.isEmpty) "" else " | "
     val suffix    = attributes.map(renderAttribute).mkString(" ")
-    val l         = level.max(0)
-    Output(s"${LEVEL_SEPARATOR * l}$value$separator$suffix")
+    Output(s"${LEVEL_SEPARATOR * level}$value$separator$suffix")
   }
 
   def renderAttribute(attribute: Attribute): String = {
