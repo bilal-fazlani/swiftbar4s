@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 REFRESH="5s"
-NAME="myapp"
+NAME="my-plugin"
 EXTENSION="sh"
 FILENAME="$NAME.$REFRESH.$EXTENSION"
 

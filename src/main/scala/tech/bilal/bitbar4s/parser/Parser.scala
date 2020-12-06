@@ -7,28 +7,17 @@ import tech.bilal.bitbar4s.models.MenuItem._
 import java.util.Base64
 import scala.util.chaining._
 
-class Parser {
+class Parser(renderer: Renderer) {
   private val HEADER_SEPARATOR = "---"
-  private val LEVEL_SEPARATOR  = "--"
 
   def parse(item: MenuItem): Output = parse(item, -1)
 
-  private def render(
-      value: String,
-      level: Int,
-      attributes: Set[Attribute]
-  ): Output = {
-    val separator = if (attributes.isEmpty) "" else " | "
-    val suffix    = attributes.map(_.toString).mkString(" ")
-    val l         = level.max(0)
-    Output(s"${LEVEL_SEPARATOR * l}$value$separator$suffix")
-  }
-
   private def parse(item: MenuItem, level: Int): Output = {
     item match {
-      case Text(text, attributes) => render(text, level, attributes)
+      case Text(text, attributes) =>
+        renderer.renderLine(text, level, attributes)
       case Link(text, url, attributes) =>
-        render(s"$text | href=$url", level, attributes)
+        renderer.renderLine(s"$text | href=$url", level, attributes)
       case ShellCommand(
             text,
             executable,
@@ -43,7 +32,7 @@ class Parser {
           Terminal(terminal),
           Refresh(refresh)
         )
-        render(text, level, attributes ++ additionalAttributes)
+        renderer.renderLine(text, level, attributes ++ additionalAttributes)
 
       case DispatchAction(
             text,
@@ -53,7 +42,8 @@ class Parser {
             refresh,
             attributes
           ) =>
-        def encode(str: String) = Base64.getEncoder.encodeToString(str.getBytes)
+        def encode(str: String): String =
+          Base64.getEncoder.encodeToString(str.getBytes)
         val additionalAttributes = Seq(
           Executable("$0"),
           Params(
@@ -66,9 +56,10 @@ class Parser {
           Terminal(terminal),
           Refresh(refresh)
         )
-        render(text, level, attributes ++ additionalAttributes)
+        renderer.renderLine(text, level, attributes ++ additionalAttributes)
       case Menu(text, items) =>
-        render(text.text, level, text.attributes)
+        renderer
+          .renderLine(text.text, level, text.attributes)
           .pipe(o => if (level == -1) o.append(HEADER_SEPARATOR) else o)
           .merge(
             items

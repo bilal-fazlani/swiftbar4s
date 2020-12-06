@@ -2,6 +2,8 @@ package tech.bilal.bitbar4s.models
 
 import tech.bilal.bitbar4s.models.Attribute._
 
+import java.nio.file.Paths
+
 sealed trait Attribute {
   override def toString: String =
     this match {
@@ -13,7 +15,7 @@ sealed trait Attribute {
       case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
       case Href(url)            => s"""href="$url""""
       case Executable("$0") =>
-        s"""bash="${getClass.getProtectionDomain.getCodeSource.getLocation}""""
+        s"""bash="${Paths.get("").toAbsolutePath.toString}""""
       case Executable(path) => s"""bash="$path""""
       case Params(values) =>
         values.zipWithIndex

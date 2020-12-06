@@ -1,12 +1,13 @@
 package tech.bilal.bitbar4s
 
 import tech.bilal.bitbar4s.models.MenuItem
-import tech.bilal.bitbar4s.parser.Parser
+import tech.bilal.bitbar4s.parser.{Parser, Renderer}
 
 import java.util.Base64
 
 abstract class BitBarApp {
-  def app: MenuItem
+  val menu: MenuItem
+  val pluginName: String
 
   def handler(action: String, metadata: Option[String]): Unit = ()
 
@@ -17,7 +18,11 @@ abstract class BitBarApp {
       case "dispatch" :: action :: Nil => handler(decode(action), None)
       case "dispatch" :: action :: metadata :: Nil =>
         handler(decode(action), Some(decode(metadata)))
-      case _ => new Parser().parse(app).lines.foreach(println)
+      case _ =>
+        new Parser(new Renderer(new SelfPath(pluginName)))
+          .parse(menu)
+          .lines
+          .foreach(println)
     }
 
   }

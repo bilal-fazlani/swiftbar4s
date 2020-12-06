@@ -13,7 +13,9 @@ object Main extends BitBarApp {
          |""".stripMargin)
   }
 
-  override val app: Menu = Menu(
+  override val pluginName: String = "my-plugin"
+
+  override val menu: Menu = Menu(
     Text("MyApp", attributes = Set(Color("red"), TextSize(20))),
     Seq(
       DispatchAction(
