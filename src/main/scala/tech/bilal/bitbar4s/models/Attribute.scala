@@ -5,20 +5,22 @@ import tech.bilal.bitbar4s.models.Attribute._
 sealed trait Attribute {
   override def toString: String =
     this match {
-      case Font(name)           => s"font=$name"
-      case Color(value)         => s"color=$value"
+      case Font(name)           => s"""font="$name""""
+      case Color(value)         => s"""color="$value""""
       case TextSize(value)      => s"size=$value"
       case TemplateImage(value) => s"templateImage=$value"
       case Image(value)         => s"image=$value"
       case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
-      case Href(url)            => s"href=$url"
-      case Executable(path)     => s"bash=$path"
+      case Href(url)            => s"""href="$url""""
+      case Executable("$0") =>
+        s"""bash="${getClass.getProtectionDomain.getCodeSource.getLocation}""""
+      case Executable(path) => s"""bash="$path""""
       case Params(values) =>
         values.zipWithIndex
           .map {
-            case (str, i) => s"param${i + 1}=$str"
+            case (str, i) => s"""param${i + 1}="$str""""
           }
-          .mkString(" | ")
+          .mkString(" ")
       case Refresh(enable)  => s"refresh=${enable.toString.toLowerCase}"
       case Terminal(enable) => s"terminal=${enable.toString.toLowerCase}"
     }

@@ -4,6 +4,7 @@ import tech.bilal.bitbar4s.models.Attribute._
 import tech.bilal.bitbar4s.models.{Attribute, MenuItem}
 import tech.bilal.bitbar4s.models.MenuItem._
 
+import java.util.Base64
 import scala.util.chaining._
 
 class Parser {
@@ -42,7 +43,29 @@ class Parser {
           Terminal(terminal),
           Refresh(refresh)
         )
+        render(text, level, attributes ++ additionalAttributes)
 
+      case DispatchAction(
+            text,
+            action,
+            metadata,
+            terminal,
+            refresh,
+            attributes
+          ) =>
+        def encode(str: String) = Base64.getEncoder.encodeToString(str.getBytes)
+        val additionalAttributes = Seq(
+          Executable("$0"),
+          Params(
+            Seq(
+              Some("dispatch"),
+              Some(encode(action)),
+              metadata.map(encode)
+            ).flatten
+          ),
+          Terminal(terminal),
+          Refresh(refresh)
+        )
         render(text, level, attributes ++ additionalAttributes)
       case Menu(text, items) =>
         render(text.text, level, text.attributes)

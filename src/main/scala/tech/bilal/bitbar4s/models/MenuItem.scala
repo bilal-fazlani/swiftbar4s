@@ -23,6 +23,15 @@ object MenuItem {
       attributes: Set[Attribute] = Set.empty
   ) extends MenuItem
 
+  case class DispatchAction(
+      text: String,
+      action: String,
+      metadata: Option[String],
+      terminal: Boolean = false,
+      refresh: Boolean = true,
+      attributes: Set[Attribute] = Set.empty
+  ) extends MenuItem
+
   case class Menu(
       text: Text,
       items: Seq[MenuItem]
