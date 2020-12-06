@@ -171,7 +171,7 @@ trait BitBarDsl2 {
         summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize)))
     }
 
-    def actionDispatch(
+    def action(
       text:String, 
       action: String,
       metadata:Option[String] = None,
