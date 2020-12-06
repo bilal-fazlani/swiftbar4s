@@ -1,5 +1,5 @@
-//val scalav = "2.13.4"
-val sv = "3.0.0-M2"
+val sv = "2.13.4"
+//val sv = "3.0.0-M2"
 
 inThisBuild(
   Seq(
@@ -21,7 +21,6 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "bitbar4s",
-    scalaVersion := sv,
     libraryDependencies ++= Seq(
       Libs.munit % Test
     )

@@ -24,6 +24,5 @@ abstract class BitBarApp {
           .lines
           .foreach(println)
     }
-
   }
 }
