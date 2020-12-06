@@ -1,10 +1,10 @@
 package tech.bilal.myplugin
 
 import tech.bilal.bitbar4s.BitBarApp
-import tech.bilal.bitbar4s.dsl.BitBarDsl
+import tech.bilal.bitbar4s.dsl.BitBarDsl2
 import tech.bilal.bitbar4s.models.MenuItem
 
-object Main extends BitBarApp with BitBarDsl {
+object Main extends BitBarApp with BitBarDsl2 {
 
   override val pluginName: String = "myplugin"
 
@@ -14,28 +14,18 @@ object Main extends BitBarApp with BitBarDsl {
       println(metaData)
   }
 
-  override val menu: MenuItem = text("bilal")
-    .color("red")
-    .textSize(20) >>
-    (
-      dispatchAction("print something", "print", "hello world")
-        .showTerminal(),
-      text("item 1")
-        .font("Times"),
-      text("item 2")
-        .textSize(15),
-      text("submenu") >>
-        (
-          text("item 3"),
-          text("item 4"),
-          text("nested").color("orange") >>
-            (
-              text("item 5"),
-              text("item 6"),
-              shellCommand("item 7", "echo", "hello world")
-                .showTerminal()
-          )
-      ),
-      text(s"version: "),
-  )
+  override val appMenu = menu("my-plugin", color = "red", textSize = 20) {
+    actionDispatch("print something", "print", Some("hello world"), true)
+    text("item 1", font = "Times")
+    text("item 2", textSize = 15)
+    subMenu("submenu"){
+      text("item 3")
+      text("item 4")
+      subMenu("nested", color = "orange"){
+        text("item 5")
+        text("item 6")
+        shellCommand("item 7", "echo")
+      }
+    }
+  }
 }
