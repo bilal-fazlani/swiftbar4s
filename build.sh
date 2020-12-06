@@ -2,11 +2,14 @@
 
 REFRESH="5s"
 NAME="my-plugin"
+ORG="tech.bilal"
+SCALA_VERSION="2.13"
 EXTENSION="sh"
 FILENAME="$NAME.$REFRESH.$EXTENSION"
+PLUGINS_DIR=~/projects/bitbar-plugins
+VERSION=0.1.0-SNAPSHOT
 
-
-rm -rf /Users/bilal/.ivy2/local/tech.bilal/bitbar4s_3.0.0-M2/
+rm -rf ~/.ivy2/local/"$ORG"/bitbar4s_"$SCALA_VERSION"/
 sbt ";clean ;publishLocal"
-coursier bootstrap -f -o ~/projects/bitbar-plugins/"$FILENAME" --standalone tech.bilal:bitbar4s_3.0.0-M2:0.1.0-SNAPSHOT
-chmod +x ~/projects/bitbar-plugins/"$FILENAME"
+coursier bootstrap -f -o "$PLUGINS_DIR"/"$FILENAME" --standalone "$ORG":bitbar4s_"$SCALA_VERSION":"$VERSION"
+chmod +x "$PLUGINS_DIR"/"$FILENAME"
