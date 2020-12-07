@@ -142,6 +142,8 @@ trait BitBarDsl2 {
         summon[MenuBuilder].add(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
     }
 
+    def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
+
     def link(
       text:String, 
       url:String,

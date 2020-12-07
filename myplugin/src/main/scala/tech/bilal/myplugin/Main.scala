@@ -22,6 +22,7 @@ object Main extends BitBarApp with BitBarDsl2 {
   override val appMenu = menu("my-plugin", color = "red", textSize = 20) {
     action("send email", "send-email", Some("abc@xyz.com"), true)
     text("item 1", font = "Times")
+    ---
     text("item 2", textSize = 15)
     subMenu("submenu"){
       text("item 3")
@@ -31,6 +32,7 @@ object Main extends BitBarApp with BitBarDsl2 {
       }
       subMenu("nested", color = "orange"){
         text("item 5")
+        ---
         text("item 6")
         shellCommand("item 7", "echo", showTerminal = true ,params = "hello world", "sds")
       }
