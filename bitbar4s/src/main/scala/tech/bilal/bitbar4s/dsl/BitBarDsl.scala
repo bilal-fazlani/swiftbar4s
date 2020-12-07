@@ -1,83 +1,195 @@
 package tech.bilal.bitbar4s.dsl
 
-import tech.bilal.bitbar4s.models.Attribute.{
-  Color,
-  Emojize,
-  Font,
-  Image,
-  Refresh,
-  TemplateImage,
-  Terminal,
-  TextSize
-}
+import scala.collection.mutable.ListBuffer
+import tech.bilal.bitbar4s.models.MenuItem
+import tech.bilal.bitbar4s.models.Attribute
+import tech.bilal.bitbar4s.models.Attribute._
 import tech.bilal.bitbar4s.models.MenuItem._
-import tech.bilal.bitbar4s.models.{Executable, MenuItem, WithAttribute}
+import scala.sys.env
+
+type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
+
+class MenuBuilder(val textItem:Text) {
+  val items:ListBuffer[AllowedType] = new ListBuffer()
+  def add(item:AllowedType) = {
+    items.addOne(item)
+  }
+
+  override def toString = items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
+}
 
 trait BitBarDsl {
-  def text(text: String): Text = Text(text)
+    case object DefaultValue
+    type ColorDsl = String | DefaultValue.type
+    type TextSizeDsl = Int | DefaultValue.type
+    type FontDsl = String | DefaultValue.type
+    type ImageDsl = String | None.type
+    type TemplateImageDsl = String | None.type
+    type EmojizeDsl = Boolean | DefaultValue.type
 
-  def link(text: String, url: String): Link = Link(text, url)
+    type ContextFunction[T] = T ?=> Unit
 
-  def shellCommand(
-      text: String,
-      executablePath: String,
-      params: String*
-  ): ShellCommand =
-    ShellCommand(text, executablePath, params)
+    def menu(
+      text:String, 
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      )(init: ContextFunction[MenuBuilder]) = {
+      given t as MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+      init
+      t
+    }
 
-  def dispatchAction(
-      text: String,
-      action: String
-  ): DispatchAction = DispatchAction(text, action, None)
+    def subMenu(
+      text:String, 
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      )(init: ContextFunction[MenuBuilder])(using menuDsl:MenuBuilder) = {
+      val innerMenu = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+      summon[MenuBuilder].add(innerMenu)
+      {
+        given i as MenuBuilder = innerMenu
+        init
+      }
+      innerMenu
+    }
 
-  def dispatchAction(
-      text: String,
+    object topLevel {
+      def text(
+      text:String, 
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      ): Text = Text(text, getAttributes(color, textSize, font, image, templateImage, emojize))
+    
+      def link(
+        text:String, 
+        url:String,
+        color:ColorDsl = DefaultValue, 
+        textSize: TextSizeDsl = DefaultValue,
+        font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+        ): Link = Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize))
+      
+      def shellCommand(
+        text:String, 
+        executable:String,
+        showTerminal:Boolean = false,
+        refresh:Boolean = true,
+        color:ColorDsl = DefaultValue, 
+        textSize: TextSizeDsl = DefaultValue,
+        font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue,
+        params:String*,
+        ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
+      
+
+      def actionDispatch(
+        text:String, 
+        action: String,
+        metadata:Option[String],
+        showTerminal:Boolean = false,
+        refresh:Boolean = true,
+        color:ColorDsl = DefaultValue, 
+        textSize: TextSizeDsl = DefaultValue,
+        font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+        ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
+    }
+
+    private def getAttributes(
+      color:ColorDsl,
+      textSize: TextSizeDsl,
+      font: FontDsl,
+      image: ImageDsl,
+      templateImage: TemplateImageDsl,
+      emojize: EmojizeDsl
+    ):Set[Attribute] = {
+        var set = Set.empty[Attribute]
+        if(color != DefaultValue) set = set + Color(color.asInstanceOf)
+        if(textSize != DefaultValue) set = set + TextSize(textSize.asInstanceOf)
+        if(font != DefaultValue) set = set + Font(font.asInstanceOf)
+        if(image != None) set = set + Image(image.asInstanceOf)
+        if(templateImage != None) set = set + TemplateImage(templateImage.asInstanceOf)
+        if(emojize != DefaultValue) set = set + Emojize(emojize.asInstanceOf)
+        set
+    }
+
+    def text(
+      text:String, 
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      ): ContextFunction[MenuBuilder] = {
+        summon[MenuBuilder].add(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+    }
+
+    def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
+
+    def isBitBar = env.get("BitBar").getOrElse("0") == "1"
+    def isDarkMode = env.get("BitBarDarkMode").getOrElse("0") == "1"
+
+    def link(
+      text:String, 
+      url:String,
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      ): ContextFunction[MenuBuilder] = {
+        summon[MenuBuilder].add(Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize)))
+    }
+
+    def shellCommand(
+      text:String, 
+      executable:String,
+      showTerminal:Boolean = false,
+      refresh:Boolean = true,
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue,
+      params:String*,
+      ): ContextFunction[MenuBuilder] = {
+        summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize)))
+    }
+
+    def action(
+      text:String, 
       action: String,
-      metadata: String
-  ): DispatchAction = DispatchAction(text, action, Some(metadata))
-
-  implicit class AttrExtension[T <: WithAttribute[T]](item: WithAttribute[T]) {
-    def textSize(value: Int): T =
-      item.set(TextSize(value))
-
-    def font(name: String): T =
-      item.set(Font(name))
-
-    def color(value: String): T =
-      item.set(Color(value))
-
-    def withImage(base64: String): T =
-      item.set(Image(base64))
-
-    def withTemplateImage(base64: String): T =
-      item.set(TemplateImage(base64))
-
-    def emojize(value: Boolean): T =
-      item.set(Emojize(value))
-
-    def emojize(): T =
-      item.set(Emojize(true))
-  }
-
-  implicit class ExeExtension[T <: Executable[T]](item: Executable[T]) {
-    def refresh(value: Boolean): T =
-      item.set(Refresh(value))
-
-    def refresh(): T =
-      item.set(Refresh(true))
-
-    def showTerminal(value: Boolean): T =
-      item.set(Terminal(value))
-
-    def showTerminal(): T =
-      item.set(Terminal(true))
-  }
-
-  implicit class TextExtension(text: Text) {
-    def >>(menuItem: MenuItem*): Menu =
-      Menu(
-        text,
-        Seq(menuItem: _*)
-      )
-  }
+      metadata:Option[String] = None,
+      showTerminal:Boolean = false,
+      refresh:Boolean = true,
+      color:ColorDsl = DefaultValue, 
+      textSize: TextSizeDsl = DefaultValue,
+      font: FontDsl = DefaultValue,
+      image: ImageDsl = None,
+      templateImage: TemplateImageDsl = None,
+      emojize: EmojizeDsl = DefaultValue
+      ): ContextFunction[MenuBuilder] = {
+        summon[MenuBuilder].add(DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize)))
+    }
 }

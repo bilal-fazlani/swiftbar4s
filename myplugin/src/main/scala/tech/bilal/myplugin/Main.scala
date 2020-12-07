@@ -1,10 +1,10 @@
 package tech.bilal.myplugin
 
 import tech.bilal.bitbar4s.BitBarApp
-import tech.bilal.bitbar4s.dsl.BitBarDsl2
+import tech.bilal.bitbar4s.dsl.BitBarDsl
 import tech.bilal.bitbar4s.models.MenuItem
 
-object Main extends BitBarApp with BitBarDsl2 {
+object Main extends BitBarApp with BitBarDsl {
 
   override val pluginName: String = "myplugin"
 
@@ -19,7 +19,7 @@ object Main extends BitBarApp with BitBarDsl2 {
       interactWithMobileDevice(something)
   }
 
-  override val appMenu = menu("my-plugin", color = "red", textSize = 20) {
+  override val appMenu = menu("my-plugin", color = if(isDarkMode) "white" else "red", textSize = 20) {
     action("send email", "send-email", Some("abc@xyz.com"), true)
     text("item 1", font = "Times")
     ---
