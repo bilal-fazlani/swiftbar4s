@@ -21,16 +21,15 @@ override val pluginName: String = "myplugin"
 - create a handler for actions your plugin may dispatch. Example:
 
 ```scala
-override val handler: Handler = {
-  case ("send-email", Some(email)) => 
-    sendEmail(email)
-  
-  case ("push", Some(id)) => 
-    httpPost(id)
-  
-  case ("trigger-something", Some(something)) => 
-    interactWithMobileDevice(something)
-}
+  override val handler = handler {
+    handle("send-email") { emailMayBe =>
+      emailMayBe.map(sendEmail)
+    }
+
+    handle("print-hello") {
+      println("hello world")
+    }
+  }
 ```
 
 - Use the dsl to create menu items either statically for dynamically. Example:
@@ -63,3 +62,9 @@ override val handler: Handler = {
 You can create, static texts, web links, shell command triggers, and most importantly, actions.
 
 All the items support configuratios such as color, text size, image, refresh, etc. 
+
+Tips:
+
+- Use `isDarkMode` to change colors or images based on system theme.
+- Use `---` to add line separators
+- Use `isBitBar` to know whther plugin was called by BitBar
