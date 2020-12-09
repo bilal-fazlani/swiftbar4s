@@ -2,7 +2,6 @@ package tech.bilal.myplugin
 
 import tech.bilal.bitbar4s.BitBarApp
 import tech.bilal.bitbar4s.dsl.BitBarDsl
-import tech.bilal.bitbar4s.models.MenuItem
 
 object Main extends BitBarApp with BitBarDsl {
 

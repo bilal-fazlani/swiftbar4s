@@ -10,7 +10,7 @@ This is not published to maven yet
 
 ## Usage
 
-- create an `object` and extend from `BitBarApp with BitBarDsl2`
+- create an `object` and extend from `BitBarApp with BitBarDsl`
 
 - override `pluginName`
 
@@ -36,9 +36,11 @@ override val handler: Handler = {
 - Use the dsl to create menu items either statically for dynamically. Example:
 
 ```scala
-  override val appMenu = menu("my-plugin", color = "red", textSize = 20) {
+  override val appMenu = menu("my-plugin", color = if(isDarkMode) "white" else "red", textSize = 20) {
     action("send email", "send-email", Some("abc@xyz.com"), true)
+    action("print hello", "print-hello", showTerminal = true)
     text("item 1", font = "Times")
+    ---
     text("item 2", textSize = 15)
     subMenu("submenu"){
       text("item 3")
@@ -48,6 +50,7 @@ override val handler: Handler = {
       }
       subMenu("nested", color = "orange"){
         text("item 5")
+        ---
         text("item 6")
         shellCommand("item 7", "echo", showTerminal = true ,params = "hello world", "sds")
       }
