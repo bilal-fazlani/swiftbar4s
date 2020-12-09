@@ -7,6 +7,8 @@ inThisBuild(
   Seq(
     scalaVersion := sv,
     organization := org,
+    homepage := Some(url("https://github.com/bilal-fazlani/bitbar4s")),
+    licenses := List("MIT" -> url("https://github.com/bilal-fazlani/bitbar4s/blob/main/LICENSE")),
     developers := List(
       Developer(
         "bilal-fazlani",
