@@ -8,19 +8,19 @@ object Main extends BitBarApp with BitBarDsl {
 
   override val pluginName: String = "myplugin"
 
-  override val handler: Handler = {
-    case ("send-email", Some(email)) => 
-      sendEmail(email)
-    
-    case ("push", Some(id)) => 
-      httpPost(id)
-    
-    case ("trigger-something", Some(something)) => 
-      interactWithMobileDevice(something)
+  override val handler = handler {
+    handle("send-email") { emailMayBe =>
+      emailMayBe.map(sendEmail)
+    }
+
+    handle("print-hello") {
+      println("hello world")
+    }
   }
 
   override val appMenu = menu("my-plugin", color = if(isDarkMode) "white" else "red", textSize = 20) {
     action("send email", "send-email", Some("abc@xyz.com"), true)
+    action("print hello", "print-hello", showTerminal = true)
     text("item 1", font = "Times")
     ---
     text("item 2", textSize = 15)
@@ -39,7 +39,5 @@ object Main extends BitBarApp with BitBarDsl {
     }
   }
 
-  def sendEmail(email:String) = ???
-  def httpPost(payload:String) = ???
-  def interactWithMobileDevice(id:String) = ???
+  def sendEmail(email:String) = println(s"email sent to $email")
 }
