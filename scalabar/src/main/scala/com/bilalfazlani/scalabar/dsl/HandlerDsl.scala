@@ -46,20 +46,6 @@ class HandlerBuilder {
 }
 
 trait HandlerDsl {
-  // given Conversion[HandlerBuilder, Handler] = handlerBuilder =>
-  //   handlerBuilder.handlers.foldLeft(PartialFunction.empty[(String, Option[String]), Unit])((acc, cur) => {
-  //     val p:Handler = cur._2 match {
-  //       case SimpleHandlerFunction(a, f) => {
-  //           case (a: String, _) if a == cur._1 => f()
-  //         }
-  //       case MetadataHandlerFunction(a, f) => {
-  //         case (a: String, m: Option[String]) if a == cur._1 => f(m)
-  //       }
-  //     }
-  //     acc orElse p
-  //     }
-  //   ).orElse(PartialFunction.fromFunction(_ => ()))
-
   def handler(init: ContextFunction[HandlerBuilder]): HandlerBuilder = {
     given t as HandlerBuilder()
     init
