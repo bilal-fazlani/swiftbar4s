@@ -16,6 +16,13 @@ class MenuBuilder(val textItem:Text) {
   }
 
   override def toString = items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
+
+  type SimpleType = Text | Link | DispatchAction | ShellCommand
+
+  def build: Menu = Menu(textItem, items.map{
+    case x:MenuBuilder => x.build
+    case a:SimpleType  => a
+  }.toSeq)
 }
 
 type ContextFunction[T] = T ?=> Unit

@@ -5,7 +5,6 @@ import com.bilalfazlani.scalabar.dsl.HandlerDsl
 import com.bilalfazlani.scalabar.dsl.MenuDsl
 import scala.language.implicitConversions
 
-
 object Main extends ScalaBarApp with MenuDsl with HandlerDsl  {
 
   override val pluginName: String = "myplugin"
