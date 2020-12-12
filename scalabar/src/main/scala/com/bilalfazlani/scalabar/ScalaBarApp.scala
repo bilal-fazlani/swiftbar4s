@@ -25,20 +25,20 @@ abstract class ScalaBarApp {
     case x:MenuBuilder => menuBuilderToMenu(x)
   }
 
-  val handler: Handler = defaultCase
+  val handler: HandlerBuilder
 
   private def decode(str: String) = new String(Base64.getDecoder.decode(str))
 
-  val defaultCase: Handler = {
-      case (str: String, o: Option[String]) => ()
-    }
+  // val defaultCase: Handler = {
+  //     case (str: String, o: Option[String]) => ()
+  //   }
 
   def main(args: Array[String]): Unit = {
     args.toList match {
       case "dispatch" :: action :: Nil =>
-        handler.orElse(defaultCase)(decode(action), None)
+        handler.build()(decode(action), None)
       case "dispatch" :: action :: metadata :: Nil =>
-        handler.orElse(defaultCase)(decode(action), Some(decode(metadata)))
+        handler.build()(decode(action), Some(decode(metadata)))
       case _ =>
         new Parser(new Renderer(new SelfPath(pluginName)))
           .parse(refine(appMenu))

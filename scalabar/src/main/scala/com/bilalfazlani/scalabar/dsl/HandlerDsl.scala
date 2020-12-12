@@ -29,7 +29,7 @@ class HandlerBuilder {
     }
   }
 
-  def build: Handler = handlers.foldLeft(PartialFunction.empty[(String, Option[String]), Unit])((acc, cur) => {
+  def build(): Handler = handlers.foldLeft(PartialFunction.empty[(String, Option[String]), Unit])((acc, cur) => {
       val p:Handler = cur._2 match {
         case SimpleHandlerFunction(a, f) => {
             case (a: String, _) if a == cur._1 => f()
