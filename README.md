@@ -57,7 +57,7 @@ override val pluginName: String = "myplugin"
   }
 ```
 
-![demo](docs/demo.png)
+![demo](docs/images/demo.png)
 
 You can create, static texts, web links, shell command triggers, and most importantly, actions.
 

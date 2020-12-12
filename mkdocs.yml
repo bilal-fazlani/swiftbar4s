@@ -6,21 +6,22 @@ edit_uri: edit/main/docs/
 strict: true
 
 nav:
-    - Home: index.md
+    - index.md
+    - creating-menu.md
+    - action-handlers.md
+    - attributes.md
+    - packaging.md
 
 theme:
   features:
     - tabs
     - instant
   name: 'material'
-  # custom_dir: docs/overrides
   icon:
     repo: fontawesome/brands/github
   # favicon: 'img/favicon.ico'
   palette:
     scheme: preference 
-    primary: blue
-    accent: green
   # logo: 'img/small-logo.svg'
 
 # google_analytics:
@@ -58,6 +59,9 @@ plugins:
   - search
 
 # Customization
+extra_css:
+  - stylesheets/extra.css
+
 extra:
   social:
     - icon: fontawesome/brands/github

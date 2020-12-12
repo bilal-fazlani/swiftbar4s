@@ -1,63 +1,16 @@
-# ScalaBar
+# Getting started
 
-**Create [Swiftbar](https://github.com/swiftbar/SwiftBar) / [Bitbar](https://github.com/matryer/bitbar) applications using Scala DSL**
+ScalaBar is a scala framwework to create [Swiftbar](https://github.com/swiftbar/SwiftBar) / [Bitbar](https://github.com/matryer/bitbar) applications for MacOS
 
----
+## Installation
 
-# Installation
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/scalabar_3.0.0-M2?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
 ```scala
 libraryDependencies += "com.bilal-fazlani" %% "scalabar" % "<VERSION>"
 ```
 
-# Creating a menu
+## Template
 
-## Menu
+Instead of manually setting up everything, you can use the gitr8 template to bootstrap the project.
 
-Renders top level menu and menu items inside it. Also supports nested sub-menus.
-
-## Text
-
-Renders a non clickable static text menu item.
-
-## Link
-
-Renders a clickable link. Requires `url` parameter.
-
-## Action
-
-Renders an action item. A handler for this action must be present in the handlers.
-Supports metadata, which will be passed to action handler.
-
-## ShellCommand
-
-Renders a shell command. Requires path of the command and its parameters.
-
-## SubMenu
-
-Renders a submenu with menu items. Supports all the common attributes.
-
-## TopLevel
-
-- Text
-- Action
-- ShellCommand
-- Link
-
-Renders a single item on the top level instead of a menu.  Supports all the common attributes.
-
-## Common Attributes
-
-- Image
-- Length
-- Font
-- Color
-- TextSize
-- Emojize
-- TemplateImage
-
-## Packaging
-
-## Gitr8 template
-
-# Adding action handlers

@@ -1,0 +1,12 @@
+:root {
+    --md-primary-fg-color:        #b01a1a;
+    --md-primary-fg-color--light: #d09a9a;
+    --md-primary-fg-color--dark:  #90030C;
+}
+
+:root > * {
+
+/* Footer */
+--md-footer-bg-color: #b01a1a;
+--md-footer-bg-color--dark: hsla(0, 0%, 0%, 0.32);
+}
