@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 #SBT
-ORG="tech.bilal"
+ORG="com.bilalfazlani"
 PLUGIN_NAME="myplugin"
 SCALA_VERSION="3.0.0-M2"
 PLUGIN_VERSION="0.1.0-SNAPSHOT"

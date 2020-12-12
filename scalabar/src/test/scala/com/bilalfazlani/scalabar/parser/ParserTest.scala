@@ -1,4 +1,4 @@
-package tech.bilal.bitbar4s.parser
+package com.bilalfazlani.scalabar.parser
 
 class ParserTest extends munit.FunSuite {
   test("test1") {

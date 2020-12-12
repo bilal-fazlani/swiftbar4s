@@ -1,14 +1,14 @@
 //val sv = "2.13.4"
 val sv = "3.0.0-M2"
 
-val org = "tech.bilal"
+val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
     scalaVersion := sv,
     organization := org,
-    homepage := Some(url("https://github.com/bilal-fazlani/bitbar4s")),
-    licenses := List("MIT" -> url("https://github.com/bilal-fazlani/bitbar4s/blob/main/LICENSE")),
+    homepage := Some(url("https://github.com/bilal-fazlani/scalabar")),
+    licenses := List("MIT" -> url("https://github.com/bilal-fazlani/scalabar/blob/main/LICENSE")),
     developers := List(
       Developer(
         "bilal-fazlani",
@@ -23,15 +23,15 @@ inThisBuild(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(bitbar4s, myplugin)
+  .aggregate(scalabar, myplugin)
   .settings(
     skip in publish := true
   )
 
-lazy val bitbar4s = project
-  .in(file("./bitbar4s"))
+lazy val scalabar = project
+  .in(file("./scalabar"))
   .settings(
-    name := "bitbar4s",
+    name := "scalabar",
     libraryDependencies ++= Seq(
       Libs.munit % Test
     )
@@ -44,4 +44,4 @@ lazy val myplugin = project
     skip in publish := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
-  .dependsOn(bitbar4s)
+  .dependsOn(scalabar)

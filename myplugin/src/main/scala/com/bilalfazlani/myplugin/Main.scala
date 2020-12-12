@@ -1,9 +1,12 @@
-package tech.bilal.myplugin
+package com.bilalfazlani.myplugin
 
-import tech.bilal.bitbar4s.BitBarApp
-import tech.bilal.bitbar4s.dsl.BitBarDsl
+import com.bilalfazlani.scalabar.ScalaBarApp
+import com.bilalfazlani.scalabar.dsl.HandlerDsl
+import com.bilalfazlani.scalabar.dsl.MenuDsl
+import scala.language.implicitConversions
 
-object Main extends BitBarApp with BitBarDsl {
+
+object Main extends ScalaBarApp with MenuDsl with HandlerDsl  {
 
   override val pluginName: String = "myplugin"
 

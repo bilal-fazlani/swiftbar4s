@@ -1,10 +1,10 @@
-package tech.bilal.bitbar4s.dsl
+package com.bilalfazlani.scalabar.dsl
 
 import scala.collection.mutable.ListBuffer
-import tech.bilal.bitbar4s.models.MenuItem
-import tech.bilal.bitbar4s.models.Attribute
-import tech.bilal.bitbar4s.models.Attribute._
-import tech.bilal.bitbar4s.models.MenuItem._
+import com.bilalfazlani.scalabar.models.MenuItem
+import com.bilalfazlani.scalabar.models.Attribute
+import com.bilalfazlani.scalabar.models.Attribute._
+import com.bilalfazlani.scalabar.models.MenuItem._
 import scala.sys.env
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
@@ -18,33 +18,9 @@ class MenuBuilder(val textItem:Text) {
   override def toString = items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
 }
 
-//HANDLER DSL
-type MetadataFunction = Option[String] => Unit
-type SimpleFunction = () => Unit
+type ContextFunction[T] = T ?=> Unit
 
-sealed trait HandlerFunction{
-  val action:String
-}
-case class MetadataHandlerFunction(action:String, function: MetadataFunction) extends HandlerFunction
-case class SimpleHandlerFunction(action: String, function: SimpleFunction) extends HandlerFunction
-//END
-
-class HandlerBuilder {
-  var handlers: Map[String, HandlerFunction] = Map.empty
-  
-  def add(item: HandlerFunction) = {
-    item match {
-      case m as MetadataHandlerFunction(action, function) => 
-        handlers = handlers + (action -> m)
-      case s as SimpleHandlerFunction(action, function) =>
-      handlers = handlers + (action -> s)
-    }
-  }
-
-  override def toString = s"${handlers.size} handler(s)${handlers.keys.mkString(": [",",","]")}"
-}
-
-trait BitBarDsl {
+trait MenuDsl {
     case object DefaultValue
     type ColorDsl = String | DefaultValue.type
     type TextSizeDsl = Int | DefaultValue.type
@@ -52,24 +28,6 @@ trait BitBarDsl {
     type ImageDsl = String | None.type
     type TemplateImageDsl = String | None.type
     type EmojizeDsl = Boolean | DefaultValue.type
-
-    type ContextFunction[T] = T ?=> Unit
-
-    def handler
-    (init: ContextFunction[HandlerBuilder]): HandlerBuilder = {
-      given t as HandlerBuilder()
-      init
-      t
-    }
-
-    def handle(action: String)(metadataF : MetadataFunction): ContextFunction[HandlerBuilder] = {      
-      summon[HandlerBuilder].add(MetadataHandlerFunction(action, metadataF))
-        //HandlerFunction(action, metadataF))
-    }
-
-    def handle(action: String)(f : => Unit): ContextFunction[HandlerBuilder] = {      
-      summon[HandlerBuilder].add(SimpleHandlerFunction(action, () => f))
-    }
 
     def menu(
       text:String, 

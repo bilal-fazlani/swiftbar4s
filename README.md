@@ -1,8 +1,8 @@
-# BitBar4s
+# ScalaBar
 
 > _This was a hobby project built in 2 days during a weekend_
 
-BitBar4s enables scala developers to create plugins for [bitbar](https://github.com/matryer/bitbar) in a declarative and easy way
+ScalaBar enables scala developers to create plugins for [bitbar](https://github.com/matryer/bitbar) in a declarative and easy way
 
 ## Installation
 
@@ -10,7 +10,7 @@ This is not published to maven yet
 
 ## Usage
 
-- create an `object` and extend from `BitBarApp with BitBarDsl`
+- create an `object` and extend from `ScalaBarApp with BitBarDsl`
 
 - override `pluginName`
 

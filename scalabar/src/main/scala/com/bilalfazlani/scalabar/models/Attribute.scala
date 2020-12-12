@@ -1,6 +1,6 @@
-package tech.bilal.bitbar4s.models
+package com.bilalfazlani.scalabar.models
 
-import tech.bilal.bitbar4s.models.Attribute._
+import com.bilalfazlani.scalabar.models.Attribute._
 
 import java.nio.file.Paths
 
@@ -36,9 +36,9 @@ object Attribute {
   case class Image(value: String)         extends Attribute
   case class Emojize(value: Boolean)      extends Attribute
   //privates
-  private[bitbar4s] case class Href(url: String)           extends Attribute
-  private[bitbar4s] case class Executable(path: String)    extends Attribute
-  private[bitbar4s] case class Params(values: Seq[String]) extends Attribute
-  private[bitbar4s] case class Refresh(enable: Boolean)    extends Attribute
-  private[bitbar4s] case class Terminal(enable: Boolean)   extends Attribute
+  private[scalabar] case class Href(url: String)           extends Attribute
+  private[scalabar] case class Executable(path: String)    extends Attribute
+  private[scalabar] case class Params(values: Seq[String]) extends Attribute
+  private[scalabar] case class Refresh(enable: Boolean)    extends Attribute
+  private[scalabar] case class Terminal(enable: Boolean)   extends Attribute
 }

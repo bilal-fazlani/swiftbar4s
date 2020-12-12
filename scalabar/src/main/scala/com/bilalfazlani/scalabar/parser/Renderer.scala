@@ -1,8 +1,8 @@
-package tech.bilal.bitbar4s.parser
+package com.bilalfazlani.scalabar.parser
 
-import tech.bilal.bitbar4s.SelfPath
-import tech.bilal.bitbar4s.models.Attribute
-import tech.bilal.bitbar4s.models.Attribute._
+import com.bilalfazlani.scalabar.SelfPath
+import com.bilalfazlani.scalabar.models.Attribute
+import com.bilalfazlani.scalabar.models.Attribute._
 
 class Renderer(selfPath: SelfPath) {
   private val LEVEL_SEPARATOR = "--"

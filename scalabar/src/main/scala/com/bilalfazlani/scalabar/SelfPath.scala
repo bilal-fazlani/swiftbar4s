@@ -1,4 +1,4 @@
-package tech.bilal.bitbar4s
+package com.bilalfazlani.scalabar
 
 import java.io.File
 import scala.sys.process.Process
