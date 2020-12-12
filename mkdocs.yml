@@ -2,7 +2,7 @@ site_name: ScalaBar
 site_description: Scala framework for creating swiftbar/bitbar applications
 repo_name: 'bilal-fazlani/scalabar'
 repo_url: 'https://github.com/bilal-fazlani/scalabar'
-
+edit_uri: edit/main/docs/
 strict: true
 
 nav:
