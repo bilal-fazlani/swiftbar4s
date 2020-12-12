@@ -1,7 +1,5 @@
 # ScalaBar
 
-> _This was a hobby project built in 2 days during a weekend_
-
 ScalaBar enables scala developers to create plugins for [bitbar](https://github.com/matryer/bitbar) in a declarative and easy way
 
 ## Installation
