@@ -3,8 +3,16 @@ name: Build
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/'
+      - 'mkdocs.yml'
+      - 'netlify.toml'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/'
+      - 'mkdocs.yml'
+      - 'netlify.toml'
 
 jobs:
   build:
