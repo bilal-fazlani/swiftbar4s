@@ -3,8 +3,10 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'docs/'
+      - 'docs/**'
+      - README.md
       - 'mkdocs.yml'
+      - Pipfile
       - 'netlify.toml'
     tags: ["*"]
 jobs:
