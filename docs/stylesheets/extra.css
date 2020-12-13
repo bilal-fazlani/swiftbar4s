@@ -1,12 +1,12 @@
 :root {
-    --md-primary-fg-color:        #b01a1a;
-    --md-primary-fg-color--light: #d09a9a;
-    --md-primary-fg-color--dark:  #90030C;
+    --md-primary-fg-color:        #125ea0;
+    --md-primary-fg-color--light: #c0c7cd;
+    --md-primary-fg-color--dark:  #133c60;
 }
 
 :root > * {
 
 /* Footer */
---md-footer-bg-color: #b01a1a;
+--md-footer-bg-color: #125ea0;
 --md-footer-bg-color--dark: hsla(0, 0%, 0%, 0.32);
 }
