@@ -3,11 +3,16 @@ package com.bilalfazlani.myplugin
 import com.bilalfazlani.scalabar.ScalaBarApp
 import com.bilalfazlani.scalabar.dsl.HandlerDsl
 import com.bilalfazlani.scalabar.dsl.MenuDsl
+import com.bilalfazlani.scalabar.dsl.TagDsl
 import scala.language.implicitConversions
 
-object Main extends ScalaBarApp with MenuDsl with HandlerDsl  {
+object Main extends ScalaBarApp with MenuDsl with HandlerDsl with TagDsl  {
 
   override val pluginName: String = "myplugin"
+
+  override val tags = tags {
+    author("asd")
+  }
 
   override val handler = handler {
     handle("send-email") { emailMayBe =>

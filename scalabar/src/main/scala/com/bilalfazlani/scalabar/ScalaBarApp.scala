@@ -10,13 +10,16 @@ import java.util.Base64
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class ScalaBarApp {
-  val appMenu: MenuBuilder
   val pluginName: String
+
+  val appMenu: MenuBuilder
   val handler: HandlerBuilder
+  val tags: TagBuilder
 
   private def decode(str: String) = new String(Base64.getDecoder.decode(str))
 
   def main(args: Array[String]): Unit = {
+    tags.build.foreach(println)
     args.toList match {
       case "dispatch" :: action :: Nil =>
         handler.build()(decode(action), None)

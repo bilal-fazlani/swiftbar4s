@@ -41,6 +41,7 @@ lazy val myplugin = project
   .in(file("./myplugin"))
   .settings(
     name := "myplugin",
+    version := "0.1.0-SNAPSHOT",
     skip in publish := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
