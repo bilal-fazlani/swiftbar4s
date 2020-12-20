@@ -9,6 +9,7 @@ on:
       - 'mkdocs.yml'
       - Pipfile
       - 'netlify.toml'
+      - '.github/workflows/scala-steward.yml'
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -17,6 +18,7 @@ on:
       - 'mkdocs.yml'
       - Pipfile
       - 'netlify.toml'
+      - '.github/workflows/scala-steward.yml'
 
 jobs:
   build:
