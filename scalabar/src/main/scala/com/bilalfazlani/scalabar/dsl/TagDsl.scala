@@ -11,7 +11,7 @@ class TagBuilder {
 
 trait TagDsl {
     def tags(init: ContextFunction[TagBuilder]): TagBuilder = {
-      given t as TagBuilder()
+      given t:TagBuilder = TagBuilder()
       init
       t
     }

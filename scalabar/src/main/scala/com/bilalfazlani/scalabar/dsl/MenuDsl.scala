@@ -45,7 +45,7 @@ trait MenuDsl {
       templateImage: TemplateImageDsl = None,
       emojize: EmojizeDsl = DefaultValue
       )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
-      given t as MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+      given t:MenuBuilder = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
       init
       t
     }
@@ -62,7 +62,7 @@ trait MenuDsl {
       val innerMenu = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
       summon[MenuBuilder].add(innerMenu)
       {
-        given i as MenuBuilder = innerMenu
+        given i:MenuBuilder = innerMenu
         init
       }
       innerMenu

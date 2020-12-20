@@ -22,9 +22,9 @@ class HandlerBuilder {
   
   def add(item: HandlerFunction) = {
     item match {
-      case m as MetadataHandlerFunction(action, function) => 
+      case m @ MetadataHandlerFunction(action, function) => 
         handlers = handlers + (action -> m)
-      case s as SimpleHandlerFunction(action, function) =>
+      case s @ SimpleHandlerFunction(action, function) =>
       handlers = handlers + (action -> s)
     }
   }
@@ -47,7 +47,7 @@ class HandlerBuilder {
 
 trait HandlerDsl {
   def handler(init: ContextFunction[HandlerBuilder]): HandlerBuilder = {
-    given t as HandlerBuilder()
+    given t:HandlerBuilder = HandlerBuilder()
     init
     t
   }
