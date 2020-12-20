@@ -31,8 +31,8 @@ class Renderer(selfPath: SelfPath) {
       case Executable(path) => s"""bash="$path""""
       case Params(values) =>
         values.zipWithIndex
-          .map {
-            case (str, i) => s"""param${i + 1}="$str""""
+          .map { case (str, i) =>
+            s"""param${i + 1}="$str""""
           }
           .mkString(" ")
       case Refresh(enable)  => s"refresh=${enable.toString.toLowerCase}"
