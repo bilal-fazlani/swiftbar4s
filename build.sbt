@@ -8,7 +8,11 @@ inThisBuild(
     scalaVersion := sv,
     organization := org,
     homepage := Some(url("https://github.com/bilal-fazlani/scalabar")),
-    licenses := List("MIT" -> url("https://github.com/bilal-fazlani/scalabar/blob/main/LICENSE")),
+    licenses := List(
+      "MIT" -> url(
+        "https://github.com/bilal-fazlani/scalabar/blob/main/LICENSE"
+      )
+    ),
     developers := List(
       Developer(
         "bilal-fazlani",
