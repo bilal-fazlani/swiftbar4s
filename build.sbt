@@ -33,7 +33,7 @@ lazy val root = project
   )
 
 lazy val scalabar = project
-  .in(file("./swiftbar4s"))
+  .in(file("./scalabar"))
   .settings(
     name := "scalabar",
     libraryDependencies ++= Seq(
@@ -49,4 +49,4 @@ lazy val myplugin = project
     skip in publish := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
-  .dependsOn(scalabar)
+  .dependsOn(swiftbar4s)
