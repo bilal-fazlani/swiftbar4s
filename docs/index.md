@@ -4,7 +4,7 @@ SwiftBar4s is a scala framwework to create [Swiftbar](https://github.com/swiftba
 
 ## Installation
 
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M2?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
 ```scala
 libraryDependencies += "com.bilal-fazlani" %% "swiftbar4s" % "<VERSION>"
