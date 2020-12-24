@@ -1,6 +1,5 @@
 package com.bilalfazlani.swiftbar4s.parser
 
-import com.bilalfazlani.swiftbar4s.SelfPath
 import com.bilalfazlani.swiftbar4s.models.Attribute
 import com.bilalfazlani.swiftbar4s.models.Attribute._
 
