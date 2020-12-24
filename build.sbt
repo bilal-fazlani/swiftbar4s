@@ -27,15 +27,15 @@ inThisBuild(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(swiftbar4s, myplugin)
+  .aggregate(scalabar, myplugin)
   .settings(
     skip in publish := true
   )
 
-lazy val swiftbar4s = project
-  .in(file("./swiftbar4s"))
+lazy val scalabar = project
+  .in(file("./scalabar"))
   .settings(
-    name := "swiftbar4s",
+    name := "scalabar",
     libraryDependencies ++= Seq(
       Libs.munit % Test
     )
