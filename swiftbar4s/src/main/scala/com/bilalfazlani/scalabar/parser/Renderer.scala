@@ -4,7 +4,7 @@ import com.bilalfazlani.swiftbar4s.SelfPath
 import com.bilalfazlani.swiftbar4s.models.Attribute
 import com.bilalfazlani.swiftbar4s.models.Attribute._
 
-class Renderer(selfPath: SelfPath) {
+class Renderer(selfPath: String) {
   private val LEVEL_SEPARATOR = "--"
 
   def renderLine(
@@ -27,7 +27,7 @@ class Renderer(selfPath: SelfPath) {
       case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
       case Href(url)            => s"""href="$url""""
       case Executable("$0") =>
-        s"""bash="${selfPath.get()}""""
+        s"""bash="$selfPath""""
       case Executable(path) => s"""bash="$path""""
       case Params(values) =>
         values.zipWithIndex

@@ -8,7 +8,7 @@ This is not published to maven yet
 
 ## Usage
 
-- create an `object` and extend from `SwiftBarApp with BitBarDsl`
+- create an `object` and extend from `SwiftBarApp with MenuDsl with HandlerDsl`
 
 - override `pluginName`
 

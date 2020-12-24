@@ -7,9 +7,7 @@ import com.bilalfazlani.swiftbar4s.dsl.TagDsl
 import scala.language.implicitConversions
 
 object Main extends SwiftBarApp with MenuDsl with HandlerDsl {
-
-  override val pluginName: String = "myplugin"
-
+  
   override val handler = handler {
     handle("send-email") { emailMayBe =>
       emailMayBe.map(sendEmail)

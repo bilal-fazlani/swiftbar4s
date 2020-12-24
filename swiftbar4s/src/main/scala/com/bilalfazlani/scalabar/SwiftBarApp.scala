@@ -10,8 +10,6 @@ import java.util.Base64
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class SwiftBarApp {
-  val pluginName: String
-
   val appMenu: MenuBuilder
   val handler: HandlerBuilder
 
@@ -24,7 +22,7 @@ abstract class SwiftBarApp {
       case "dispatch" :: action :: metadata :: Nil =>
         handler.build()(decode(action), Some(decode(metadata)))
       case _ =>
-        new Parser(new Renderer(new SelfPath(pluginName)))
+        new Parser(new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", ".")))
           .parse(appMenu.build)
           .lines
           .foreach(println)
