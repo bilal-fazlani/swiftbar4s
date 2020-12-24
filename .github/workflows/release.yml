@@ -8,6 +8,7 @@ on:
       - 'mkdocs.yml'
       - Pipfile
       - 'netlify.toml'
+      - '.github/workflows/scala-steward.yml'
     tags: ["*"]
 jobs:
   publish:
