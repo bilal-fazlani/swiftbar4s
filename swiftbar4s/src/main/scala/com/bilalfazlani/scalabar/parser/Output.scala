@@ -1,4 +1,4 @@
-package com.bilalfazlani.scalabar.parser
+package com.bilalfazlani.swiftbar4s.parser
 
 case class Output(lines: Seq[String] = Seq.empty) {
   def append(value: String): Output = this.copy(lines.appended(value))

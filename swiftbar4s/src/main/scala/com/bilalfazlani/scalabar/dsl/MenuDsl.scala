@@ -1,10 +1,10 @@
-package com.bilalfazlani.scalabar.dsl
+package com.bilalfazlani.swiftbar4s.dsl
 
 import scala.collection.mutable.ListBuffer
-import com.bilalfazlani.scalabar.models.MenuItem
-import com.bilalfazlani.scalabar.models.Attribute
-import com.bilalfazlani.scalabar.models.Attribute._
-import com.bilalfazlani.scalabar.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.MenuItem
+import com.bilalfazlani.swiftbar4s.models.Attribute
+import com.bilalfazlani.swiftbar4s.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.MenuItem._
 import scala.sys.env
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder

@@ -1,6 +1,6 @@
-package com.bilalfazlani.scalabar.models
+package com.bilalfazlani.swiftbar4s.models
 
-import com.bilalfazlani.scalabar.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.Attribute._
 
 import java.nio.file.Paths
 
@@ -36,9 +36,9 @@ object Attribute {
   case class Image(value: String)         extends Attribute
   case class Emojize(value: Boolean)      extends Attribute
   //privates
-  private[scalabar] case class Href(url: String)           extends Attribute
-  private[scalabar] case class Executable(path: String)    extends Attribute
-  private[scalabar] case class Params(values: Seq[String]) extends Attribute
-  private[scalabar] case class Refresh(enable: Boolean)    extends Attribute
-  private[scalabar] case class Terminal(enable: Boolean)   extends Attribute
+  private[swiftbar4s] case class Href(url: String)           extends Attribute
+  private[swiftbar4s] case class Executable(path: String)    extends Attribute
+  private[swiftbar4s] case class Params(values: Seq[String]) extends Attribute
+  private[swiftbar4s] case class Refresh(enable: Boolean)    extends Attribute
+  private[swiftbar4s] case class Terminal(enable: Boolean)   extends Attribute
 }

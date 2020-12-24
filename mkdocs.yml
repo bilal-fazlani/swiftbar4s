@@ -1,7 +1,7 @@
-site_name: ScalaBar
+site_name: SwiftBar4s
 site_description: Scala framework for creating swiftbar/bitbar applications
-repo_name: 'bilal-fazlani/scalabar'
-repo_url: 'https://github.com/bilal-fazlani/scalabar'
+repo_name: 'bilal-fazlani/swiftbar4s'
+repo_url: 'https://github.com/bilal-fazlani/swiftbar4s'
 edit_uri: edit/main/docs/
 strict: true
 

@@ -1,4 +1,4 @@
-package com.bilalfazlani.scalabar.models
+package com.bilalfazlani.swiftbar4s.models
 
 sealed trait Tag(content: String, tagName: String) {
   override def toString() = s"# <$tagName>$content</$tagName>"

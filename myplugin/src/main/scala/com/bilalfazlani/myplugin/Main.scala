@@ -1,18 +1,14 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.scalabar.ScalaBarApp
-import com.bilalfazlani.scalabar.dsl.HandlerDsl
-import com.bilalfazlani.scalabar.dsl.MenuDsl
-import com.bilalfazlani.scalabar.dsl.TagDsl
+import com.bilalfazlani.swiftbar4s.SwiftBarApp
+import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
+import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
+import com.bilalfazlani.swiftbar4s.dsl.TagDsl
 import scala.language.implicitConversions
 
-object Main extends ScalaBarApp with MenuDsl with HandlerDsl with TagDsl {
+object Main extends SwiftBarApp with MenuDsl with HandlerDsl {
 
   override val pluginName: String = "myplugin"
-
-  override val tags = tags {
-    author("asd")
-  }
 
   override val handler = handler {
     handle("send-email") { emailMayBe =>

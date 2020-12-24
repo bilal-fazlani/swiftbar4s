@@ -1,8 +1,8 @@
-package com.bilalfazlani.scalabar.parser
+package com.bilalfazlani.swiftbar4s.parser
 
-import com.bilalfazlani.scalabar.models.Attribute._
-import com.bilalfazlani.scalabar.models.MenuItem
-import com.bilalfazlani.scalabar.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.MenuItem
+import com.bilalfazlani.swiftbar4s.models.MenuItem._
 
 import java.util.Base64
 import scala.util.chaining._

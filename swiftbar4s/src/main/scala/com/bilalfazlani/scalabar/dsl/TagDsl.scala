@@ -1,7 +1,7 @@
-package com.bilalfazlani.scalabar.dsl
+package com.bilalfazlani.swiftbar4s.dsl
 
-import com.bilalfazlani.scalabar.models.Tag
-import com.bilalfazlani.scalabar.models.Tag._
+import com.bilalfazlani.swiftbar4s.models.Tag
+import com.bilalfazlani.swiftbar4s.models.Tag._
 
 class TagBuilder {
     private var tags:Set[Tag] = Set.empty

@@ -1,4 +1,4 @@
-package com.bilalfazlani.scalabar.models
+package com.bilalfazlani.swiftbar4s.models
 
 sealed trait MenuItem
 // sealed trait WithAttribute[T] extends MenuItem {

@@ -1,4 +1,4 @@
-package com.bilalfazlani.scalabar.models
+package com.bilalfazlani.swiftbar4s.models
 import scala.io.Source
 import java.util.Base64
 import scala.util.Try

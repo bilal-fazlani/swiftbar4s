@@ -7,10 +7,10 @@ inThisBuild(
   Seq(
     scalaVersion := sv,
     organization := org,
-    homepage := Some(url("https://github.com/bilal-fazlani/scalabar")),
+    homepage := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
       "MIT" -> url(
-        "https://github.com/bilal-fazlani/scalabar/blob/main/LICENSE"
+        "https://github.com/bilal-fazlani/swiftbar4s/blob/main/LICENSE"
       )
     ),
     developers := List(
@@ -27,15 +27,15 @@ inThisBuild(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(scalabar, myplugin)
+  .aggregate(swiftbar4s, myplugin)
   .settings(
     skip in publish := true
   )
 
-lazy val scalabar = project
-  .in(file("./scalabar"))
+lazy val swiftbar4s = project
+  .in(file("./swiftbar4s"))
   .settings(
-    name := "scalabar",
+    name := "swiftbar4s",
     libraryDependencies ++= Seq(
       Libs.munit % Test
     )
@@ -49,4 +49,4 @@ lazy val myplugin = project
     skip in publish := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
-  .dependsOn(scalabar)
+  .dependsOn(swiftbar4s)

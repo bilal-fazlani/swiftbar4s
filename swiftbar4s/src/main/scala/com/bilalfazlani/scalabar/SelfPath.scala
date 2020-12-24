@@ -1,4 +1,4 @@
-package com.bilalfazlani.scalabar
+package com.bilalfazlani.swiftbar4s
 
 import java.io.File
 import scala.sys.process.Process
