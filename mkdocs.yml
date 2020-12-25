@@ -7,7 +7,7 @@ strict: true
 
 theme:
   features:
-    - tabs
+    # - navigation.tabs
     - instant
     - toc.integrate
     - navigation.sections
@@ -52,7 +52,9 @@ markdown_extensions:
 
 plugins:
   - search
-  - awesome-pages
+  - awesome-pages:
+      collapse_single_pages: true
+      strict: true
 
 # Customization
 extra_css:

@@ -1,4 +1,4 @@
-# Installation
+# Setup
 
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.bilal-fazlani/swiftbar4s_3.0.0-M3?color=green&label=RELEASE%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
@@ -31,7 +31,7 @@ Add the following sbt dependency
 ```scala
 libraryDependencies += "com.bilal-fazlani" %% "swiftbar4s" % "<VERSION>"
 ```
-Since project is creating using scala 3, you will need `sbt-dotty` plugin. Add the following line in `project/plugins.sbt`
+Since project is created using scala 3, you will need `sbt-dotty` plugin. Add the following line in `project/plugins.sbt`
 
 ```
 addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.1")

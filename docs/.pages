@@ -1,8 +1,8 @@
 nav:
-   - Home: index.md
-   - installation.md
-   - creating-plugin.md
-   - menu-items.md
-   - attributes.md
-   - action-handlers.md
-   - ...
+  - index.md
+  - setup.md
+  - creating-plugin.md
+  - menu-items.md
+  - attributes.md
+  - action-handlers.md
+  - ...
