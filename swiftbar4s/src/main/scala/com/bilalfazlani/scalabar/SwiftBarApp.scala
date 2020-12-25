@@ -11,7 +11,7 @@ type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class SwiftBarApp {
   val appMenu: MenuBuilder
-  val handler: HandlerBuilder
+  val handler: HandlerBuilder = HandlerBuilder()
 
   private def decode(str: String) = new String(Base64.getDecoder.decode(str))
 
