@@ -1,6 +1,6 @@
 # Getting started
 
-SwiftBar4s is a scala framwework to create [Swiftbar](https://github.com/swiftbar/SwiftBar) / [Bitbar](https://github.com/matryer/bitbar) applications for MacOS
+SwiftBar4s is a scala framwework to create [Swiftbar](https://github.com/swiftbar/SwiftBar) menu applications for MacOS
 
 ## Installation
 
