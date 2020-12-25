@@ -6,3 +6,4 @@
 target
 .idea
 docs/_site
+.DS_Store

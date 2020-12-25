@@ -5,24 +5,19 @@ repo_url: 'https://github.com/bilal-fazlani/swiftbar4s'
 edit_uri: edit/main/docs/
 strict: true
 
-nav:
-    - index.md
-    - creating-menu.md
-    - action-handlers.md
-    - attributes.md
-    - packaging.md
-
 theme:
   features:
     - tabs
     - instant
+    - toc.integrate
+    - navigation.sections
   name: 'material'
   icon:
     repo: fontawesome/brands/github
-  # favicon: 'img/favicon.ico'
+  favicon: 'images/favicon.ico'
   palette:
     scheme: preference 
-  # logo: 'img/small-logo.svg'
+  logo: 'images/logo-svg.svg'
 
 # google_analytics:
 #   - 'UA-39358317-3'
@@ -57,6 +52,7 @@ markdown_extensions:
 
 plugins:
   - search
+  - awesome-pages
 
 # Customization
 extra_css:

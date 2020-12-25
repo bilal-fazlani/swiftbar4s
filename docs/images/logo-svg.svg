@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="265.71363 -371 680.35594 556" width="680.35594" height="556">
+  <defs>
+    <linearGradient x1="0" x2="1" id="Gradient" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="black"/>
+      <stop offset="1" stop-color="#0051a8"/>
+    </linearGradient>
+    <linearGradient id="Obj_Gradient" xl:href="#Gradient" gradientTransform="translate(581.407 -67.47173) rotate(70) scale(149.24578)"/>
+    <linearGradient id="Obj_Gradient_2" xl:href="#Gradient" gradientTransform="translate(581.407 -262.77343) rotate(70) scale(149.24578)"/>
+    <filter id="Shadow" filterUnits="userSpaceOnUse" x="197.67803" y="-426.6">
+      <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="4.36"/>
+      <feOffset in="blur" result="offset" dx="0" dy="2"/>
+      <feFlood flood-color="black" flood-opacity=".75" result="flood"/>
+      <feComposite in="flood" in2="offset" operator="in" result="color"/>
+      <feMerge>
+        <feMergeNode in="color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.18.1\n2020-12-25 11:42:42 +0000</metadata>
+  <g id="Canvas_8" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>Canvas 8</title>
+    <g id="Canvas_8_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_58">
+        <path d="M 358 28.4 L 855.4035 -167.1983 L 854.9139 -22.768032 L 358.45555 172.5 Z" fill="url(#Obj_Gradient)"/>
+        <path d="M 358 28.4 L 855.4035 -167.1983 L 854.9139 -22.768032 L 358.45555 172.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_56">
+        <path d="M 357.2 -167 L 855.4035 -362.5 L 854.9139 -218.06973 L 358.45555 -22.801702 Z" fill="url(#Obj_Gradient_2)"/>
+        <path d="M 357.2 -167 L 855.4035 -362.5 L 854.9139 -218.06973 L 358.45555 -22.801702 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_49">
+        <g id="Graphic_40" filter="url(#Shadow)">
+          <path d="M 855.4032 -362.5 L 354.3042 -362.5 L 276.21363 -288.95298 L 354.3042 -216.83207 L 855.4032 -216.83207 Z" fill="#0098dc"/>
+          <path d="M 855.4032 -362.5 L 354.3042 -362.5 L 276.21363 -288.95298 L 354.3042 -216.83207 L 855.4032 -216.83207 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_44">
+          <path d="M 353.30158 -339.32696 L 299.90928 -288.3902 L 353.30158 -240.50474 Z" fill="black"/>
+          <path d="M 353.30158 -339.32696 L 299.90928 -288.3902 L 353.30158 -240.50474 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Graphic_61" filter="url(#Shadow)">
+        <rect x="356.38004" y="-168.46963" width="501.099" height="145.66793" fill="#0098dc"/>
+        <rect x="356.38004" y="-168.46963" width="501.099" height="145.66793" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_62">
+        <g id="Graphic_64" filter="url(#Shadow)">
+          <path d="M 356.38004 26.83207 L 857.479 26.83207 L 935.5696 100.3791 L 857.479 172.5 L 356.38004 172.5 Z" fill="#0098dc"/>
+          <path d="M 356.38004 26.83207 L 857.479 26.83207 L 935.5696 100.3791 L 857.479 172.5 L 356.38004 172.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_63">
+          <path d="M 858.4816 50.00511 L 911.8739 100.94185 L 858.4816 148.82733 Z" fill="black"/>
+          <path d="M 858.4816 50.00511 L 911.8739 100.94185 L 858.4816 148.82733 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
