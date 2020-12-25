@@ -1,20 +1,13 @@
 # SwiftBar4s
 
-SwiftBar4s enables scala developers to create plugins for [bitbar](https://github.com/matryer/bitbar) in a declarative and easy way
+SwiftBar4s enables scala developers to create plugins for [swiftbar](https://github.com/swiftbar/SwiftBar) in a declarative and easy way
 
-## Installation
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.bilal-fazlani/swiftbar4s_3.0.0-M3?color=green&label=RELEASE%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
-This is not published to maven yet
-
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 ## Usage
 
 - create an `object` and extend from `SwiftBarApp with MenuDsl with HandlerDsl`
-
-- override `pluginName`
-
-```scala
-override val pluginName: String = "myplugin"
-```
 
 - create a handler for actions your plugin may dispatch. Example:
 
@@ -59,10 +52,10 @@ override val pluginName: String = "myplugin"
 
 You can create, static texts, web links, shell command triggers, and most importantly, actions.
 
-All the items support configuratios such as color, text size, image, refresh, etc. 
+All the items support configuratios such as color, text size, image, emojis etc. 
 
 Tips:
 
 - Use `isDarkMode` to change colors or images based on system theme.
 - Use `---` to add line separators
-- Use `isBitBar` to know whther plugin was called by BitBar
+- Use `isSwiftBar` to know whther plugin was called by SwiftBar
