@@ -8,6 +8,8 @@
 
 :root > * {
 
+--md-default-fg-color--light: hsl(208deg 74% 62%);
+
 /* Footer */
 --md-footer-bg-color: #125ea0;
 --md-footer-bg-color--dark: hsla(0, 0%, 0%, 0.32);
