@@ -64,7 +64,7 @@ class Parser(renderer: Renderer) {
           .merge(
             items
               .map(i => parse(i, level + 1))
-              .reduce(_ merge _)
+              .foldRight(Output())(_ merge _)
           )
     }
   }
