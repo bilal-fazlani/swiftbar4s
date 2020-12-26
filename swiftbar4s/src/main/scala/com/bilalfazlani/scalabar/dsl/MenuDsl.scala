@@ -85,9 +85,9 @@ trait MenuDsl {
         color:ColorDsl = DefaultValue, 
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+        image: ImageDsl = None,
+        templateImage: TemplateImageDsl = None,
+        emojize: EmojizeDsl = DefaultValue
         ): Link = Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize))
       
       def shellCommand(
@@ -98,9 +98,9 @@ trait MenuDsl {
         color:ColorDsl = DefaultValue, 
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue,
+        image: ImageDsl = None,
+        templateImage: TemplateImageDsl = None,
+        emojize: EmojizeDsl = DefaultValue,
         params:String*,
         ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
       
@@ -114,9 +114,9 @@ trait MenuDsl {
         color:ColorDsl = DefaultValue, 
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+        image: ImageDsl = None,
+        templateImage: TemplateImageDsl = None,
+        emojize: EmojizeDsl = DefaultValue
         ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
     }
 
