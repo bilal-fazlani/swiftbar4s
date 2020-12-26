@@ -1,5 +1,8 @@
 # Menu items
 
+!!! Tip
+    All the menu items can be customized to with images and colors. Please refer to [customizing menu items](/customizing)
+
 ## Menu
 
 Renders top level menu and allows other menu items inside it.
@@ -126,8 +129,8 @@ Supports metadata, which will be passed to action handler method.
 
     ```scala
     menu("my plugin") {
-      action("send notification", action = "send-notification")
-      action("send notification to john", action = "send-notification-to", metadata = Some("john"))
+      action("say hello", action = "say-hello", showTerminal=true)
+      action("send email", action = "send-email", metadata = Some("john@google.com"))
     }
     ```
 
@@ -136,8 +139,8 @@ Supports metadata, which will be passed to action handler method.
     ```
     my plugin
     ---
-    send notification | bash="<SWIFTBAR_PLUGIN_PATH>" param1="dispatch" param2="c2VuZC1ub3RpZmljYXRpb24=" terminal=false refresh=true
-    send notification to john | bash="<SWIFTBAR_PLUGIN_PATH>" param1="dispatch" param2="c2VuZC1ub3RpZmljYXRpb24tdG8=" param3="am9obg==" terminal=false refresh=true
+    say hello | bash="<SWIFTBAR_PLUGIN_PATH>" param1="dispatch" param2="c2F5LWhlbGxv" terminal=true  refresh=true
+    send email | bash="<SWIFTBAR_PLUGIN_PATH>" param1="dispatch" param2="c2VuZC1lbWFpbA==" param3="am9obkBnb29nbGUuY29t" terminal=false refresh=true
     ```
 
 **Additional Parameters**

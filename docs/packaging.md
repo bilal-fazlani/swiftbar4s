@@ -1,2 +1,2 @@
-# Packaging application
+# Packaging plugin
 

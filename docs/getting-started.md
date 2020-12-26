@@ -1,18 +1,19 @@
-# Setup
+# Getting started
 
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.bilal-fazlani/swiftbar4s_3.0.0-M3?color=green&label=RELEASE%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
-You can either use a giter8 template to setup the project or setup the projet manually
+You can either use giter8 template to setup the project or setup the projet manually
 
 ## Using Giter8
 
-You can use the gitr8 template to bootstrap the project.
+If giter8 is not installed, it can be installed using coursier.
 
-First, install cs using instructions given on [official coursier website](https://get-coursier.io/docs/cli-installation)
+!!! Tip "Tip"
+    Coursier CLI can be installed using instructions given on [official coursier website](https://get-coursier.io/docs/cli-installation)
 
-We can now install giter8 using cs
+The following command installs giter8
 
 ```bash
 cs install giter8

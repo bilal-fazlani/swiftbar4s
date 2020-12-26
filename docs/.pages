@@ -1,8 +1,8 @@
 nav:
   - index.md
-  - setup.md
+  - getting-started.md
   - creating-plugin.md
   - menu-items.md
-  - attributes.md
+  - customising-items.md
   - action-handlers.md
   - ...

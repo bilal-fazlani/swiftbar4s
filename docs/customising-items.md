@@ -1,4 +1,4 @@
-# Common attributes
+# Customising items
 
 - Image
 - Length

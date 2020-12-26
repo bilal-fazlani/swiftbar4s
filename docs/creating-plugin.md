@@ -21,9 +21,7 @@ object SimplePlugin extends SwiftBarApp with MenuDsl {
 }
 ```
 
-![simple](/images/creating-plugin/simple.png){: style="width:350px" loading=lazy align=right }
-
-If you do `sbt run`, it will print following context
+If you run this project using `sbt run`, it will print following content
 
 ```text
 my plugin
@@ -33,3 +31,5 @@ item 2
 ```
 
 SwiftBar parses this output and creates a menu as shown in the image
+
+![simple](/images/creating-plugin/simple.png){: style="width:350px" loading=lazy }
