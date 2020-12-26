@@ -14,3 +14,27 @@
 --md-footer-bg-color: #125ea0;
 --md-footer-bg-color--dark: hsla(0, 0%, 0%, 0.32);
 }
+
+#project_description {
+    font-size: xx-large;
+    min-height: 200px;
+}
+
+#project_logo {
+    width: min(200px,100%);
+}
+
+@media (min-width: 640px){
+    #project_logo {
+        float: left;
+        margin-right: 2em;
+    }
+}
+
+@media (max-width: 639px){
+    #project_logo {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}
