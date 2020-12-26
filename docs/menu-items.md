@@ -1,7 +1,7 @@
 # Menu items
 
 !!! Tip
-    All the menu items can be customized to with images and colors. Please refer to [customizing menu items](/customizing)
+    All the menu items can be customized with images, emojis, colors and more. Please refer to [customizing menu items](/customizing)
 
 ## Menu
 
