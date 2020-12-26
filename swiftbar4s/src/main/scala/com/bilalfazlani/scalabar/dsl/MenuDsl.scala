@@ -35,6 +35,7 @@ trait MenuDsl {
     type ImageDsl = String | None.type
     type TemplateImageDsl = String | None.type
     type EmojizeDsl = Boolean | DefaultValue.type
+    type ToolTipDsl = String | None.type
 
     def menu(
       text:String, 
@@ -43,9 +44,10 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
       )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
-      given t:MenuBuilder = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+      given t:MenuBuilder = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
       init
       t
     }
@@ -57,9 +59,10 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
       )(init: ContextFunction[MenuBuilder])(using menuDsl:MenuBuilder): MenuBuilder = {
-      val innerMenu = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+      val innerMenu = MenuBuilder(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
       summon[MenuBuilder].add(innerMenu)
       {
         given i:MenuBuilder = innerMenu
@@ -76,8 +79,9 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
-      ): Text = Text(text, getAttributes(color, textSize, font, image, templateImage, emojize))
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
+      ): Text = Text(text, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip))
     
       def link(
         text:String, 
@@ -87,8 +91,9 @@ trait MenuDsl {
         font: FontDsl = DefaultValue,
         image: ImageDsl = None,
         templateImage: TemplateImageDsl = None,
-        emojize: EmojizeDsl = DefaultValue
-        ): Link = Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize))
+        emojize: EmojizeDsl = DefaultValue,
+        tooltip:ToolTipDsl = None
+        ): Link = Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip))
       
       def shellCommand(
         text:String, 
@@ -101,8 +106,9 @@ trait MenuDsl {
         image: ImageDsl = None,
         templateImage: TemplateImageDsl = None,
         emojize: EmojizeDsl = DefaultValue,
+        tooltip:ToolTipDsl = None,
         params:String*,
-        ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
+        ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip))
       
 
       def actionDispatch(
@@ -116,8 +122,9 @@ trait MenuDsl {
         font: FontDsl = DefaultValue,
         image: ImageDsl = None,
         templateImage: TemplateImageDsl = None,
-        emojize: EmojizeDsl = DefaultValue
-        ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize))
+        emojize: EmojizeDsl = DefaultValue,
+        tooltip:ToolTipDsl = None
+        ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip))
     }
 
     private def getAttributes(
@@ -126,7 +133,8 @@ trait MenuDsl {
       font: FontDsl,
       image: ImageDsl,
       templateImage: TemplateImageDsl,
-      emojize: EmojizeDsl
+      emojize: EmojizeDsl,
+      tooltip:ToolTipDsl = None
     ):Set[Attribute] = {
         var set = Set.empty[Attribute]
         if(color != DefaultValue) set = set + Color(color.asInstanceOf)
@@ -135,6 +143,7 @@ trait MenuDsl {
         if(image != None) set = set + Image(image.asInstanceOf)
         if(templateImage != None) set = set + TemplateImage(templateImage.asInstanceOf)
         if(emojize != DefaultValue) set = set + Emojize(emojize.asInstanceOf)
+        if(tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)
         set
     }
 
@@ -145,9 +154,10 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize)))
+        summon[MenuBuilder].add(Text(text, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
     }
 
     def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
@@ -163,9 +173,10 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize)))
+        summon[MenuBuilder].add(Link(text, url, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
     }
 
     def shellCommand(
@@ -179,9 +190,10 @@ trait MenuDsl {
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
       emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None,
       params:String*,
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize)))
+        summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
     }
 
     def action(
@@ -195,8 +207,9 @@ trait MenuDsl {
       font: FontDsl = DefaultValue,
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
-      emojize: EmojizeDsl = DefaultValue
+      emojize: EmojizeDsl = DefaultValue,
+      tooltip:ToolTipDsl = None
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize)))
+        summon[MenuBuilder].add(DispatchAction(text,action, metadata, showTerminal, refresh, getAttributes(color, textSize, font, image, templateImage, emojize, tooltip)))
     }
 }
