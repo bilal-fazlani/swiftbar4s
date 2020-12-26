@@ -184,3 +184,35 @@ Renders a sub-menu with nested menu items. Supports all menu items which are sup
     ----google | href=google.com
     ----bing | href=bing.com
     ```
+
+## Separator
+
+`---` adds a line to divide menu items into different sections.
+
+=== "Scala"
+
+    ```scala
+    menu("my plugin") {
+      text("item 1: success")
+      text("item 2: success")
+      ---
+      text("item 3: failed")
+      text("item 4: failed")
+    }
+    ```
+
+=== "Rendered"
+
+    ```
+    my plugin
+    ---
+    item 1: success
+    item 2: success
+    ---
+    item 3: failed
+    item 4: failed
+    ```
+
+Example of separator
+
+![separator](/images/menu-items/separator.png){: style="width:300px" loading=lazy}
