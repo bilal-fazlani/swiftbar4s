@@ -8,7 +8,7 @@
 
 **https://swiftbar4s.bilal-fazlani.com**
 
-<a href="https://swiftbar4s.bilal-fazlani.com">
+<a href="https://swiftbar4s.bilal-fazlani.com" target="_blank">
   <img src="docs/images/documentation-preview.png" width=350 />
 </a>
 
