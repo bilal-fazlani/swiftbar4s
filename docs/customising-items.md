@@ -30,7 +30,7 @@ All menu items support customisations for below parameters. All of these customi
 In case two colors are provided, first will be used for light theme and second for dark theme.
 Instead of a string, you can also provide `DefaultValue` which will have no impact on color and render default colors.
 
-![color1](/images/customising-items/color-1.png){: style="width:300px"}
+![color1](/images/customising-items/color-1.png){: style="width:300px" loading = lazy}
 
 <div>
   <img src="/images/customising-items/color-2.png" style="height:300px" />
@@ -57,7 +57,7 @@ Instead of a string, you can also provide `DefaultValue` which will have no impa
 
 Renders tooltips when mouse over for few seconds
 
-![tooltip](/images/customising-items/tooltip.png){: style="width:300px"}
+![tooltip](/images/customising-items/tooltip.png){: style="width:300px" loading = lazy}
 
 ## Text Size
 
@@ -84,11 +84,34 @@ Renders tooltips when mouse over for few seconds
 
 `textSize` can take an Int value representing font size of the menu item. You can also provide `DefaultValue` which will not render size attribute resulting into default behaviour of OS.
 
-![text-size](/images/customising-items/text-size.png){: style="width:380px"}
+![text-size](/images/customising-items/text-size.png){: style="width:380px" loading = lazy}
 
 ## Font
 
+=== "Scala"
 
+    ```scala
+    menu("my plugin", font = "Noteworthy") {
+      text("item")
+      subMenu("abc", font = "Times", textSize = 25) {
+        link("google", url = "https://google.com", font = "Impact", textSize = 25)
+      }
+    }
+    ```
+
+=== "Rendered"
+
+    ```
+    my plugin | font="Noteworthy"
+    ---
+    item
+    abc | size=25 font="Times"
+    --google | size=25 font="Impact" href="https://google.com"
+    ```
+
+`font` can take a String value representing font the menu item text. You can also provide `DefaultValue` which will not render font attribute resulting into default behaviour of OS.
+
+![font](/images/customising-items/font.png){: style="width:380px" loading = lazy}
 
 ## Image
 ## TemplateImage
