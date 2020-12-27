@@ -4,6 +4,12 @@
 
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
+## Documentation
+
+**https://swiftbar4s.bilal-fazlani.com**
+
+
+
 ## Usage
 
 - create an `object` and extend from `SwiftBarApp with MenuDsl with HandlerDsl`
