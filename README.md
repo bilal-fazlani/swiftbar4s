@@ -8,7 +8,9 @@
 
 **https://swiftbar4s.bilal-fazlani.com**
 
-
+<a href="https://swiftbar4s.bilal-fazlani.com">
+  <img src="docs/images/documentation-preview.png" width=350 />
+</a>
 
 ## Usage
 
