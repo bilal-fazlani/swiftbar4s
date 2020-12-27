@@ -109,15 +109,52 @@ Renders tooltips when mouse over for few seconds
     --google | size=25 font="Impact" href="https://google.com"
     ```
 
-`font` can take a String value representing font the menu item text. You can also provide `DefaultValue` which will not render font attribute resulting into default behaviour of OS.
+`font` can take a String value representing font of the menu item text. You can also provide `DefaultValue` which will not render font attribute resulting into default behaviour of OS.
 
 ![font](/images/customising-items/font.png){: style="width:380px" loading = lazy}
+
+## Length
+
+=== "Scala"
+
+    ```scala
+    menu("my plugin") {
+      text("adfx zczcxzc897 zxcxzcxz cqweas", length = 10)
+      text("afkljkjk lajdklsajl kasjdlks ad")
+      text("asdas 08as0d sd", length = DefaultValue)
+      text("asxzc q4sd", length = 50)
+      link("kljlasdasd 79asdxzca asd897asd", "google.com", length = 10)
+    }
+    ```
+
+=== "Rendered"
+
+    ```
+    my plugin
+    ---
+    adfx zczcxzc897 zxcxzcxz cqweas | length=10
+    afkljkjk lajdklsajl kasjdlks ad
+    asdas 08as0d sd
+    asxzc q4sd | length=50
+    kljlasdasd 79asdxzca asd897asd | length=10 href="google.com"
+    ```
+
+`length` takes an Int value. If `length` is provided and item text length is greater than given length, it will trim the remaining characters and append `...`
+
+You can also provide `DefaultValue` which will not render length attribute and text will not be trimmed.
+
+![length](/images/customising-items/length.png){: style="width:380px" loading = lazy}
 
 ## Image
 ## TemplateImage
 ## Emojize
 ## Symbolize
-## Length
+## ANSI
+**Conflicts with symbolize**
+
+
 ## SF Image
+
 ## Checked
+
 ## Shortcut

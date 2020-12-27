@@ -21,6 +21,7 @@ class Renderer(selfPath: String) {
       case Font(name)           => s"""font="$name""""
       case Color(value)         => s"""color="$value""""
       case TextSize(value)      => s"size=$value"
+      case Length(value)        => s"length=$value"
       case TemplateImage(value) => s"templateImage=$value"
       case Image(value)         => s"image=$value"
       case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
