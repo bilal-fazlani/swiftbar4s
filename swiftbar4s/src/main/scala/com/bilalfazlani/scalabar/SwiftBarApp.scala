@@ -9,7 +9,7 @@ import java.util.Base64
 
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
-abstract class SwiftBarApp {
+abstract class SwiftBarApp extends Environment {
   val appMenu: MenuBuilder
   val handler: HandlerBuilder = HandlerBuilder()
 
