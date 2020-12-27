@@ -55,7 +55,7 @@
   }
 ```
 
-![demo](docs/images/demo.png)
+<img src="docs/images/demo.png" width=400 />
 
 You can create text, web links, shell commands, and plugin actions.
 
