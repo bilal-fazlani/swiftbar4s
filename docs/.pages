@@ -5,4 +5,5 @@ nav:
   - menu-items.md
   - customising-items.md
   - action-handlers.md
+  - notifications.md
   - ...
