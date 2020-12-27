@@ -145,16 +145,26 @@ You can also provide `DefaultValue` which will not render length attribute and t
 
 ![length](/images/customising-items/length.png){: style="width:380px" loading = lazy}
 
-## Image
-## TemplateImage
 ## Emojize
+
+
+
+## Image
+
+## TemplateImage
+
 ## Symbolize
+
 ## ANSI
 **Conflicts with symbolize**
 
 
 ## SF Image
 
+## SF Color
+
 ## Checked
 
 ## Shortcut
+
+## Alternate
