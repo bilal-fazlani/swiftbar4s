@@ -17,7 +17,8 @@ class Parser(renderer: Renderer) {
       case Text(text, attributes) =>
         renderer.renderLine(text, level, attributes)
       case Link(text, url, attributes) =>
-        renderer.renderLine(s"$text | href=$url", level, attributes)
+        val additionalAttributes = Seq(Href(url))
+        renderer.renderLine(text,level, attributes ++ additionalAttributes)
       case ShellCommand(
             text,
             executable,

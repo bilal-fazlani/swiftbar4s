@@ -12,8 +12,8 @@ class Renderer(selfPath: String) {
       attributes: Set[Attribute]
   ): Output = {
     val separator = if (attributes.isEmpty) "" else " | "
-    val suffix    = attributes.map(renderAttribute).mkString(" ")
-    Output(s"${LEVEL_SEPARATOR * level}$value$separator$suffix")
+    val attrs    = attributes.map(renderAttribute).mkString(" ")
+    Output(s"${LEVEL_SEPARATOR * level}$value$separator$attrs")
   }
 
   def renderAttribute(attribute: Attribute): String = {
