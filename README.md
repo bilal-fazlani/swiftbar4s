@@ -14,49 +14,46 @@
 
 ## Usage
 
-- create an `object` and extend from `SwiftBarApp with MenuDsl with HandlerDsl`
-
-- create a handler for actions your plugin may dispatch. Example:
-
 ```scala
-  override val handler = handler {
-    handle("send-email") { emailMayBe =>
-      emailMayBe.map(sendEmail)
+import com.bilalfazlani.swiftbar4s.SwiftBarApp
+import com.bilalfazlani.swiftbar4s.dsl._
+
+object SimplePlugin extends SwiftBarApp with MenuDsl with HandlerDsl {
+    override val handler = handler {
+      handle("send-email") { emailMayBe =>
+        println(s"email sent to $emailMayBe")
+      }
+
+      handle("print-hello") {
+        println("hello world")
+      }
     }
 
-    handle("print-hello") {
-      println("hello world")
-    }
-  }
-```
-
-- Use the dsl to create menu items either statically for dynamically. Example:
-
-```scala
-  override val appMenu = menu("my-plugin", color = "red,white", textSize = 20) {
+    override val appMenu = menu("my-plugin", color = "red,green") {
     action("send email", "send-email", Some("abc@xyz.com"), true)
     action("print hello", "print-hello", showTerminal = true)
     text("item 1", font = "Times")
     ---
     text("item 2", textSize = 15)
     subMenu("submenu"){
-      text("item 3")
+      text("item 3", length = 4)
       text("item 4")
-      Range(20,30).foreach{ i =>
-        link(s"item_$i", "http://google.com")
+      Range(5,10).foreach{ i =>
+        link(s"item $i", "http://google.com")
       }
       subMenu("nested", color = "orange"){
-        text("item 5")
+        text("item 10")
         ---
-        text("item 6")
-        shellCommand("item 7", "echo", showTerminal = true ,params = "hello world", "sds")
+        text("item 11")
+        shellCommand("item 12", "echo", showTerminal = true ,params = "hello world", "sds")
       }
     }
   }
+}
 ```
 
 <img src="docs/images/demo.png" width=400 />
 
-You can create text, web links, shell commands, and plugin actions.
+You can create text, web links, shell commands and plugin actions.
 
 All the items support configuratios such as color, text size, image, emojis etc.
