@@ -33,13 +33,13 @@ trait Environment {
 
     case class RetrievedOSVersion(major:Int, minor:Int, patch:Int) {
         def is (version:OSVersion) = this.major == version.major && this.minor == version.minor
-        def != (version:OSVersion) = !is(version)
+        def isNot (version:OSVersion) = !is(version)
         def < (version:OSVersion) = this.major < version.major || this.minor < version.minor
         def <= (version:OSVersion) = is(version) || <(version)
         def > (version:OSVersion) = !(<=(version))
         def >= (version:OSVersion) = is(version) || >(version)
 
-        override def toString = s"version: $major.$minor.$patch"
+        override def toString = s"$major.$minor.$patch"
     }
 
 
