@@ -60,7 +60,36 @@ Renders tooltips when mouse over for few seconds
 ![tooltip](/images/customising-items/tooltip.png){: style="width:300px"}
 
 ## Text Size
+
+=== "Scala"
+
+    ```scala
+    menu("my plugin") {
+      text("item", textSize = 40)
+      subMenu("abc", textSize = DefaultValue) {
+        link("google", url = "https://google.com", textSize = 30)
+      }
+    }
+    ```
+
+=== "Rendered"
+
+    ```
+    my plugin
+    ---
+    item | size=40
+    abc
+    --google | size=30 href="https://google.com"
+    ```
+
+`textSize` can take an Int value representing font size of the menu item. You can also provide `DefaultValue` which will not render size attribute resulting into default behaviour of OS.
+
+![text-size](/images/customising-items/text-size.png){: style="width:380px"}
+
 ## Font
+
+
+
 ## Image
 ## TemplateImage
 ## Emojize
