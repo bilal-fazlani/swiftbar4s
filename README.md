@@ -1,35 +1,39 @@
+<a href="https://swiftbar4s.bilal-fazlani.com">
+  <img src="docs/images/logo-svg.svg" width=200 />
+</a>
+
 # SwiftBar4s is a scala framework to create [swiftbar](https://github.com/swiftbar/SwiftBar) plugins for MacOS
 
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.bilal-fazlani/swiftbar4s_3.0.0-M3?color=green&label=RELEASE%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
-## Documentation
+# Documentation
 
-**https://swiftbar4s.bilal-fazlani.com**
+## https://swiftbar4s.bilal-fazlani.com
 
 <a href="https://swiftbar4s.bilal-fazlani.com">
   <img src="docs/images/documentation-preview.png" width=350 />
 </a>
 
-## Usage
+# Usage
 
 ```scala
 import com.bilalfazlani.swiftbar4s.SwiftBarApp
 import com.bilalfazlani.swiftbar4s.dsl._
 
 object SimplePlugin extends SwiftBarApp with MenuDsl with HandlerDsl {
-    override val handler = handler {
-      handle("send-email") { emailMayBe =>
-        println(s"email sent to $emailMayBe")
-      }
-
-      handle("print-hello") {
-        println("hello world")
-      }
+  override val handler = handler {
+    handle("send-email") { emailMayBe =>
+      println(s"email sent to $emailMayBe")
     }
 
-    override val appMenu = menu("my-plugin", color = "red,green") {
+    handle("print-hello") {
+      println("hello world")
+    }
+  }
+
+  override val appMenu = menu("my-plugin", color = "red,green") {
     action("send email", "send-email", Some("abc@xyz.com"), true)
     action("print hello", "print-hello", showTerminal = true)
     text("item 1", font = "Times")
