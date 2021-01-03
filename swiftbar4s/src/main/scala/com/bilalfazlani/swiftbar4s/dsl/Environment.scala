@@ -50,7 +50,9 @@ trait Environment {
         selfPath:String,
         osAppearance:OSAppearance,
         osVersion: RetrievedOSVersion
-    )
+    ){
+        lazy val pluginFileName:String = java.nio.file.Paths.get(selfPath).getFileName.toString
+    }
 
     private val get = (sys.env.get _).andThen(_.get)
     lazy val runtime:Option[SwiftBarRuntime] = sys.env.get("SWIFTBAR") match {

@@ -24,7 +24,16 @@ object StreamingPlugin extends Plugin with MenuDsl {
         case Event.Added(_, _) | Event.Init(_) | Event.Deleted(_, _) => "entities"
     }
 
+    private def notification(event:Event) = event match {
+        case Event.Added(entity,_ ) => notify("entity added", Some(entity.name), Some(entity.id.toString))
+        case Event.Deleted(entity, _) => notify("entity deleted", Some(entity.name), Some(entity.id.toString))
+        case Event.Reset(_) => notify("reset")
+        case _ => 
+    }
+
     override val appMenu = client.subscribe.block.map(event => menu(menuTitle(event)){
+        notification(event)
+
         def renderMenuItems(entities:Set[Entity]):Unit = 
             entities.foreach(e => text(s"${e.id} - ${e.name}"))
 

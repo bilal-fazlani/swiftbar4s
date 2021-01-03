@@ -9,7 +9,7 @@ import org.reactivestreams.Publisher
 
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
-abstract class Plugin extends Environment {
+abstract class Plugin extends Environment with Notifications {
   val appMenu: MenuBuilder | Publisher[MenuBuilder]
   val handler: HandlerBuilder = HandlerBuilder()
   val parser = new Parser(new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", ".")))
