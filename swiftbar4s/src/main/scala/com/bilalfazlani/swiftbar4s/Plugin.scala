@@ -2,17 +2,20 @@ package com.bilalfazlani.swiftbar4s
 
 import com.bilalfazlani.swiftbar4s.models._
 import com.bilalfazlani.swiftbar4s.models.MenuItem._
-import com.bilalfazlani.swiftbar4s.parser.{Parser, Renderer}
+import com.bilalfazlani.swiftbar4s.parser.{Parser, Renderer, MenuRenderer}
 import com.bilalfazlani.swiftbar4s.dsl._
-
 import java.util.Base64
+import org.reactivestreams.Publisher
 
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
-abstract class SwiftBarApp extends Environment {
-  val appMenu: MenuBuilder
+abstract class Plugin extends Environment {
+  val appMenu: MenuBuilder | Publisher[MenuBuilder]
   val handler: HandlerBuilder = HandlerBuilder()
-
+  val parser = new Parser(new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", ".")))
+  val menuRenderer = MenuRenderer(parser)
+  val menuSubscriber = MenuSubscriber(menuRenderer)
+  
   private def decode(str: String) = new String(Base64.getDecoder.decode(str))
 
   def main(args: Array[String]): Unit = {
@@ -22,10 +25,10 @@ abstract class SwiftBarApp extends Environment {
       case "dispatch" :: action :: metadata :: Nil =>
         handler.build()(decode(action), Some(decode(metadata)))
       case _ =>
-        new Parser(new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", ".")))
-          .parse(appMenu.build)
-          .lines
-          .foreach(println)
+        appMenu match {
+          case mb:MenuBuilder => menuRenderer.renderMenu(mb, false)
+          case mbp: Publisher[_] => mbp.subscribe(menuSubscriber.asInstanceOf)
+        }
     }
   }
 }

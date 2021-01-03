@@ -37,6 +37,7 @@ lazy val swiftbar4s = project
   .settings(
     name := "swiftbar4s",
     libraryDependencies ++= Seq(
+      Libs.`reactive-streams`,
       Libs.munit % Test
     )
   )
@@ -45,7 +46,11 @@ lazy val myplugin = project
   .in(file("./myplugin"))
   .settings(
     name := "myplugin",
+    resolvers += "jitpack" at "https://jitpack.io",
     version := "0.1.0-SNAPSHOT",
+    libraryDependencies ++= Seq(
+      NonProdLibs.`entities-client`
+    ),
     skip in publish := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )

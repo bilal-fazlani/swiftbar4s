@@ -1,0 +1,13 @@
+# <bitbar.title>My Streaming Plugin</bitbar.title>
+# <bitbar.version>v1.1</bitbar.version>
+# <bitbar.author>Bilal Fazlani</bitbar.author>
+# <bitbar.author.github>bilal-fazlani</bitbar.author.github>
+# <bitbar.desc>Shows entities realtime</bitbar.desc>
+# <bitbar.dependencies>java 11</bitbar.dependencies>
+# <bitbar.abouturl>https://swiftbar4s.bilal-fazlani.com/</bitbar.abouturl>
+# <swiftbar.hideAbout>true</swiftbar.hideAbout>
+# <swiftbar.hideRunInTerminal>true</swiftbar.hideRunInTerminal>
+# <swiftbar.hideLastUpdated>true</swiftbar.hideLastUpdated>
+# <swiftbar.hideDisablePlugin>true</swiftbar.hideDisablePlugin>
+# <swiftbar.hideSwiftBar>true</swiftbar.hideSwiftBar>
+# <swiftbar.type>streamable</swiftbar.type>
