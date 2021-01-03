@@ -1,19 +1,17 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.swiftbar4s.SwiftBarApp
+import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl._
 
+class SimplePlugin extends Plugin with MenuDsl {
 
-object SimplePlugin extends SwiftBarApp with MenuDsl {
-
- def getImage = {
-  val bytes = getClass.getResourceAsStream("/success.png").readAllBytes
-  val base64 = java.util.Base64.getEncoder.encodeToString(bytes)
-  base64
-}
+  def getImage = {
+    val bytes  = getClass.getResourceAsStream("/success.png").readAllBytes
+    val base64 = java.util.Base64.getEncoder.encodeToString(bytes)
+    base64
+  }
 
   override val appMenu = menu("my-plugin") {
-
     text("success", image = getImage)
 
     runtime.foreach { r =>
