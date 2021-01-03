@@ -2,17 +2,18 @@
 
 #SBT
 ORG="com.bilal-fazlani"
-PLUGIN_NAME="myplugin"
+PLUGIN_NAME="entities"
 SCALA_VERSION="3.0.0-M3"
 PLUGIN_VERSION="0.1.0-SNAPSHOT"
 
 #PLUGIN
-REFRESH="5s"
-EXTENSION="bin"
-PLUGIN_FILENAME="$PLUGIN_NAME.$REFRESH.$EXTENSION"
+# REFRESH="5s"
+# EXTENSION="bin"
+# PLUGIN_FILENAME="$PLUGIN_NAME.$REFRESH.$EXTENSION"
+PLUGIN_FILENAME="$PLUGIN_NAME"
 PLUGINS_DIR="$HOME/projects/bitbar-plugins"
 PLUGIN_PATH="$PLUGINS_DIR"/"$PLUGIN_FILENAME"
-META_PATH="$PLUGIN_NAME/src/main/resources/plugin-config.txt"
+META_PATH="myplugin/src/main/resources/plugin-config.txt"
 
 #OTHERS
 export COURSIER_REPOSITORIES="ivy2Local|central|sonatype:releases|sonatype:snapshots|jitpack"
