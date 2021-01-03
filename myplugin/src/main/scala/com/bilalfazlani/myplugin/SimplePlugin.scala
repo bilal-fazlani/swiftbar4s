@@ -3,7 +3,7 @@ package com.bilalfazlani.myplugin
 import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl._
 
-class SimplePlugin extends Plugin with MenuDsl {
+object SimplePlugin extends Plugin with MenuDsl {
 
   def getImage = {
     val bytes  = getClass.getResourceAsStream("/success.png").readAllBytes

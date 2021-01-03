@@ -2,9 +2,10 @@
 
 #SBT
 ORG="com.bilal-fazlani"
-PLUGIN_NAME="entities"
+PLUGIN_NAME="myplugin"
 SCALA_VERSION="3.0.0-M3"
 PLUGIN_VERSION="0.1.0-SNAPSHOT"
+MAIN_CLASS="com.bilalfazlani.myplugin.StreamingPlugin"
 
 #PLUGIN
 # REFRESH="5s"
@@ -22,7 +23,7 @@ export COURSIER_REPOSITORIES="ivy2Local|central|sonatype:releases|sonatype:snaps
 rm -rf ~/.ivy2/local/"$ORG"/"$PLUGIN_NAME"_"$SCALA_VERSION"/
 #PUBLISH_PLUGIN="true" sbt ";clean ;publishLocal"
 PUBLISH_PLUGIN="true" sbt "publishLocal"
-coursier bootstrap -f -o "$PLUGIN_PATH" --standalone "$ORG":"$PLUGIN_NAME"_"$SCALA_VERSION":"$PLUGIN_VERSION"
+coursier bootstrap -f -o "$PLUGIN_PATH" -M "$MAIN_CLASS" --standalone "$ORG":"$PLUGIN_NAME"_"$SCALA_VERSION":"$PLUGIN_VERSION"
 chmod +x "$PLUGIN_PATH"
 # ----------- PUBLISHING PLUGIN END ---------------------
 

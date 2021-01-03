@@ -1,4 +1,4 @@
-# <bitbar.title>My Streaming Plugin</bitbar.title>
+# <bitbar.title>My Plugin</bitbar.title>
 # <bitbar.version>v1.1</bitbar.version>
 # <bitbar.author>Bilal Fazlani</bitbar.author>
 # <bitbar.author.github>bilal-fazlani</bitbar.author.github>
