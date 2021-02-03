@@ -35,7 +35,7 @@ libraryDependencies += "com.bilal-fazlani" %% "swiftbar4s" % "<VERSION>"
 Since project is created using scala 3, you will need `sbt-dotty` plugin. Add the following line in `project/plugins.sbt`
 
 ```
-addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.1")
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.2")
 ```
 
 Set the scalaVersion to `3.0.0-M3`
