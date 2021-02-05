@@ -15,10 +15,10 @@
 # Usage
 
 ```scala
-import com.bilalfazlani.swiftbar4s.SwiftBarApp
+import com.bilalfazlani.swiftbar4s._
 import com.bilalfazlani.swiftbar4s.dsl._
 
-object SimplePlugin extends SwiftBarApp with MenuDsl with HandlerDsl {
+object SimplePlugin extends Plugin with MenuDsl with HandlerDsl {
   override val handler = handler {
     handle("send-email") { emailMayBe =>
       println(s"email sent to $emailMayBe")
