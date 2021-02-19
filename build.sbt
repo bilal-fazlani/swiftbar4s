@@ -1,5 +1,5 @@
 //val sv = "2.13.4"
-val sv = "3.0.0-M3"
+val sv = "3.0.0-RC1"
 
 val org = "com.bilal-fazlani"
 
