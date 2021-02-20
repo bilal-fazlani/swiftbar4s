@@ -1,7 +1,6 @@
 package com.bilalfazlani.swiftbar4s.parser
 import com.bilalfazlani.swiftbar4s.dsl._
 import com.bilalfazlani.swiftbar4s.parser.Printer
-import better.files.Dsl._
 
 class MenuRenderer(parser: Parser, printer: Printer) {
   def renderMenu(menuBuilder: MenuBuilder, streaming: Boolean): Unit = {

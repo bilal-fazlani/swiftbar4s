@@ -1,4 +1,4 @@
-package com.bilalfazlani.swiftbar4s.preview
+package com.bilalfazlani.swiftbar4s.devtools
 
 import com.bilalfazlani.swiftbar4s.Plugin
 

@@ -1,9 +1,8 @@
-package com.bilalfazlani.swiftbar4s.preview
+package com.bilalfazlani.swiftbar4s.devtools
 
 import com.bilalfazlani.swiftbar4s.dsl.MenuBuilder
 import com.bilalfazlani.swiftbar4s.parser.MenuRenderer
 import com.bilalfazlani.swiftbar4s.parser.Parser
-import com.bilalfazlani.swiftbar4s.preview.DevPrinter
 import java.nio.file.attribute.PosixFilePermission
 
 class DevMenuRenderer(parser: Parser, printer: DevPrinter) extends MenuRenderer(parser, printer) {
