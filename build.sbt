@@ -21,7 +21,8 @@ inThisBuild(
         url("https://bilal-fazlani.com")
       )
     ),
-    testFrameworks += TestFramework("munit.Framework")
+    testFrameworks += TestFramework("munit.Framework"),
+    resolvers += Resolver.JCenterRepository
   )
 )
 

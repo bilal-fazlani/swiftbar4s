@@ -7,7 +7,7 @@
 // import scala.language.implicitConversions
 
 // object Main extends SwiftBarApp with MenuDsl with HandlerDsl {
-  
+
 //   override val handler = handler {
 //     handle("send-email") { emailMayBe =>
 //       emailMayBe.map(sendEmail)
