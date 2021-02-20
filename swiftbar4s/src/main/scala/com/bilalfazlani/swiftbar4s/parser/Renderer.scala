@@ -27,6 +27,7 @@ class Renderer(selfPath: String) {
       case Emojize(value)       => s"emojize=${value.toString.toLowerCase}"
       case Symbolize(value)     => s"symbolize=${value.toString.toLowerCase}"
       case ToolTip(value)       => s"""tooltip="$value""""
+      case Alternate(value)     => s"""alternate=$value"""
       case Href(url)            => s"""href="$url""""
       case Executable("$0") =>
         s"""bash="$selfPath""""

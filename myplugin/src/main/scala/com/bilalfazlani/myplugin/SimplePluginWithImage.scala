@@ -3,7 +3,7 @@ package com.bilalfazlani.myplugin
 import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl._
 
-object SimplePlugin extends Plugin with MenuDsl {
+object SimplePluginWithImage extends Plugin with MenuDsl {
 
   def getImage = {
     val bytes  = getClass.getResourceAsStream("/success.png").readAllBytes
@@ -17,7 +17,7 @@ object SimplePlugin extends Plugin with MenuDsl {
     runtime.foreach { r =>
       if (r.osVersion < OSVersion.BigSur)
         text(s"your os version is: ${r.osVersion}")
-      text(s"Please upgrade to BigSur")
+        text(s"Please upgrade to BigSur")
     }
 
     if (runtime.isEmpty)

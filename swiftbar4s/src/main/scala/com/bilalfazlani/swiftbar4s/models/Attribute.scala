@@ -13,6 +13,7 @@ object Attribute {
   case class Emojize(value: Boolean)      extends Attribute
   case class Symbolize(value: Boolean)    extends Attribute
   case class ToolTip(value: String)       extends Attribute
+  case class Alternate(value: Boolean)    extends Attribute
   case class Length(value: Int)           extends Attribute
   //privates
   private[swiftbar4s] case class Href(url: String)           extends Attribute
