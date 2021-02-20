@@ -17,7 +17,7 @@ object SimplePluginWithImage extends Plugin with MenuDsl {
     runtime.foreach { r =>
       if (r.osVersion < OSVersion.BigSur)
         text(s"your os version is: ${r.osVersion}")
-        text(s"Please upgrade to BigSur")
+      text(s"Please upgrade to BigSur")
     }
 
     if (runtime.isEmpty)

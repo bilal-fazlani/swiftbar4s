@@ -12,7 +12,7 @@ class Renderer(selfPath: String) {
       attributes: Set[Attribute]
   ): Output = {
     val separator = if (attributes.isEmpty) "" else " | "
-    val attrs    = attributes.map(renderAttribute).mkString(" ")
+    val attrs     = attributes.map(renderAttribute).mkString(" ")
     Output(s"${LEVEL_SEPARATOR * level}$value$separator$attrs")
   }
 

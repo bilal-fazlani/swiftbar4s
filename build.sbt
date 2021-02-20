@@ -39,6 +39,7 @@ lazy val swiftbar4s = project
     name := "swiftbar4s",
     libraryDependencies ++= Seq(
       Libs.`reactive-streams`,
+      Libs.`better-files`,
       Libs.munit % Test
     )
   )

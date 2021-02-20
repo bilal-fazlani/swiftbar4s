@@ -18,7 +18,7 @@ class Parser(renderer: Renderer) {
         renderer.renderLine(text, level, attributes)
       case Link(text, url, attributes) =>
         val additionalAttributes = Seq(Href(url))
-        renderer.renderLine(text,level, attributes ++ additionalAttributes)
+        renderer.renderLine(text, level, attributes ++ additionalAttributes)
       case ShellCommand(
             text,
             executable,
