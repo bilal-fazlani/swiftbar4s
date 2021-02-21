@@ -6,8 +6,8 @@
 # <bitbar.dependencies>java 11</bitbar.dependencies>
 # <bitbar.abouturl>https://swiftbar4s.bilal-fazlani.com/</bitbar.abouturl>
 # <swiftbar.hideAbout>true</swiftbar.hideAbout>
-# <swiftbar.hideRunInTerminal>true</swiftbar.hideRunInTerminal>
-# <swiftbar.hideLastUpdated>true</swiftbar.hideLastUpdated>
+# <swiftbar.hideRunInTerminal>false</swiftbar.hideRunInTerminal>
+# <swiftbar.hideLastUpdated>false</swiftbar.hideLastUpdated>
 # <swiftbar.hideDisablePlugin>true</swiftbar.hideDisablePlugin>
-# <swiftbar.hideSwiftBar>true</swiftbar.hideSwiftBar>
-# <swiftbar.type>streamable</swiftbar.type>
+# <swiftbar.hideSwiftBar>false</swiftbar.hideSwiftBar>
+# <swiftbar.runInBash>false</swiftbar.runInBash>
