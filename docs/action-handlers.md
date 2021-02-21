@@ -12,11 +12,11 @@ For instance, in the below example, we have two actions defined - one with metad
 === "Scala"
 
     ```scala
-    import com.bilalfazlani.swiftbar4s.SwiftBarApp
+    import com.bilalfazlani.swiftbar4s.Plugin
     import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
     import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
 
-    object SimpleMenu extends SwiftBarApp with MenuDsl with HandlerDsl {
+    object SimpleMenu extends Plugin with MenuDsl with HandlerDsl {
       
       override val handler = handler {
         handle("say-hello") {

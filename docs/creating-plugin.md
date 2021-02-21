@@ -10,10 +10,10 @@ The bare minimum requirement to create a plugin is to extend from `SwiftBarPlugi
 Following is an example of a plugin which has one top level item and two text items in the dropdown.
 
 ```scala
-import com.bilalfazlani.swiftbar4s.SwiftBarApp
+import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
 
-object SimplePlugin extends SwiftBarApp with MenuDsl {
+object SimplePlugin extends Plugin with MenuDsl {
   override val appMenu = menu("my plugin") {
     text("item 1")
     text("item 2")
