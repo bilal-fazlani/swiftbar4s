@@ -31,7 +31,7 @@ trait Environment {
     }
 
 
-    case class RetrievedOSVersion(major:Int, minor:Int, patch:Int) {
+    case class RetrievedOSVersion private[swiftbar4s](major:Int, minor:Int, patch:Int) {
         def is (version:OSVersion) = this.major == version.major && this.minor == version.minor
         def isNot (version:OSVersion) = !is(version)
         def < (version:OSVersion) = this.major < version.major || this.minor < version.minor

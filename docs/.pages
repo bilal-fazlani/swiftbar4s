@@ -6,4 +6,5 @@ nav:
   - customising-items.md
   - action-handlers.md
   - notifications.md
+  - runtime.md
   - ...
