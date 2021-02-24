@@ -1,5 +1,5 @@
-//val sv = "2.13.4"
-val sv = "3.0.0-M3"
+//val sv = "2.13.5"
+val sv = "3.0.0-RC1"
 
 val org = "com.bilal-fazlani"
 
@@ -30,7 +30,7 @@ lazy val root = project
   .in(file("."))
   .aggregate(swiftbar4s, myplugin, `swiftbar4s-devtools`)
   .settings(
-    skip in publish := true
+    publish / skip  := true
   )
 
 lazy val swiftbar4s = project
@@ -62,7 +62,7 @@ lazy val myplugin = project
     libraryDependencies ++= Seq(
       NonProdLibs.`entities-client`
     ),
-    skip in publish := !(sys.env
+    publish / skip  := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
   .dependsOn(`swiftbar4s-devtools`)

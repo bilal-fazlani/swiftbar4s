@@ -3,7 +3,7 @@
 #SBT
 ORG="com.bilal-fazlani"
 PLUGIN_NAME="myplugin"
-SCALA_VERSION="3.0.0-M3"
+SCALA_VERSION="3.0.0-RC1"
 PLUGIN_VERSION="0.1.0-SNAPSHOT"
 MAIN_CLASS="com.bilalfazlani.myplugin.RuntimePlugin"
 

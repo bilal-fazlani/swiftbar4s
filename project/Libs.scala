@@ -5,7 +5,7 @@ object Libs {
   lazy val `reactive-streams` =
     "org.reactivestreams" % "reactive-streams" % "1.0.3"
   lazy val `better-files` = ("com.github.pathikrit" %% "better-files" % "3.9.1")
-    .cross(CrossVersion.For3Use2_13())
+    .cross(CrossVersion.for3Use2_13)
 }
 
 object NonProdLibs {
