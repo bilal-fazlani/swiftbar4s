@@ -1,11 +1,11 @@
 package com.bilalfazlani.swiftbar4s.parser
 
-import com.bilalfazlani.swiftbar4s.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.Attribute.*
 import com.bilalfazlani.swiftbar4s.models.MenuItem
-import com.bilalfazlani.swiftbar4s.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 
 import java.util.Base64
-import scala.util.chaining._
+import scala.util.chaining.*
 
 class Parser(renderer: Renderer) {
   private val HEADER_SEPARATOR = "---"
@@ -65,7 +65,7 @@ class Parser(renderer: Renderer) {
           .merge(
             items
               .map(i => parse(i, level + 1))
-              .foldRight(Output())(_ merge _)
+              .foldRight(Output())(_ `merge` _)
           )
     }
   }

@@ -1,12 +1,12 @@
 package com.bilalfazlani.myplugin
 
 import com.bilalfazlani.swiftbar4s.Plugin
-import com.bilalfazlani.swiftbar4s.dsl._
+import com.bilalfazlani.swiftbar4s.dsl.*
 import com.bilalfazlani.EntityClient
-import com.bilalfazlani._
-import akka.actor.typed._
-import akka.actor.typed.scaladsl._
-import akka.stream.scaladsl._
+import com.bilalfazlani.*
+import akka.actor.typed.*
+import akka.actor.typed.scaladsl.*
+import akka.stream.scaladsl.*
 import com.bilalfazlani.responses.Event
 
 

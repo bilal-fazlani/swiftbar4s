@@ -3,8 +3,8 @@ package com.bilalfazlani.swiftbar4s.dsl
 import scala.collection.mutable.ListBuffer
 import com.bilalfazlani.swiftbar4s.models.MenuItem
 import com.bilalfazlani.swiftbar4s.models.Attribute
-import com.bilalfazlani.swiftbar4s.models.Attribute._
-import com.bilalfazlani.swiftbar4s.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.Attribute.*
+import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder

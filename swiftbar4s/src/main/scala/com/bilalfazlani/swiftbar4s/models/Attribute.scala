@@ -1,6 +1,6 @@
 package com.bilalfazlani.swiftbar4s.models
 
-import com.bilalfazlani.swiftbar4s.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.Attribute.*
 
 sealed trait Attribute
 

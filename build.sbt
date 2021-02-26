@@ -22,7 +22,11 @@ inThisBuild(
       )
     ),
     testFrameworks += TestFramework("munit.Framework"),
-    resolvers += Resolver.JCenterRepository
+    resolvers += Resolver.JCenterRepository,
+    scalacOptions ++= Seq(
+      "-source", "future",
+      "-deprecation"
+    )
   )
 )
 

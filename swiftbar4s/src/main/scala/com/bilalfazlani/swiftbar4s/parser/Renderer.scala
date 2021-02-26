@@ -1,7 +1,7 @@
 package com.bilalfazlani.swiftbar4s.parser
 
 import com.bilalfazlani.swiftbar4s.models.Attribute
-import com.bilalfazlani.swiftbar4s.models.Attribute._
+import com.bilalfazlani.swiftbar4s.models.Attribute.*
 
 class Renderer(selfPath: String) {
   private val LEVEL_SEPARATOR = "--"

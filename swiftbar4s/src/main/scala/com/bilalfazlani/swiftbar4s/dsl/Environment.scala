@@ -32,12 +32,12 @@ trait Environment {
 
 
     case class RetrievedOSVersion private[swiftbar4s](major:Int, minor:Int, patch:Int) {
-        def is (version:OSVersion) = this.major == version.major && this.minor == version.minor
-        def isNot (version:OSVersion) = !is(version)
-        def < (version:OSVersion) = this.major < version.major || this.minor < version.minor
-        def <= (version:OSVersion) = is(version) || <(version)
-        def > (version:OSVersion) = !(<=(version))
-        def >= (version:OSVersion) = is(version) || >(version)
+        infix def is (version:OSVersion) = this.major == version.major && this.minor == version.minor
+        infix def isNot (version:OSVersion) = !is(version)
+        infix def < (version:OSVersion) = this.major < version.major || this.minor < version.minor
+        infix def <= (version:OSVersion) = is(version) || <(version)
+        infix def > (version:OSVersion) = !(<=(version))
+        infix def >= (version:OSVersion) = is(version) || >(version)
 
         override def toString = s"$major.$minor.$patch"
     }
@@ -54,7 +54,7 @@ trait Environment {
         lazy val pluginFileName:String = java.nio.file.Paths.get(selfPath).getFileName.toString
     }
 
-    private val get = (sys.env.get _).andThen(_.get)
+    private val get = (x => sys.env.get(x)).andThen(_.get)
     lazy val runtime:Option[SwiftBarRuntime] = sys.env.get("SWIFTBAR") match {
         case Some("1") => Some(SwiftBarRuntime(
             get("SWIFTBAR_VERSION"), 

@@ -1,10 +1,10 @@
 package com.bilalfazlani.swiftbar4s
 
-import com.bilalfazlani.swiftbar4s.models._
-import com.bilalfazlani.swiftbar4s.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.*
+import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import com.bilalfazlani.swiftbar4s.parser.{MenuRenderer}
-import com.bilalfazlani.swiftbar4s.dsl._
-import org.reactivestreams._
+import com.bilalfazlani.swiftbar4s.dsl.*
+import org.reactivestreams.*
 
 class MenuSubscriber(menuRenderer: MenuRenderer)
     extends Subscriber[MenuBuilder] {

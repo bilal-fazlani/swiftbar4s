@@ -1,7 +1,7 @@
 package com.bilalfazlani.myplugin
 
 import com.bilalfazlani.swiftbar4s.devtools.PluginPreview
-import com.bilalfazlani.swiftbar4s.dsl._
+import com.bilalfazlani.swiftbar4s.dsl.*
 
 object DevSamplePlugin
     extends PluginPreview("/Users/bilal/projects/bitbar-plugins/sample.5m.sh")

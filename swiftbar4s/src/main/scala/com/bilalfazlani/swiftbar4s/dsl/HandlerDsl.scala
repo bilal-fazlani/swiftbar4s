@@ -4,8 +4,8 @@ import scala.collection.mutable.ListBuffer
 import com.bilalfazlani.swiftbar4s.models.MenuItem
 import com.bilalfazlani.swiftbar4s.Handler
 import com.bilalfazlani.swiftbar4s.models.Attribute
-import com.bilalfazlani.swiftbar4s.models.Attribute._
-import com.bilalfazlani.swiftbar4s.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.Attribute.*
+import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
 
 type MetadataFunction = Option[String] => Unit

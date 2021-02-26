@@ -1,7 +1,7 @@
 package com.bilalfazlani.swiftbar4s.devtools
 
-import sys.process._
-import better.files._
+import sys.process.*
+import better.files.*
 import com.bilalfazlani.swiftbar4s.parser.Printer
 
 class DevPrinter(filePath: String) extends Printer {

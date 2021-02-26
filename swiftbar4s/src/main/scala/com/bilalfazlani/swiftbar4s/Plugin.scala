@@ -1,14 +1,14 @@
 package com.bilalfazlani.swiftbar4s
 
-import com.bilalfazlani.swiftbar4s.models._
-import com.bilalfazlani.swiftbar4s.models.MenuItem._
+import com.bilalfazlani.swiftbar4s.models.*
+import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import com.bilalfazlani.swiftbar4s.parser.{
   Parser,
   Renderer,
   MenuRenderer,
   Printer
 }
-import com.bilalfazlani.swiftbar4s.dsl._
+import com.bilalfazlani.swiftbar4s.dsl.*
 import java.util.Base64
 import org.reactivestreams.Publisher
 
@@ -34,7 +34,7 @@ abstract class Plugin extends Environment with Notifications {
       case _ =>
         appMenu match {
           case mb: MenuBuilder   => menuRenderer.renderMenu(mb, false)
-          case mbp: Publisher[_] => mbp.subscribe(menuSubscriber.asInstanceOf)
+          case mbp: Publisher[?] => mbp.subscribe(menuSubscriber.asInstanceOf)
         }
     }
   }

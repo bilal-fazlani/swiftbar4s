@@ -1,6 +1,6 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.swiftbar4s._
+import com.bilalfazlani.swiftbar4s.*
 import com.bilalfazlani.swiftbar4s.devtools.PluginPreview
 import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
 import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
@@ -11,7 +11,7 @@ object RuntimePlugin extends Plugin with MenuDsl {
         case None => 
           text("Not running via swiftbar")
         case Some(r) => 
-          import r._
+          import r.*
           
           osVersion <= OSVersion.Catalina
           osVersion > OSVersion.ElCapitan

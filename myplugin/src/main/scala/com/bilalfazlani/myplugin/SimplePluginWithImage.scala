@@ -1,7 +1,7 @@
 package com.bilalfazlani.myplugin
 
 import com.bilalfazlani.swiftbar4s.Plugin
-import com.bilalfazlani.swiftbar4s.dsl._
+import com.bilalfazlani.swiftbar4s.dsl.*
 
 object SimplePluginWithImage extends Plugin with MenuDsl {
 

@@ -1,6 +1,6 @@
 package com.bilalfazlani.swiftbar4s.dsl
 
-import scala.sys.process._
+import scala.sys.process.*
 
 trait Notifications { this: Environment =>
   def notify(
