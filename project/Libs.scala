@@ -1,7 +1,7 @@
 import sbt._
 
 object Libs {
-  lazy val munit = "org.scalameta" %% "munit" % "0.7.23"
+  lazy val munit = "org.scalameta" %% "munit" % "0.7.25"
   lazy val `reactive-streams` =
     "org.reactivestreams" % "reactive-streams" % "1.0.3"
   lazy val `better-files` = ("com.github.pathikrit" %% "better-files" % "3.9.1")

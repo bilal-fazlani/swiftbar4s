@@ -1,5 +1,5 @@
 //val sv = "2.13.5"
-val sv = "3.0.0-RC1"
+val sv = "3.0.0-RC3"
 
 val org = "com.bilal-fazlani"
 
@@ -21,7 +21,6 @@ inThisBuild(
         url("https://bilal-fazlani.com")
       )
     ),
-    testFrameworks += TestFramework("munit.Framework"),
     resolvers += Resolver.JCenterRepository,
     scalacOptions ++= Seq(
       "-source", "future",
