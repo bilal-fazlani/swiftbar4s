@@ -197,7 +197,7 @@ trait MenuDsl {
         getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue)))
     }
 
-    def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
+    infix def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
 
     def fromResource(fileName:String) = ???
     def fromUrl(fileName:String) = ???
