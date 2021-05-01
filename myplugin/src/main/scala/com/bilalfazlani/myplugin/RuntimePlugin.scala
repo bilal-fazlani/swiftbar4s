@@ -1,6 +1,7 @@
 package com.bilalfazlani.myplugin
 
 import com.bilalfazlani.swiftbar4s.*
+import com.bilalfazlani.swiftbar4s.dsl.*
 import com.bilalfazlani.swiftbar4s.devtools.PluginPreview
 import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
 import com.bilalfazlani.swiftbar4s.dsl.MenuDsl

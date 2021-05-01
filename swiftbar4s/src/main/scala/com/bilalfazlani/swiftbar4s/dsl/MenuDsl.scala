@@ -2,10 +2,17 @@ package com.bilalfazlani.swiftbar4s.dsl
 
 import scala.collection.mutable.ListBuffer
 import com.bilalfazlani.swiftbar4s.models.MenuItem
+import com.bilalfazlani.swiftbar4s.dsl.SwiftBarRuntime
 import com.bilalfazlani.swiftbar4s.models.Attribute
 import com.bilalfazlani.swiftbar4s.models.Attribute.*
 import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
+
+extension [T] (value:T)
+  infix def ifDark[A <: T](value2:A)(using Option[SwiftBarRuntime]): T = summon[Option[SwiftBarRuntime]] match {
+    case Some(r) => if r.osAppearance == OSAppearance.Light then value else value2
+    case None => value
+  }
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
 
