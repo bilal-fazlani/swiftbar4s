@@ -37,6 +37,7 @@ trait MenuDsl {
     type TemplateImageDsl = String | None.type
     type ToolTipDsl = String | None.type
     type AlternateDsl = Boolean | DefaultValue.type
+    type ShortcutDsl = String | None.type
 
     enum Iconize {
       case Auto
@@ -54,10 +55,11 @@ trait MenuDsl {
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
-      tooltip:ToolTipDsl = None
+      tooltip:ToolTipDsl = None,
+      shortcut:ShortcutDsl = None,
       )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
       given t:MenuBuilder = MenuBuilder(Text(text, 
-        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue)))
+        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
       init
       t
     }
@@ -71,10 +73,11 @@ trait MenuDsl {
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
-      tooltip:ToolTipDsl = None
+      tooltip:ToolTipDsl = None,
+      shortcut:ShortcutDsl = None,
       )(init: ContextFunction[MenuBuilder])(using menuDsl:MenuBuilder): MenuBuilder = {
       val innerMenu = MenuBuilder(Text(text, 
-        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue)))
+        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
       summon[MenuBuilder].add(innerMenu)
       {
         given i:MenuBuilder = innerMenu
@@ -93,9 +96,10 @@ trait MenuDsl {
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
-      tooltip:ToolTipDsl = None
+      tooltip:ToolTipDsl = None,
+      shortcut:ShortcutDsl = None,
       ): Text = Text(text, 
-        getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, DefaultValue))
+        getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, DefaultValue, shortcut))
     
       def link(
         text:String, 
@@ -108,9 +112,10 @@ trait MenuDsl {
         templateImage: TemplateImageDsl = None,
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
-        alternate:AlternateDsl = DefaultValue
+        alternate:AlternateDsl = DefaultValue,
+        shortcut:ShortcutDsl = None,
         ): Link = Link(text, url, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, alternate))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, alternate, shortcut))
       
       def shellCommand(
         text:String, 
@@ -126,9 +131,10 @@ trait MenuDsl {
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
+        shortcut:ShortcutDsl = None,
         params:String*,
         ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut))
       
 
       def actionDispatch(
@@ -145,9 +151,10 @@ trait MenuDsl {
         templateImage: TemplateImageDsl = None,
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
-        alternate:AlternateDsl = DefaultValue
+        alternate:AlternateDsl = DefaultValue,
+        shortcut:ShortcutDsl = None,
         ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut))
     }
 
     private def getAttributes(
@@ -159,7 +166,8 @@ trait MenuDsl {
       templateImage: TemplateImageDsl,
       iconize: Iconize,
       tooltip:ToolTipDsl,
-      alternate:AlternateDsl
+      alternate:AlternateDsl,
+      shortcut:ShortcutDsl,
     ):Set[Attribute] = {
         var set = Set.empty[Attribute]
         if(color != DefaultValue) set = set + Color(color.asInstanceOf)
@@ -191,10 +199,11 @@ trait MenuDsl {
       image: ImageDsl = None,
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
-      tooltip:ToolTipDsl = None
+      tooltip:ToolTipDsl = None,
+      shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
         summon[MenuBuilder].add(Text(text, 
-        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue)))
+        getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
     }
 
     infix def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
@@ -213,10 +222,11 @@ trait MenuDsl {
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
-      alternate:AlternateDsl = DefaultValue
+      alternate:AlternateDsl = DefaultValue,
+      shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
         summon[MenuBuilder].add(Link(text, url, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate)))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 
     def shellCommand(
@@ -233,10 +243,11 @@ trait MenuDsl {
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       alternate:AlternateDsl = DefaultValue,
+      shortcut:ShortcutDsl = None,
       params:String*,
       ): ContextFunction[MenuBuilder] = {
         summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate)))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 
     def action(
@@ -253,9 +264,10 @@ trait MenuDsl {
       templateImage: TemplateImageDsl = None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
-      alternate:AlternateDsl = DefaultValue
+      alternate:AlternateDsl = DefaultValue,
+      shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
         summon[MenuBuilder].add(DispatchAction(text, action, metadata, showTerminal, refresh, 
-          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate)))
+          getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 }

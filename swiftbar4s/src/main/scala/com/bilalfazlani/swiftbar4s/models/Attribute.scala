@@ -15,6 +15,7 @@ object Attribute {
   case class ToolTip(value: String)       extends Attribute
   case class Alternate(value: Boolean)    extends Attribute
   case class Length(value: Int)           extends Attribute
+  case class Shortcut(value: String)      extends Attribute
   //privates
   private[swiftbar4s] case class Href(url: String)           extends Attribute
   private[swiftbar4s] case class Executable(path: String)    extends Attribute

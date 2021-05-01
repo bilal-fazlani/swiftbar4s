@@ -29,7 +29,7 @@ inThisBuild(
   )
 )
 
-lazy val root = project
+lazy val swiftbar4s_root = project
   .in(file("."))
   .aggregate(swiftbar4s, myplugin, `swiftbar4s-devtools`)
   .settings(
