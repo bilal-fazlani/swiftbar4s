@@ -185,6 +185,7 @@ trait MenuDsl {
         if(templateImage != None) set = set + TemplateImage(templateImage.asInstanceOf)
         if(tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)
         if(alternate != DefaultValue) set = set + Alternate(alternate.asInstanceOf)
+        if(shortcut != None) set = set + Shortcut(shortcut.asInstanceOf)
         iconize match {
           case Iconize.EmojiOnly => 
             set = set ++ Seq(Symbolize(false))
