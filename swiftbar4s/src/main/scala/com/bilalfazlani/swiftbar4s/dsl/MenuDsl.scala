@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 import com.bilalfazlani.swiftbar4s.models.MenuItem
 import com.bilalfazlani.swiftbar4s.dsl.SwiftBarRuntime
 import com.bilalfazlani.swiftbar4s.models.Attribute
-import com.bilalfazlani.swiftbar4s.models.Attribute.*
+import com.bilalfazlani.swiftbar4s.models.Attribute.{Image as ImageAttribute, *}
 import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
 
@@ -34,14 +34,18 @@ class MenuBuilder(val textItem:Text) {
 
 type ContextFunction[T] = T ?=> Unit
 
+enum Image:
+  case ResourceImage(path:String)
+  // case ImageUrl(url:String)
+  case Base64Image(value:String)
+  case None
+
 trait MenuDsl {
     case object DefaultValue
     type ColorDsl = String | DefaultValue.type
     type TextSizeDsl = Int | DefaultValue.type
     type LengthDsl = Int | DefaultValue.type
     type FontDsl = String | DefaultValue.type
-    type ImageDsl = String | None.type
-    type TemplateImageDsl = String | None.type
     type ToolTipDsl = String | None.type
     type AlternateDsl = Boolean | DefaultValue.type
     type ShortcutDsl = String | None.type
@@ -53,14 +57,22 @@ trait MenuDsl {
       case Disabled
     }
 
+    private def getResourceImage(path:String) = {
+      val effectivePath = if path.startsWith("/") then path else ("/" + path)
+      val img = getClass.getResourceAsStream(effectivePath)
+      if img == null then throw new RuntimeException(s"image $effectivePath not found in resources")
+      val bytes  = img.readAllBytes
+      java.util.Base64.getEncoder.encodeToString(bytes)
+    }
+
     def menu(
       text:String,
       color:ColorDsl = DefaultValue, 
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
@@ -77,8 +89,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
@@ -100,8 +112,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
@@ -115,8 +127,8 @@ trait MenuDsl {
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
-        image: ImageDsl = None,
-        templateImage: TemplateImageDsl = None,
+        image: Image = Image.None,
+        templateImage: Image = Image.None,
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
@@ -133,8 +145,8 @@ trait MenuDsl {
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
-        image: ImageDsl = None,
-        templateImage: TemplateImageDsl = None,
+        image: Image = Image.None,
+        templateImage: Image = Image.None,
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
@@ -154,8 +166,8 @@ trait MenuDsl {
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
-        image: ImageDsl = None,
-        templateImage: TemplateImageDsl = None,
+        image: Image = Image.None,
+        templateImage: Image = Image.None,
         iconize: Iconize = Iconize.Auto,
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
@@ -169,8 +181,8 @@ trait MenuDsl {
       textSize: TextSizeDsl,
       font: FontDsl,
       length: LengthDsl,
-      image: ImageDsl,
-      templateImage: TemplateImageDsl,
+      image: Image,
+      templateImage: Image,
       iconize: Iconize,
       tooltip:ToolTipDsl,
       alternate:AlternateDsl,
@@ -181,8 +193,18 @@ trait MenuDsl {
         if(textSize != DefaultValue) set = set + TextSize(textSize.asInstanceOf)
         if(font != DefaultValue) set = set + Font(font.asInstanceOf)
         if(length != DefaultValue) set = set + Length(length.asInstanceOf)
-        if(image != None) set = set + Image(image.asInstanceOf)
-        if(templateImage != None) set = set + TemplateImage(templateImage.asInstanceOf)
+        image match {
+          case Image.Base64Image(value) => set = set + ImageAttribute(value)
+          // case Image.ImageUrl(url) => ???
+          case Image.ResourceImage(path) => set = set + ImageAttribute(getResourceImage(path))
+          case Image.None => 
+        }
+        templateImage match {
+          case Image.Base64Image(value) => set = set + TemplateImage(value)
+          // case Image.ImageUrl(url) => ???
+          case Image.ResourceImage(path) => set = set + TemplateImage(getResourceImage(path))
+          case Image.None => 
+        }
         if(tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)
         if(alternate != DefaultValue) set = set + Alternate(alternate.asInstanceOf)
         if(shortcut != None) set = set + Shortcut(shortcut.asInstanceOf)
@@ -204,8 +226,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
@@ -226,8 +248,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       alternate:AlternateDsl = DefaultValue,
@@ -246,8 +268,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       alternate:AlternateDsl = DefaultValue,
@@ -268,8 +290,8 @@ trait MenuDsl {
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
-      image: ImageDsl = None,
-      templateImage: TemplateImageDsl = None,
+      image: Image = Image.None,
+      templateImage: Image = Image.None,
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       alternate:AlternateDsl = DefaultValue,
