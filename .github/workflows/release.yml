@@ -22,6 +22,8 @@ jobs:
             ~/.ivy2/cache
             ~/.sbt
       - uses: olafurpg/setup-scala@v10
+        with:
+          java-version: adopt@1.11
       - name: Publish ${{ github.ref }}
         run: sbt ci-release
         env:
