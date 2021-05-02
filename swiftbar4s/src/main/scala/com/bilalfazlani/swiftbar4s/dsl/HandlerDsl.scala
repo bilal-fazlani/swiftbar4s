@@ -50,7 +50,7 @@ trait HandlerDsl {
     given t:HandlerBuilder = HandlerBuilder()
     init
     t
-  }
+  } 
 
   def handle(action: String)(metadataF : MetadataFunction): ContextFunction[HandlerBuilder] = {   
     val handlerBuilder: HandlerBuilder = summon[HandlerBuilder]  

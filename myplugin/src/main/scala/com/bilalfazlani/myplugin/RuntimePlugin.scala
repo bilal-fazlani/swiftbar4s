@@ -2,7 +2,6 @@ package com.bilalfazlani.myplugin
 
 import com.bilalfazlani.swiftbar4s.*
 import com.bilalfazlani.swiftbar4s.dsl.*
-import com.bilalfazlani.swiftbar4s.devtools.PluginPreview
 import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
 import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
 
@@ -15,8 +14,9 @@ object RuntimePlugin extends Plugin with MenuDsl {
           import r.*
           
           osVersion <= OSVersion.Catalina
-          osVersion > OSVersion.ElCapitan
-          osVersion isNot OSVersion(major = 10, minor = 11)
+          osVersion > OSVersion.BigSur
+          osVersion isNot OSVersion.Catalina
+          osVersion is OSVersion.Catalina
           
           text(s"OS version: ${r.osVersion}")
           text(s"OS theme: ${r.osAppearance}")

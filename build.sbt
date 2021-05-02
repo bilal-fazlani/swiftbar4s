@@ -31,7 +31,7 @@ inThisBuild(
 
 lazy val swiftbar4s_root = project
   .in(file("."))
-  .aggregate(swiftbar4s, myplugin, `swiftbar4s-devtools`)
+  .aggregate(swiftbar4s, myplugin)
   .settings(
     publish / skip  := true
   )
@@ -46,16 +46,6 @@ lazy val swiftbar4s = project
     )
   )
 
-lazy val `swiftbar4s-devtools` = project
-  .in(file("./swiftbar4s-devtools"))
-  .settings(
-    name := "swiftbar4s-devtools",
-    libraryDependencies ++= Seq(
-      Libs.`better-files`
-    )
-  )
-  .dependsOn(swiftbar4s)
-
 lazy val myplugin = project
   .in(file("./myplugin"))
   .settings(
@@ -68,4 +58,4 @@ lazy val myplugin = project
     publish / skip  := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
-  .dependsOn(`swiftbar4s-devtools`)
+  .dependsOn(`swiftbar4s`)
