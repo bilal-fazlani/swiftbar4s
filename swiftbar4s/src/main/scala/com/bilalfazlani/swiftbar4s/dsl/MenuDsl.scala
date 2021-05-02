@@ -11,22 +11,17 @@ import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
 import org.reactivestreams.{Publisher, Processor, Subscriber}
 
+type SimpleType = Text | Link | DispatchAction | ShellCommand
+
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
-
-class MenuBuilder(val textItem:Text) {
-  val items:ListBuffer[AllowedType] = new ListBuffer()
+    
+class MenuBuilder(textItem:Text) {
+  var items:Seq[AllowedType] = Seq.empty
+  add(textItem)
   def add(item:AllowedType) = {
-    items.addOne(item)
+    items = items.appended(item)
   }
-
   override def toString = items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
-
-  type SimpleType = Text | Link | DispatchAction | ShellCommand
-
-  def build: Menu = Menu(textItem, items.map{
-    case x:MenuBuilder => x.build
-    case a:SimpleType  => a
-  }.toSeq)
 }
 
 type ContextFunction[T] = T ?=> Unit
@@ -54,6 +49,11 @@ trait MenuDsl extends Plugin {
       case Disabled
     }
 
+    def build(items:Seq[AllowedType]): Menu = Menu(items.head.asInstanceOf, items.drop(1).map {
+      case x:MenuBuilder => build(x.items)
+      case a:SimpleType  => a
+    }.toSeq)
+
     extension [T] (value:T)
       infix def ifDark[A <: T](value2:A)(using Option[SwiftBarRuntime]): T = summon[Option[SwiftBarRuntime]] match {
         case Some(r) => if r.osAppearance == OSAppearance.Light then value else value2
@@ -68,10 +68,11 @@ trait MenuDsl extends Plugin {
       java.util.Base64.getEncoder.encodeToString(bytes)
     }
 
-    def menu : MenuBuilder | Publisher[MenuBuilder]
+    private var topMenu : Option[MenuBuilder | Publisher[MenuBuilder]] = None
 
-    def appMenu: Menu | Publisher[Menu] = menu match {
-      case mb: MenuBuilder => mb.build
+    def appMenu: Menu | Publisher[Menu] = topMenu match {
+      case Some(mb: MenuBuilder) => build(mb.items)
+      case None => throw new NotImplementedError("no menu")
       case _ => throw new NotImplementedError("Publisher[Menu] is not supported yet")
     }
 
@@ -90,6 +91,7 @@ trait MenuDsl extends Plugin {
       given t:MenuBuilder = MenuBuilder(Text(text, 
         getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
       init
+      topMenu = Some(t)
       t
     }
 

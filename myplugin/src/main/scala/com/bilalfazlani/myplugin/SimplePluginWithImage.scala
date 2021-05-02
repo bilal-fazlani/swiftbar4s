@@ -3,8 +3,8 @@ package com.bilalfazlani.myplugin
 import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl.*
 
-object SimplePluginWithImage extends Plugin with MenuDsl {
-  override val menu = menu("my-plugin", templateImage = Image.Resource("success.png")) {
+object SimplePluginWithImage extends MenuDsl {
+  menu("my-plugin", templateImage = Image.Resource("success.png")) {
     text("success", image =  Image.Base64("img1"))
 
     runtime.foreach { r =>

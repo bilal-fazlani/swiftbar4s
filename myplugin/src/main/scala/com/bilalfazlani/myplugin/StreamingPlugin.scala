@@ -10,7 +10,7 @@ import akka.stream.scaladsl.*
 import com.bilalfazlani.responses.Event
 
 
-object StreamingPlugin extends Plugin with MenuDsl {
+object StreamingPlugin extends MenuDsl {
     given actorSystem: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "actorSystem")
     import actorSystem.executionContext
     val client = EntityClient("localhost", 9090)
@@ -31,7 +31,7 @@ object StreamingPlugin extends Plugin with MenuDsl {
         case _ => 
     }
 
-    override val menu = client.subscribe.block.map(event => menu(menuTitle(event)){
+    client.subscribe.block.map(event => menu(menuTitle(event)){
         notification(event)
 
         def renderMenuItems(entities:Set[Entity]):Unit = 
