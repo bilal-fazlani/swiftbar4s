@@ -15,11 +15,11 @@
 # Usage
 
 ```scala
-import com.bilalfazlani.swiftbar4s._
-import com.bilalfazlani.swiftbar4s.dsl._
+import com.bilalfazlani.swiftbar4s.*
+import com.bilalfazlani.swiftbar4s.dsl.*
 
-object SimplePlugin extends Plugin with MenuDsl with HandlerDsl {
-  override val handler = handler {
+object SimplePlugin extends MenuDsl with HandlerDsl {
+  handler {
     handle("send-email") { emailMayBe =>
       println(s"email sent to $emailMayBe")
     }
@@ -29,11 +29,12 @@ object SimplePlugin extends Plugin with MenuDsl with HandlerDsl {
     }
   }
 
-  override val appMenu = menu("my-plugin", color = "red,green") {
+  menu("my-plugin", color = "red,green") {
     action("send email", "send-email", Some("abc@xyz.com"), true)
     action("print hello", "print-hello", showTerminal = true)
     text("item 1", font = "Times")
     ---
+
     text("item 2", textSize = 15)
     subMenu("submenu"){
       text("item 3", length = 4)
@@ -44,6 +45,7 @@ object SimplePlugin extends Plugin with MenuDsl with HandlerDsl {
       subMenu("nested", color = "orange"){
         text("item 10")
         ---
+
         text("item 11")
         shellCommand("item 12", "echo", showTerminal = true ,params = "hello world", "sds")
       }
