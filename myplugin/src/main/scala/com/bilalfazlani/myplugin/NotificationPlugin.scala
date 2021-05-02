@@ -5,11 +5,11 @@ import com.bilalfazlani.swiftbar4s.dsl.*
 
 object NotificationPlugin extends Plugin with MenuDsl with HandlerDsl {
 
-  override val handler = handler {
-      handle("notify") { name =>
-        println(s"clicked on $name")
-        notify("clicked!", name)
-      }
+  handler {
+    handle("notify") { name =>
+      println(s"clicked on $name")
+      notify("clicked!", name)
+    }
   }
 
   override val menu = menu("my-plugin") {

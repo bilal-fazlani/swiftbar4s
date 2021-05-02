@@ -16,7 +16,7 @@ type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class Plugin extends Environment with Notifications {
   def appMenu: Menu | Publisher[Menu]
-  val handler: HandlerBuilder = HandlerBuilder()
+  def appHandler: Handler = ???
   val parser = new Parser(
     new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", "."))
   )
@@ -28,9 +28,9 @@ abstract class Plugin extends Environment with Notifications {
   def main(args: Array[String]): Unit = {
     args.toList match {
       case "dispatch" :: action :: Nil =>
-        handler.build()(decode(action), None)
+        appHandler(decode(action), None)
       case "dispatch" :: action :: metadata :: Nil =>
-        handler.build()(decode(action), Some(decode(metadata)))
+        appHandler(decode(action), Some(decode(metadata)))
       case _ =>
         appMenu match {
           case mb: Menu   => menuRenderer.renderMenu(mb, false)
