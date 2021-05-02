@@ -7,7 +7,7 @@ import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
 import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
 
 object RuntimePlugin extends Plugin with MenuDsl {
-  override val appMenu = menu("my-plugin", shortcut = "ABC") {
+  override val menu = menu("my-plugin", shortcut = "ABC") {
     runtime match {
         case None => 
           text("Not running via swiftbar")

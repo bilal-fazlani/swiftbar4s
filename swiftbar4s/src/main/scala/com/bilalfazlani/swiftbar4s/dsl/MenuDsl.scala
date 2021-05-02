@@ -2,17 +2,14 @@ package com.bilalfazlani.swiftbar4s.dsl
 
 import scala.collection.mutable.ListBuffer
 import com.bilalfazlani.swiftbar4s.models.MenuItem
+import com.bilalfazlani.swiftbar4s.Plugin
+import com.bilalfazlani.swiftbar4s.MenuSubscriber
 import com.bilalfazlani.swiftbar4s.dsl.SwiftBarRuntime
 import com.bilalfazlani.swiftbar4s.models.Attribute
 import com.bilalfazlani.swiftbar4s.models.Attribute.{Image as ImageAttribute, *}
 import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import scala.sys.env
-
-extension [T] (value:T)
-  infix def ifDark[A <: T](value2:A)(using Option[SwiftBarRuntime]): T = summon[Option[SwiftBarRuntime]] match {
-    case Some(r) => if r.osAppearance == OSAppearance.Light then value else value2
-    case None => value
-  }
+import org.reactivestreams.{Publisher, Processor, Subscriber}
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
 
@@ -35,12 +32,12 @@ class MenuBuilder(val textItem:Text) {
 type ContextFunction[T] = T ?=> Unit
 
 enum Image:
-  case ResourceImage(path:String)
-  // case ImageUrl(url:String)
-  case Base64Image(value:String)
+  case Resource(path:String)
+  // case Url(url:String)
+  case Base64(value:String)
   case None
 
-trait MenuDsl {
+trait MenuDsl extends Plugin {
     case object DefaultValue
     type ColorDsl = String | DefaultValue.type
     type TextSizeDsl = Int | DefaultValue.type
@@ -57,12 +54,25 @@ trait MenuDsl {
       case Disabled
     }
 
+    extension [T] (value:T)
+      infix def ifDark[A <: T](value2:A)(using Option[SwiftBarRuntime]): T = summon[Option[SwiftBarRuntime]] match {
+        case Some(r) => if r.osAppearance == OSAppearance.Light then value else value2
+        case None => value
+      }
+
     private def getResourceImage(path:String) = {
       val effectivePath = if path.startsWith("/") then path else ("/" + path)
       val img = getClass.getResourceAsStream(effectivePath)
       if img == null then throw new RuntimeException(s"image $effectivePath not found in resources")
       val bytes  = img.readAllBytes
       java.util.Base64.getEncoder.encodeToString(bytes)
+    }
+
+    def menu : MenuBuilder | Publisher[MenuBuilder]
+
+    def appMenu: Menu | Publisher[Menu] = menu match {
+      case mb: MenuBuilder => mb.build
+      case _ => throw new NotImplementedError("Publisher[Menu] is not supported yet")
     }
 
     def menu(
@@ -194,15 +204,15 @@ trait MenuDsl {
         if(font != DefaultValue) set = set + Font(font.asInstanceOf)
         if(length != DefaultValue) set = set + Length(length.asInstanceOf)
         image match {
-          case Image.Base64Image(value) => set = set + ImageAttribute(value)
-          // case Image.ImageUrl(url) => ???
-          case Image.ResourceImage(path) => set = set + ImageAttribute(getResourceImage(path))
+          case Image.Base64(value) => set = set + ImageAttribute(value)
+          // case Image.Url(url) => ???
+          case Image.Resource(path) => set = set + ImageAttribute(getResourceImage(path))
           case Image.None => 
         }
         templateImage match {
-          case Image.Base64Image(value) => set = set + TemplateImage(value)
-          // case Image.ImageUrl(url) => ???
-          case Image.ResourceImage(path) => set = set + TemplateImage(getResourceImage(path))
+          case Image.Base64(value) => set = set + TemplateImage(value)
+          // case Image.Url(url) => ???
+          case Image.Resource(path) => set = set + TemplateImage(getResourceImage(path))
           case Image.None => 
         }
         if(tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)

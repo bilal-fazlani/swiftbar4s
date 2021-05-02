@@ -5,7 +5,7 @@ import com.bilalfazlani.swiftbar4s.dsl.*
 
 object AlternatePlugin extends Plugin with MenuDsl {
 
-  override val appMenu = menu("my-plugin") {
+  override val menu = menu("my-plugin") {
     link("google", "https://google.com")
     link("yahoo", "https://yahoo.com", alternate = true)
   }

@@ -12,7 +12,7 @@ object NotificationPlugin extends Plugin with MenuDsl with HandlerDsl {
       }
   }
 
-  override val appMenu = menu("my-plugin") {
+  override val menu = menu("my-plugin") {
     link("open google", "https://google.com")
     action("notify", "notify", Some("abc"), alternate = true, refresh = true)
   }

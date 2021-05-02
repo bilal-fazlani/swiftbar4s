@@ -3,6 +3,7 @@ package com.bilalfazlani.swiftbar4s.dsl
 import scala.sys.process.*
 
 trait Notifications { this: Environment =>
+  //todo: support href
   def notify(
       title: String,
       subtitle: Option[String] = None,

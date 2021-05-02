@@ -31,7 +31,7 @@ object StreamingPlugin extends Plugin with MenuDsl {
         case _ => 
     }
 
-    override val appMenu = client.subscribe.block.map(event => menu(menuTitle(event)){
+    override val menu = client.subscribe.block.map(event => menu(menuTitle(event)){
         notification(event)
 
         def renderMenuItems(entities:Set[Entity]):Unit = 
