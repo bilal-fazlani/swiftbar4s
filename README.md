@@ -15,10 +15,9 @@
 # Usage
 
 ```scala
-import com.bilalfazlani.swiftbar4s.*
 import com.bilalfazlani.swiftbar4s.dsl.*
 
-object SimplePlugin extends MenuDsl with HandlerDsl {
+object SimplePlugin extends PluginDsl {
   handler {
     handle("send-email") { emailMayBe =>
       println(s"email sent to $emailMayBe")
@@ -58,4 +57,4 @@ object SimplePlugin extends MenuDsl with HandlerDsl {
 
 You can create text, web links, shell commands and plugin actions.
 
-All the items support configuratios such as color, text size, image, emojis etc.
+All the items support configurations such as color, text size, image, emojis etc.
