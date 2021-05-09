@@ -14,7 +14,7 @@ import org.reactivestreams.Publisher
 
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
-abstract class Plugin extends Environment with Notifications {
+abstract class Plugin {
   def appMenu: Menu | Publisher[Menu]
   def appHandler: Handler = ???
   val parser = new Parser(

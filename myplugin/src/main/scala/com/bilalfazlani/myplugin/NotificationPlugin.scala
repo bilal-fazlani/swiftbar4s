@@ -1,12 +1,10 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.swiftbar4s.Plugin
-import com.bilalfazlani.swiftbar4s.dsl.*
+import com.bilalfazlani.swiftbar4s.dsl.PluginDsl
 
-object NotificationPlugin extends MenuDsl with HandlerDsl {
+object NotificationPlugin extends PluginDsl {
   handler {
     handle("notify") { name =>
-      println(s"clicked on $name")
       notify("clicked!", name)
     }
   }

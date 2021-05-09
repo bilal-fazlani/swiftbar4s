@@ -1,9 +1,8 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.swiftbar4s.Plugin
 import com.bilalfazlani.swiftbar4s.dsl.*
 
-object SimplePluginWithImage extends MenuDsl {
+object SimplePluginWithImage extends PluginDsl {
   menu("my-plugin", templateImage = Image.Resource("success.png")) {
     text("success", image =  Image.Base64("img1"))
 

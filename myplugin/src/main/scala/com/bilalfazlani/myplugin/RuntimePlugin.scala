@@ -1,11 +1,8 @@
 package com.bilalfazlani.myplugin
 
-import com.bilalfazlani.swiftbar4s.*
 import com.bilalfazlani.swiftbar4s.dsl.*
-import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
-import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
 
-object RuntimePlugin extends MenuDsl {
+object RuntimePlugin extends PluginDsl {
   menu("my-plugin", shortcut = "ABC") {
     runtime match {
         case None => 

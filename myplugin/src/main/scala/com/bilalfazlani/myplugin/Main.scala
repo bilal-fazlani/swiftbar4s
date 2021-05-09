@@ -1,53 +1,51 @@
-// package com.bilalfazlani.myplugin
+ package com.bilalfazlani.myplugin
 
-// import com.bilalfazlani.swiftbar4s.SwiftBarApp
-// import com.bilalfazlani.swiftbar4s.dsl.HandlerDsl
-// import com.bilalfazlani.swiftbar4s.dsl.MenuDsl
-// import com.bilalfazlani.swiftbar4s.dsl.TagDsl
-// import scala.language.implicitConversions
+ import com.bilalfazlani.swiftbar4s.dsl.*
 
-// object Main extends SwiftBarApp with MenuDsl with HandlerDsl {
+ object Main extends PluginDsl {
 
-//   override val handler = handler {
-//     handle("send-email") { emailMayBe =>
-//       emailMayBe.map(sendEmail)
-//     }
+   handler {
+     handle("send-email") { emailMayBe =>
+       emailMayBe.map(sendEmail)
+     }
 
-//     handle("print-hello") {
-//       println("hello world")
-//     }
-//   }
+     handle("print-hello") {
+       println("hello world")
+     }
+   }
 
-//   override val appMenu = menu(
-//     "my-plugin",
-//     color = if (isDarkMode) "white" else "red",
-//     textSize = 20
-//   ) {
-//     action("send email", "send-email", Some("abc@xyz.com"), true)
-//     action("print hello", "print-hello", showTerminal = true)
-//     text("item 1", font = "Times")
-//     ---
-//     text("item 2", textSize = 15)
-//     subMenu("submenu") {
-//       text("item 3")
-//       text("item 4")
-//       Range(20, 30).foreach { i =>
-//         link(s"item_$i", "http://google.com")
-//       }
-//       subMenu("nested", color = "orange") {
-//         text("item 5")
-//         ---
-//         text("item 6")
-//         shellCommand(
-//           "item 7",
-//           "echo",
-//           showTerminal = true,
-//           params = "hello world",
-//           "sds"
-//         )
-//       }
-//     }
-//   }
+   menu(
+     "my-plugin",
+     color = "white" ifDark "red",
+     textSize = 20
+   ) {
+     action("send email", "send-email", Some("abc@xyz.com"), true)
+     action("print hello", "print-hello", showTerminal = true)
+     text("item 1", font = "Times")
+     ---
 
-//   def sendEmail(email: String) = println(s"email sent to $email")
-// }
+     text("item 2", textSize = 15)
+     subMenu("submenu") {
+       text("item 3")
+       text("item 4")
+       Range(20, 30).foreach { i =>
+         link(s"item_$i", "http://google.com")
+       }
+       subMenu("nested", color = "orange") {
+         text("item 5")
+         ---
+
+         text("item 6")
+         shellCommand(
+           "item 7",
+           "echo",
+           showTerminal = true,
+           params = "hello world",
+           "sds"
+         )
+       }
+     }
+   }
+
+   def sendEmail(email: String) = println(s"email sent to $email")
+ }
