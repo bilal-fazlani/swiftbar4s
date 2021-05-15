@@ -119,10 +119,9 @@ Renders a shell command. Requires path of the command and its parameters(optiona
 | `refresh`      | Boolean           | N        | True    | Refreshes the plugin after command execution |
 | `params`       | String* (varargs) | N        |         | Parameters to command                        |
 
-
 ## Action
 
-Renders an action item. A handler for this action must be defined in the plugin.
+Renders an action item. A [handler](/action-handlers) for this action must be defined in the plugin.
 Supports metadata, which will be passed to action handler method.
 
 === "Scala"
@@ -151,7 +150,6 @@ Supports metadata, which will be passed to action handler method.
 | `metadata`     | String  | N        | None    | Data to be passed to action handler          |
 | `showTerminal` | Boolean | N        | False   | Opens terminal and show command output       |
 | `refresh`      | Boolean | N        | True    | Refreshes the plugin after command execution |
-
 
 ## SubMenu
 

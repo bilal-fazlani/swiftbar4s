@@ -82,6 +82,7 @@ For example,
 
 ```scala
 osVersion <= OSVersion.Catalina
-osVersion > OSVersion.ElCapitan
-osVersion isNot OSVersion(major = 10, minor = 11)
+osVersion > OSVersion.BigSur
+osVersion isNot OSVersion.Catalina
+osVersion is OSVersion.Catalina
 ```

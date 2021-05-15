@@ -7,10 +7,13 @@ strict: true
 
 theme:
   features:
-    # - navigation.tabs
+#    - navigation.tabs
     - instant
     - toc.integrate
     - navigation.sections
+    - navigation.top
+#    - header.autohide
+
   name: 'material'
   icon:
     repo: fontawesome/brands/github
@@ -27,10 +30,6 @@ theme:
         icon: material/lightbulb
         name: Switch to light mode
   logo: 'images/logo-svg.svg'
-
-# google_analytics:
-#   - 'UA-39358317-3'
-#   - 'auto'
 
 markdown_extensions:
   - admonition
