@@ -1,11 +1,8 @@
-//val sv = "2.13.5"
-val sv = "3.0.0-RC3"
-
 val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
-    scalaVersion := sv,
+    scalaVersion := "3.0.0",
     organization := org,
     homepage := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
@@ -21,7 +18,6 @@ inThisBuild(
         url("https://bilal-fazlani.com")
       )
     ),
-    resolvers += Resolver.JCenterRepository,
     scalacOptions ++= Seq(
       "-source", "future",
       "-deprecation"
