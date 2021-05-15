@@ -28,7 +28,7 @@ type ContextFunction[T] = T ?=> Unit
 
 enum Image:
   case Resource(path:String)
-  // case Url(url:String)
+  // case Url(url:String) //todo: support url image
   case Base64(value:String)
   case None
 
