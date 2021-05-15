@@ -2,12 +2,19 @@
     --md-primary-fg-color:        #125ea0;
     --md-primary-fg-color--light: #0088ff;
     --md-primary-fg-color--dark: #0088ff;
+}
 
-    --md-accent-fg-color: hsl(144deg 68% 55%);
+:root [data-md-color-scheme=slate] {
+    --md-typeset-a-color: #0088ff;
+    --md-accent-fg-color: #3eda7d;
+}
+
+:root [data-md-color-scheme=default] {
+    --md-accent-fg-color: #068922;
 }
 
 :root > * {
-
+--md-typeset-a-color: #0088ff;
 --md-default-fg-color--light: hsl(208deg 74% 62%);
 
 /* Footer */
