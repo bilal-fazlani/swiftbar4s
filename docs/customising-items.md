@@ -7,7 +7,7 @@ All menu items support customisations for below parameters. All of these customi
 === "Scala"
 
     ```scala
-    override val appMenu = menu("my plugin", color = "yellow") {
+    menu("my plugin", color = "yellow") {
       text("menu item 1", color = "red,pink")
       text("menu item 2", color = "#11bf40")
       text("menu item 3", color = DefaultValue)

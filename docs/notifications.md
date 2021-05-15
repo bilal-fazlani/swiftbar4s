@@ -6,13 +6,13 @@ Swiftbar supports notifications. If you want to trigger a notification, there is
 === "Scala"
 
     ```scala
-    object MyPlugin extends Plugin with MenuDsl {
+    object MyPlugin extends PluginDsl {
         val data = Service.fetchData
 
         if(data.exists(_.isNew)) 
             notify(s"new data is available!")
 
-        val appMenu = menu("my-plugin") {
+        menu("my-plugin") {
             data.foreach(record => 
                 text(record.description)
             )
@@ -54,4 +54,4 @@ def notify(
 ```
 
 !!! Warning "Remember"
-    For notifications to work, it is required that plugin is triggered via swiftbar
+    For notifications to work, it is required that plugin is triggered via Swiftbar and not manually

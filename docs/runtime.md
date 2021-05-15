@@ -1,6 +1,6 @@
 # Runtime
 
-You are provided with a runtime api which privide basic information about the runtime environment
+You are provided with a runtime api which provide basic information about the runtime environment
 
 Runtime object gives you the following information
 
@@ -19,8 +19,8 @@ Runtime object gives you the following information
 === "Scala"
 
     ```scala
-    object MyPlugin extends Plugin with MenuDsl {
-      override val appMenu = menu("my-plugin") {
+    object MyPlugin extends PluginDsl {
+      menu("my-plugin") {
         runtime match {
             case None => 
               text("Not running via swiftbar")

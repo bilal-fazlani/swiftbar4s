@@ -4,7 +4,7 @@
 
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.bilal-fazlani/swiftbar4s_3.0.0-M3?label=SNAPSHOT%20VERSION&server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge)
 
-You can either use giter8 template to setup the project or setup the projet manually
+You can either use giter8 template to setup the project or setup the project manually
 
 ## Using Giter8
 
@@ -19,7 +19,7 @@ The following command installs giter8
 cs install giter8
 ```
 
-Now, lets bootstrap a swiftbar plugin project
+Now, lets bootstrap a Swiftbar plugin project
 
 ```bash
 g8 bilal-fazlani/swiftbar4s.g8
@@ -32,17 +32,12 @@ Add the following sbt dependency
 ```scala
 libraryDependencies += "com.bilal-fazlani" %% "swiftbar4s" % "<VERSION>"
 ```
-Since project is created using scala 3, you will need `sbt-dotty` plugin. Add the following line in `project/plugins.sbt`
 
-```
-addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.2")
-```
-
-Set the scalaVersion to `3.0.0-M3`
+Set the scalaVersion to `3.0.0`
 
 ```scala
 inThisBuild(
-  Seq(scalaVersion := "3.0.0-M3")
+  Seq(scalaVersion := "3.0.0")
 )
 ```
 

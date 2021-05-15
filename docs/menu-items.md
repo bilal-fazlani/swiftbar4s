@@ -12,7 +12,7 @@ example of empty menu:
 === "Scala"
 
     ```scala
-    override val appMenu = menu("my plugin") {
+    menu("my plugin") {
 
     }
     ```
@@ -29,7 +29,7 @@ example with menu items:
 === "Scala"
 
     ```scala
-    override val appMenu = menu("my plugin") {
+    menu("my plugin") {
       text("item 1")
       link("click me", url="https://something.com")
     }
@@ -71,7 +71,7 @@ Renders a clickable link and opens given url.
 === "Scala"
 
     ```scala
-    override val appMenu = menu("my plugin") {
+    menu("my plugin") {
       link("click me", url="https://something.com")
     }
     ```
@@ -196,6 +196,7 @@ Renders a sub-menu with nested menu items. Supports all menu items which are sup
       text("item 1: success")
       text("item 2: success")
       ---
+
       text("item 3: failed")
       text("item 4: failed")
     }
@@ -212,6 +213,12 @@ Renders a sub-menu with nested menu items. Supports all menu items which are sup
     item 3: failed
     item 4: failed
     ```
+
+!!! tip "Important"
+   
+    Note the empty line after `---`
+    
+    This is required in Scala 3
 
 Example of separator
 
