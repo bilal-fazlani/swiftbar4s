@@ -20,21 +20,15 @@ object HttpClient {
   //   Expr(getBytes(url.valueOrError))
 
   def getBytes(url:String): Option[Array[Byte]] = Try {
-      println("fetching data...")
       val connection =
         (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
       connection.setConnectTimeout(connectTimeout)
       connection.setReadTimeout(readTimeout)
       connection.setRequestMethod(requestMethod)
-      val inputStream  = connection.getInputStream
-      val bytes = inputStream.readAllBytes()
-      println(s"image length: ${bytes.length}")
-      println("DONE")
-      if (inputStream != null) inputStream.close
-      println("saving to file...")
-      val f = new FileOutputStream("tempfile.png")
-      f.write(bytes)
-      f.close()
-      bytes
-    }.toOption
+      for {
+        stream <- Option(connection.getInputStream)
+        bytes = stream.readAllBytes()
+        _ = stream.close()
+      } yield bytes
+    }.toOption.flatten
 }

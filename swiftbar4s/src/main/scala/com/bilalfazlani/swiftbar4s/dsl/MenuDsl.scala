@@ -256,9 +256,6 @@ trait MenuDsl extends Plugin {
 
     infix def --- : ContextFunction[MenuBuilder] = summon[MenuBuilder].add(Text("---"))
 
-    def fromResource(fileName:String) = ???
-    def fromUrl(fileName:String) = ???
-
     def link(
       text:String,
       url:String,
