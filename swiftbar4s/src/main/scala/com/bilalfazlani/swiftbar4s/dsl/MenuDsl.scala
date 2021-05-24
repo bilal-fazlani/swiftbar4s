@@ -8,13 +8,15 @@ import com.bilalfazlani.swiftbar4s.dsl.SwiftBarRuntime
 import com.bilalfazlani.swiftbar4s.models.Attribute
 import com.bilalfazlani.swiftbar4s.models.Attribute.{Image as ImageAttribute, *}
 import com.bilalfazlani.swiftbar4s.models.MenuItem.*
+import com.bilalfazlani.swiftbar4s.utils.HttpClient
+
 import scala.sys.env
-import org.reactivestreams.{Publisher, Processor, Subscriber}
+import org.reactivestreams.{Processor, Publisher, Subscriber}
 
 type SimpleType = Text | Link | DispatchAction | ShellCommand
 
 type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
-    
+
 class MenuBuilder(textItem:Text) {
   var items:Seq[AllowedType] = Seq.empty
   add(textItem)
@@ -28,7 +30,7 @@ type ContextFunction[T] = T ?=> Unit
 
 enum Image:
   case Resource(path:String)
-  // case Url(url:String) //todo: support url image
+  case Url(url:String)
   case Base64(value:String)
   case None
 
@@ -60,6 +62,10 @@ trait MenuDsl extends Plugin {
         case None => value
       }
 
+    private def getUrlImage(url:String) = HttpClient.getBytes(url)
+      .map(java.util.Base64.getEncoder.encodeToString)
+      .getOrElse("")
+
     private def getResourceImage(path:String) = {
       val effectivePath = if path.startsWith("/") then path else ("/" + path)
       val img = getClass.getResourceAsStream(effectivePath)
@@ -78,7 +84,7 @@ trait MenuDsl extends Plugin {
 
     def menu(
       text:String,
-      color:ColorDsl = DefaultValue, 
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -88,7 +94,7 @@ trait MenuDsl extends Plugin {
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
       )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
-      given t:MenuBuilder = MenuBuilder(Text(text, 
+      given t:MenuBuilder = MenuBuilder(Text(text,
         getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
       init
       topMenu = Some(t)
@@ -96,8 +102,8 @@ trait MenuDsl extends Plugin {
     }
 
     def subMenu(
-      text:String, 
-      color:ColorDsl = DefaultValue, 
+      text:String,
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -107,7 +113,7 @@ trait MenuDsl extends Plugin {
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
       )(init: ContextFunction[MenuBuilder])(using menuDsl:MenuBuilder): MenuBuilder = {
-      val innerMenu = MenuBuilder(Text(text, 
+      val innerMenu = MenuBuilder(Text(text,
         getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
       summon[MenuBuilder].add(innerMenu)
       {
@@ -119,8 +125,8 @@ trait MenuDsl extends Plugin {
 
     object topLevel {
       def text(
-      text:String, 
-      color:ColorDsl = DefaultValue, 
+      text:String,
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -129,13 +135,13 @@ trait MenuDsl extends Plugin {
       iconize: Iconize = Iconize.Auto,
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
-      ): Text = Text(text, 
+      ): Text = Text(text,
         getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, DefaultValue, shortcut))
-    
+
       def link(
-        text:String, 
+        text:String,
         url:String,
-        color:ColorDsl = DefaultValue, 
+        color:ColorDsl = DefaultValue,
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
@@ -145,15 +151,15 @@ trait MenuDsl extends Plugin {
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
         shortcut:ShortcutDsl = None,
-        ): Link = Link(text, url, 
+        ): Link = Link(text, url,
           getAttributes(color, textSize, font, length, image, templateImage, iconize,tooltip, alternate, shortcut))
-      
+
       def shellCommand(
-        text:String, 
+        text:String,
         executable:String,
         showTerminal:Boolean = false,
         refresh:Boolean = true,
-        color:ColorDsl = DefaultValue, 
+        color:ColorDsl = DefaultValue,
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
@@ -164,17 +170,17 @@ trait MenuDsl extends Plugin {
         alternate:AlternateDsl = DefaultValue,
         shortcut:ShortcutDsl = None,
         params:String*,
-        ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh, 
+        ): ShellCommand  = ShellCommand(text, executable, params, showTerminal, refresh,
           getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut))
-      
+
 
       def actionDispatch(
-        text:String, 
+        text:String,
         action: String,
         metadata:Option[String],
         showTerminal:Boolean = false,
         refresh:Boolean = true,
-        color:ColorDsl = DefaultValue, 
+        color:ColorDsl = DefaultValue,
         textSize: TextSizeDsl = DefaultValue,
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
@@ -184,7 +190,7 @@ trait MenuDsl extends Plugin {
         tooltip:ToolTipDsl = None,
         alternate:AlternateDsl = DefaultValue,
         shortcut:ShortcutDsl = None,
-        ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh, 
+        ): DispatchAction = DispatchAction(text,action, metadata, showTerminal, refresh,
           getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut))
     }
 
@@ -207,34 +213,34 @@ trait MenuDsl extends Plugin {
         if(length != DefaultValue) set = set + Length(length.asInstanceOf)
         image match {
           case Image.Base64(value) => set = set + ImageAttribute(value)
-          // case Image.Url(url) => ???
+          case Image.Url(url) => set = set + ImageAttribute(getUrlImage(url))
           case Image.Resource(path) => set = set + ImageAttribute(getResourceImage(path))
-          case Image.None => 
+          case Image.None =>
         }
         templateImage match {
           case Image.Base64(value) => set = set + TemplateImage(value)
-          // case Image.Url(url) => ???
+          case Image.Url(url) => set = set + TemplateImage(getUrlImage(url))
           case Image.Resource(path) => set = set + TemplateImage(getResourceImage(path))
-          case Image.None => 
+          case Image.None =>
         }
         if(tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)
         if(alternate != DefaultValue) set = set + Alternate(alternate.asInstanceOf)
         if(shortcut != None) set = set + Shortcut(shortcut.asInstanceOf)
         iconize match {
-          case Iconize.EmojiOnly => 
+          case Iconize.EmojiOnly =>
             set = set ++ Seq(Symbolize(false))
           case Iconize.SFSymbolOnly =>
             set = set ++ Seq(Emojize(false))
           case Iconize.Disabled =>
             set = set ++ Seq(Emojize(false), Symbolize(false))
-          case Iconize.Auto => 
+          case Iconize.Auto =>
         }
         set
     }
 
     def text(
-      text:String, 
-      color:ColorDsl = DefaultValue, 
+      text:String,
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -244,7 +250,7 @@ trait MenuDsl extends Plugin {
       tooltip:ToolTipDsl = None,
       shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(Text(text, 
+        summon[MenuBuilder].add(Text(text,
         getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, DefaultValue, shortcut)))
     }
 
@@ -254,9 +260,9 @@ trait MenuDsl extends Plugin {
     def fromUrl(fileName:String) = ???
 
     def link(
-      text:String, 
+      text:String,
       url:String,
-      color:ColorDsl = DefaultValue, 
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -267,16 +273,16 @@ trait MenuDsl extends Plugin {
       alternate:AlternateDsl = DefaultValue,
       shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(Link(text, url, 
+        summon[MenuBuilder].add(Link(text, url,
           getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 
     def shellCommand(
-      text:String, 
+      text:String,
       executable:String,
       showTerminal:Boolean = false,
       refresh:Boolean = true,
-      color:ColorDsl = DefaultValue, 
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -288,17 +294,17 @@ trait MenuDsl extends Plugin {
       shortcut:ShortcutDsl = None,
       params:String*,
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh, 
+        summon[MenuBuilder].add(ShellCommand(text, executable, params, showTerminal, refresh,
           getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 
     def action(
-      text:String, 
+      text:String,
       action: String,
       metadata:Option[String] = None,
       showTerminal:Boolean = false,
       refresh:Boolean = true,
-      color:ColorDsl = DefaultValue, 
+      color:ColorDsl = DefaultValue,
       textSize: TextSizeDsl = DefaultValue,
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
@@ -309,7 +315,7 @@ trait MenuDsl extends Plugin {
       alternate:AlternateDsl = DefaultValue,
       shortcut:ShortcutDsl = None,
       ): ContextFunction[MenuBuilder] = {
-        summon[MenuBuilder].add(DispatchAction(text, action, metadata, showTerminal, refresh, 
+        summon[MenuBuilder].add(DispatchAction(text, action, metadata, showTerminal, refresh,
           getAttributes(color, textSize, font, length, image, templateImage, iconize, tooltip, alternate, shortcut)))
     }
 }
