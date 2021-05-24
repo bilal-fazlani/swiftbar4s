@@ -19,16 +19,16 @@ object HttpClient {
   // def fetchMacro(url:Expr[String])(using Quotes):Expr[Option[Array[Byte]]] =
   //   Expr(getBytes(url.valueOrError))
 
-  def getBytes(url:String): Option[Array[Byte]] = Try {
-      val connection =
-        (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
-      connection.setConnectTimeout(connectTimeout)
-      connection.setReadTimeout(readTimeout)
-      connection.setRequestMethod(requestMethod)
-      for {
-        stream <- Option(connection.getInputStream)
-        bytes = stream.readAllBytes()
-        _ = stream.close()
-      } yield bytes
-    }.toOption.flatten
+  def getBytes(url: String): Option[Array[Byte]] = Try {
+    val connection =
+      (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
+    connection.setConnectTimeout(connectTimeout)
+    connection.setReadTimeout(readTimeout)
+    connection.setRequestMethod(requestMethod)
+    for {
+      stream <- Option(connection.getInputStream)
+      bytes = stream.readAllBytes()
+      _     = stream.close()
+    } yield bytes
+  }.toOption.flatten
 }

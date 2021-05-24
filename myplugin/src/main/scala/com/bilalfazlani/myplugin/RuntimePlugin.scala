@@ -5,19 +5,19 @@ import com.bilalfazlani.swiftbar4s.dsl.*
 object RuntimePlugin extends PluginDsl {
   menu("my-plugin", shortcut = "ABC") {
     runtime match {
-        case None => 
-          text("Not running via swiftbar")
-        case Some(r) => 
-          import r.*
-          
-          osVersion <= OSVersion.Catalina
-          osVersion > OSVersion.BigSur
-          osVersion isNot OSVersion.Catalina
-          osVersion is OSVersion.Catalina
-          
-          text(s"OS version: ${r.osVersion}")
-          text(s"OS theme: ${r.osAppearance}")
-          text(s"Plugin file: ${r.pluginFileName}")
+      case None =>
+        text("Not running via swiftbar")
+      case Some(r) =>
+        import r.*
+
+        osVersion <= OSVersion.Catalina
+        osVersion > OSVersion.BigSur
+        osVersion isNot OSVersion.Catalina
+        osVersion is OSVersion.Catalina
+
+        text(s"OS version: ${r.osVersion}")
+        text(s"OS theme: ${r.osAppearance}")
+        text(s"Plugin file: ${r.pluginFileName}")
     }
   }
 }
