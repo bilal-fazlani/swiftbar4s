@@ -4,7 +4,7 @@ import com.bilalfazlani.swiftbar4s.dsl.*
 
 object SimplePluginWithImage extends PluginDsl {
   menu("my-plugin", templateImage = Image.Resource("success.png")) {
-    text("success", image =  Image.Base64("img1"))
+    text("success", image = Image.Base64("img1"))
 
     runtime.foreach { r =>
       if (r.osVersion < OSVersion.BigSur)

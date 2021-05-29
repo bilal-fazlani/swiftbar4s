@@ -6,8 +6,7 @@ import com.bilalfazlani.swiftbar4s.parser.{MenuRenderer}
 import com.bilalfazlani.swiftbar4s.dsl.*
 import org.reactivestreams.*
 
-class MenuSubscriber(menuRenderer: MenuRenderer)
-    extends Subscriber[Menu] {
+class MenuSubscriber(menuRenderer: MenuRenderer) extends Subscriber[Menu] {
   var sub: Option[Subscription] = None
 
   override def onSubscribe(subscription: Subscription): Unit = {

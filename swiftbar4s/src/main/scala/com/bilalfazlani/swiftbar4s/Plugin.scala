@@ -33,7 +33,7 @@ abstract class Plugin {
         appHandler(decode(action), Some(decode(metadata)))
       case _ =>
         appMenu match {
-          case mb: Menu   => menuRenderer.renderMenu(mb, false)
+          case mb: Menu          => menuRenderer.renderMenu(mb, false)
           case mbp: Publisher[?] => mbp.subscribe(menuSubscriber.asInstanceOf)
         }
     }

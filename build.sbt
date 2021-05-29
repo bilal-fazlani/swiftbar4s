@@ -19,7 +19,8 @@ inThisBuild(
       )
     ),
     scalacOptions ++= Seq(
-      "-source", "future",
+      "-source",
+      "future",
       "-deprecation"
     )
   )
@@ -29,7 +30,7 @@ lazy val swiftbar4s_root = project
   .in(file("."))
   .aggregate(swiftbar4s, myplugin)
   .settings(
-    publish / skip  := true
+    publish / skip := true
   )
 
 lazy val swiftbar4s = project
@@ -51,7 +52,7 @@ lazy val myplugin = project
     libraryDependencies ++= Seq(
       NonProdLibs.`entities-client`
     ),
-    publish / skip  := !(sys.env
+    publish / skip := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
   )
   .dependsOn(`swiftbar4s`)

@@ -16,10 +16,9 @@ object Attribute {
   case class Alternate(value: Boolean)    extends Attribute
   case class Length(value: Int)           extends Attribute
   case class Shortcut(value: String)      extends Attribute
-  case class Checked(value: String)
-      extends Attribute
+  case class Checked(value: String)       extends Attribute
 
-      //privates
+  //privates
   private[swiftbar4s] case class Href(url: String)           extends Attribute
   private[swiftbar4s] case class Executable(path: String)    extends Attribute
   private[swiftbar4s] case class Params(values: Seq[String]) extends Attribute
