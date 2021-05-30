@@ -46,7 +46,7 @@ trait MenuDsl extends Plugin {
   type ShortcutDsl  = String | None.type
 
   enum Iconize {
-    case Auto
+    case Default
     case EmojiOnly
     case SFSymbolOnly
     case Disabled
@@ -102,7 +102,7 @@ trait MenuDsl extends Plugin {
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
       templateImage: Image = Image.None,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
   )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
@@ -138,7 +138,7 @@ trait MenuDsl extends Plugin {
       image: Image = Image.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
   )(
@@ -182,7 +182,7 @@ trait MenuDsl extends Plugin {
         image: Image = Image.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
-        iconize: Iconize = Iconize.Auto,
+        iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         shortcut: ShortcutDsl = None
     ): Text = Text(
@@ -212,7 +212,7 @@ trait MenuDsl extends Plugin {
         image: Image = Image.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
-        iconize: Iconize = Iconize.Auto,
+        iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None
@@ -246,7 +246,7 @@ trait MenuDsl extends Plugin {
         image: Image = Image.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
-        iconize: Iconize = Iconize.Auto,
+        iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None,
@@ -285,7 +285,7 @@ trait MenuDsl extends Plugin {
         image: Image = Image.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
-        iconize: Iconize = Iconize.Auto,
+        iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None
@@ -354,7 +354,7 @@ trait MenuDsl extends Plugin {
         set = set ++ Seq(Emojize(false))
       case Iconize.Disabled =>
         set = set ++ Seq(Emojize(false), Symbolize(false))
-      case Iconize.Auto =>
+      case Iconize.Default =>
     }
     set
   }
@@ -368,7 +368,7 @@ trait MenuDsl extends Plugin {
       image: Image = Image.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
   ): ContextFunction[MenuBuilder] = {
@@ -405,7 +405,7 @@ trait MenuDsl extends Plugin {
       image: Image = Image.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None
@@ -443,7 +443,7 @@ trait MenuDsl extends Plugin {
       image: Image = Image.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None,
@@ -486,7 +486,7 @@ trait MenuDsl extends Plugin {
       image: Image = Image.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
-      iconize: Iconize = Iconize.Auto,
+      iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None

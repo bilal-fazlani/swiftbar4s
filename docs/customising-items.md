@@ -152,17 +152,70 @@ As of now, [png & jpeg](https://github.com/swiftbar/SwiftBar/issues/198) images 
 
 Swiftbar4s provides some apis to use images from resource directory or from internet using a url.
 
-More for details, check out [this](/images) page.
+=== "Scala"
+    ```scala
+    menu("Jobs", image = Image.Resource("/plugin-icon.png")) {
+      text("Job 1 success", image = Image.Resource("/success.png"))
+      text("Job 2 failed", image = Image.Resource("/failed.png"))
+      text("", image = Image.Url("https://swiftbar4s.bilal-fazlani.com/images/creating-plugin/simple.png"))
+    }
+    ```
+
+More for details, check out [images](/images) page    
 
 ## TemplateImage
 
-Template images use the same data types and apis as [images](/images). from [Swiftbar documentation](https://github.com/swiftbar/SwiftBar)
+Template images use the same data types and apis as [images](/images).
+
+[Swiftbar documentation](https://github.com/swiftbar/SwiftBar) says:
 
 > Same as image, but the image is a template image. Template images consist of black and clear colors (and an alpha channel). Template images are not intended to be used as standalone images and are usually mixed with other content to create the desired final appearance.
 
-## Symbolize
+=== "Scala"
+    ```scala
+    menu("Jobs", templateImage = Image.Resource("/plugin-icon.png")) {
+      text("Job 1 success", templateImage = Image.Resource("/success.png"))
+      text("Job 2 failed", templateImage = Image.Resource("/failed.png"))
+      text("", templateImage = Image.Url("https://swiftbar4s.bilal-fazlani.com/images/creating-plugin/simple.png"))
+    }
+    ```
 
-## Emojize
+More for details, check out [images](/images) page
+
+## Iconize
+
+Iconize provides options to add SF Symbols and/or github style emojis to menu items
+
+=== "Scala"
+
+    ```scala
+      menu("icons!!") {
+        text("line1 :mushroom: :gamecontroller.fill:", iconize = Iconize.Default)
+        text("line2 :mushroom: :gamecontroller.fill:", iconize = Iconize.Disabled)
+        text("line3 :mushroom: :gamecontroller.fill:", iconize = Iconize.EmojiOnly)
+        text("line4 :mushroom: :gamecontroller.fill:", iconize = Iconize.SFSymbolOnly)
+      }
+    ```
+
+=== "Rendered"
+
+    ```
+    icons!!
+    ---
+    line1 :mushroom: :gamecontroller.fill:
+    line2 :mushroom: :gamecontroller.fill: | emojize=false symbolize=false
+    line3 :mushroom: :gamecontroller.fill: | symbolize=false
+    line4 :mushroom: :gamecontroller.fill: | emojize=false
+    ```
+
+![iconize preview](/images/iconize/preview.png){: style="width:320px" loading = lazy}
+
+!!! note
+    This is preview is from BigSur
+
+For a menu item, at a time, you can either specify emojize or symbolize. Both are not supported. Moreover, the default behaviour of swiftbar is different for difference macOS versions. Since SF Symbols are only supported in BigSur, they are enabled by default when `Iconize.Default` is used. For Catalina, `Iconize.Default` results into symbolize.
+
+You can always use `runtime` to detect OS vesion and add custom behaviour.
 
 ## ANSI
 **Conflicts with symbolize**
