@@ -35,7 +35,24 @@ Images from resource directory can be rendered using `Image.Resource` api
     Ensure you resize the images to desired size. Resolution of 144 is recommended for retina screens
 
 ![edit-image](/images/image-support/image-editing.png){: style="width:350px" loading=lazy }
-    
+
+
+## Url images 
+
+Url images are downloaded everytime the plugin in refreshed (and rendered).
+
+No image is rendedered if image fails to load due to any reason.
+
+```scala
+menu("Jobs", image = Image.Url("https://some-image-url/image1.png")){
+    text("Job 1 success", image = Image.Url("https://some-image-url/image2.png"))
+    text("Job 2 failed", image = Image.Url("https://some-image-url/image3.png"))
+}
+```
+
+!!! Caution
+    Be cautious when using Url images as it may slow down the refresh of plugin for reasons such as slow internet connection, large image size, etc.
+
 ## Base64 images
 
 The `Image.Base64` directly renders given value without any processing

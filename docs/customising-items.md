@@ -145,19 +145,27 @@ You can also provide `DefaultValue` which will not render length attribute and t
 
 ![length](/images/customising-items/length.png){: style="width:380px" loading = lazy}
 
-## Emojize
-
-
-
 ## Image
+
+Images are base64 values rendered as string in the `image` attribute of a menu item.
+As of now, [png & jpeg](https://github.com/swiftbar/SwiftBar/issues/198) images are supported.
+
+Swiftbar4s provides some apis to use images from resource directory or from internet using a url.
+
+More for details, check out [this](/images) page.
 
 ## TemplateImage
 
+Template images use the same data types and apis as [images](/images). from [Swiftbar documentation](https://github.com/swiftbar/SwiftBar)
+
+> Same as image, but the image is a template image. Template images consist of black and clear colors (and an alpha channel). Template images are not intended to be used as standalone images and are usually mixed with other content to create the desired final appearance.
+
 ## Symbolize
+
+## Emojize
 
 ## ANSI
 **Conflicts with symbolize**
-
 
 ## SF Image
 
