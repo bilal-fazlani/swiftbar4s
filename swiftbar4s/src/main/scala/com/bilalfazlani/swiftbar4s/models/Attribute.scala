@@ -17,6 +17,7 @@ object Attribute {
   case class Length(value: Int)           extends Attribute
   case class Shortcut(value: String)      extends Attribute
   case class Checked(value: Boolean)      extends Attribute
+  case class ANSI(value: Boolean)         extends Attribute
 
   //privates
   private[swiftbar4s] case class Href(url: String)           extends Attribute

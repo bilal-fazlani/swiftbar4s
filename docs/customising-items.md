@@ -218,7 +218,43 @@ For a menu item, at a time, you can either specify emojize or symbolize. Both ar
 You can always use `runtime` to detect OS vesion and add custom behaviour.
 
 ## ANSI
-**Conflicts with symbolize**
+
+Enables support of ANSI color codes. The official [readme of Swiftbar](https://github.com/swiftbar/SwiftBar) says that is option does not work correctly when `Iconize.EmojiOnly` is used in the same menu item.
+
+ANSI option can help you print colorful text messages similar to console applications
+using the same familar console ansi libraries 
+
+=== "Scala"
+    ```scala
+    import com.bilalfazlani.swiftbar4s.dsl.*
+    import com.bilalfazlani.rainbowcli.*
+
+    object AnsiPlugin extends PluginDsl {
+
+      given ColorContext = ColorContext(true)
+
+      menu("colorful", ansi = true) {
+        text(s"I am ${"red".red}", ansi = true)
+        text("I have default colors", ansi = true)
+        text(s"I am ${"yellow".yellow} and ${"green".green}", ansi = true)
+      }
+    }
+    ```
+
+=== "Rendered"
+
+    ```
+    colorful | ansi=true
+    ---
+    I am [31mred[0m | ansi=true
+    I have default colors | ansi=true
+    I am [33myellow[0m and [32mgreen[0m | ansi=true
+    ```
+
+!!! note
+    Here, I am using [rainbowcli](https://github.com/bilal-fazlani/rainbowcli) library, but you can use any library which can print ANSI codes
+
+![ansi preview](/images/ansi/preview.png){: style="width:240px" loading = lazy}
 
 ## SF Image
 

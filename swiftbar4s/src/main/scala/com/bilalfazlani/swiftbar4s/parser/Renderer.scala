@@ -29,19 +29,19 @@ class Renderer(selfPath: String) {
       case ToolTip(value)       => s"""tooltip="$value""""
       case Alternate(value)     => s"""alternate=$value"""
       case Shortcut(value)      => s"""shortcut=${value.replace(" ", "")}"""
-      case Checked(value)       => s"""checked=$value"""
+      case Checked(value)       => s"checked=$value"
+      case ANSI(value)          => s"ansi=$value"
       case Href(url)            => s"""href="$url""""
-      case Executable("$0") =>
-        s"""bash="$selfPath""""
-      case Executable(path) => s"""bash="$path""""
+      case Executable("$0")     => s"""bash="$selfPath""""
+      case Executable(path)     => s"""bash="$path""""
+      case Refresh(enable)      => s"refresh=${enable.toString.toLowerCase}"
+      case Terminal(enable)     => s"terminal=${enable.toString.toLowerCase}"
       case Params(values) =>
         values.zipWithIndex
           .map { case (str, i) =>
             s"""param${i + 1}="$str""""
           }
           .mkString(" ")
-      case Refresh(enable)  => s"refresh=${enable.toString.toLowerCase}"
-      case Terminal(enable) => s"terminal=${enable.toString.toLowerCase}"
     }
   }
 }
