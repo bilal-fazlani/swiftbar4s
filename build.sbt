@@ -2,7 +2,7 @@ val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.0.1",
+    scalaVersion := "3.1.1",
     organization := org,
     homepage := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
