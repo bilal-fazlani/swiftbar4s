@@ -8,7 +8,7 @@
 Set the Scala version to 3
 
 ```scala
-scalaVersion := "3.0.0"
+scalaVersion := "3.2.1"
 ```
 
 Add the following sbt dependency
