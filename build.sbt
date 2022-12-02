@@ -2,9 +2,9 @@ val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.1.1",
+    scalaVersion := "3.2.1",
     organization := org,
-    homepage := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
+    homepage     := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
       "MIT" -> url(
         "https://github.com/bilal-fazlani/swiftbar4s/blob/main/LICENSE"
@@ -17,11 +17,6 @@ inThisBuild(
         "bilal.m.fazlani@gmail.com",
         url("https://bilal-fazlani.com")
       )
-    ),
-    scalacOptions ++= Seq(
-      "-source",
-      "future",
-      "-deprecation"
     )
   )
 )
@@ -39,7 +34,7 @@ lazy val swiftbar4s = project
     name := "swiftbar4s",
     libraryDependencies ++= Seq(
       Libs.`reactive-streams`,
-      Libs.munit % Test
+      NonProdLibs.munit % Test
     )
   )
 
