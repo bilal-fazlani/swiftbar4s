@@ -7,12 +7,10 @@ strict: true
 
 theme:
   features:
-#    - navigation.tabs
     - instant
     - toc.integrate
     - navigation.sections
     - navigation.top
-#    - header.autohide
 
   name: 'material'
   icon:
@@ -43,7 +41,8 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg      
   - pymdownx.escapeall:
       nbsp: true
   - pymdownx.inlinehilite
@@ -63,6 +62,10 @@ plugins:
   - awesome-pages:
       collapse_single_pages: true
       strict: true
+  - social:
+      cards_color:
+        fill: "#bdbdbd"
+        text: "black"      
 
 # Customization
 extra_css:
