@@ -1,4 +1,5 @@
 site_name: SwiftBar4s
+site_url: https://swiftbar4s.bilal-fazlani.com
 site_description: SSwiftBar4s is a scala framwework to create Swiftbar plugins for MacOS
 repo_name: 'bilal-fazlani/swiftbar4s'
 repo_url: 'https://github.com/bilal-fazlani/swiftbar4s'
