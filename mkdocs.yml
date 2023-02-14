@@ -4,13 +4,14 @@ site_description: SSwiftBar4s is a scala framwework to create Swiftbar plugins f
 repo_name: 'bilal-fazlani/swiftbar4s'
 repo_url: 'https://github.com/bilal-fazlani/swiftbar4s'
 edit_uri: edit/main/docs/
-strict: true
+strict: !ENV [CI, false]
 
 theme:
   features:
     - instant
     - toc.integrate
     - navigation.sections
+    - navigation.footer
     - navigation.top
 
   name: 'material'
@@ -51,7 +52,8 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -64,6 +66,7 @@ plugins:
       collapse_single_pages: true
       strict: true
   - social:
+      cards: !ENV [CI, false]
       cards_color:
         fill: "#bdbdbd"
         text: "black"      
