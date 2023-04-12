@@ -1,8 +1,8 @@
 site_name: SwiftBar4s
 site_url: https://swiftbar4s.bilal-fazlani.com
-site_description: SSwiftBar4s is a scala framwework to create Swiftbar plugins for MacOS
-repo_name: 'bilal-fazlani/swiftbar4s'
-repo_url: 'https://github.com/bilal-fazlani/swiftbar4s'
+site_description: SwiftBar4s is a scala framwework to create Swiftbar plugins for MacOS
+repo_name: "bilal-fazlani/swiftbar4s"
+repo_url: "https://github.com/bilal-fazlani/swiftbar4s"
 edit_uri: edit/main/docs/
 strict: !ENV [CI, false]
 
@@ -14,10 +14,10 @@ theme:
     - navigation.footer
     - navigation.top
 
-  name: 'material'
+  name: "material"
   icon:
     repo: fontawesome/brands/github
-  favicon: 'images/favicon.ico'
+  favicon: "images/favicon.ico"
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -29,7 +29,7 @@ theme:
       toggle:
         icon: material/lightbulb
         name: Switch to light mode
-  logo: 'images/logo-svg.svg'
+  logo: "images/logo-svg.svg"
 
 markdown_extensions:
   - admonition
@@ -44,7 +44,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg      
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.escapeall:
       nbsp: true
   - pymdownx.inlinehilite
@@ -58,7 +58,7 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
   - toc:
-     permalink: "#"   
+      permalink: "#"
 
 plugins:
   - search
@@ -69,7 +69,7 @@ plugins:
       cards: !ENV [CI, false]
       cards_color:
         fill: "#bdbdbd"
-        text: "black"      
+        text: "black"
 
 # Customization
 extra_css:
@@ -78,8 +78,8 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: 'https://github.com/bilal-fazlani'
+      link: "https://github.com/bilal-fazlani"
     - icon: fontawesome/brands/twitter
-      link: 'https://twitter.com/bilal_fazlani'
+      link: "https://twitter.com/bilal_fazlani"
     - icon: fontawesome/brands/linkedin
-      link: 'https://www.linkedin.com/in/bilal-fazlani/'
+      link: "https://www.linkedin.com/in/bilal-fazlani/"
