@@ -7,8 +7,7 @@ You can have actions with or without metadata. Metadata is a string parameter wh
 invocation.
 
 !!! Info
-    While rendering, action name and metadata are automatically encoded to base64. The framework decodes them back 
-before invoking action handler.
+    While rendering, action name and metadata are automatically encoded to base64. The framework decodes them back before invoking action handler.
 
 For instance, in the below example, we have two actions defined - one with metadata and another without metadata. 
 To create their handlers, we need to use the `handler` api. Within then handler, we get access to `handle` api which can
@@ -55,5 +54,4 @@ The menu looks like this
 ![menu](/images/action-handlers/simple.png){: style="width:300px" loading=lazy}
 
 !!! Attention "Important"
-    If your business logic is async, for example, if the sendEmail method is async and returns a future, it is advised 
-that you block it. This is particularly useful when you want the plugin to refresh after handler invocation is finished.
+    If your business logic is async, for example, if the sendEmail method is async and returns a future, it is advised that you block it. This is particularly useful when you want the plugin to refresh after handler invocation is finished.
