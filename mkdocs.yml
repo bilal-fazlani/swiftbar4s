@@ -68,7 +68,7 @@ plugins:
   - social:
       cards: !ENV [CI, false]
       cards_color:
-        fill: "#bdbdbd"
+        fill: "#a4d3fc"
         text: "black"
 
 # Customization
