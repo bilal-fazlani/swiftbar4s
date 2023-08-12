@@ -2,9 +2,10 @@ val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.3.0",
-    organization := org,
-    homepage     := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
+    scalaVersion  := "3.3.0",
+    organization  := org,
+    versionScheme := Some("semver-spec"),
+    homepage      := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
       "MIT" -> url(
         "https://github.com/bilal-fazlani/swiftbar4s/blob/main/LICENSE"
