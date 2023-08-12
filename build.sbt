@@ -2,7 +2,7 @@ val org = "com.bilal-fazlani"
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.2.1",
+    scalaVersion := "3.3.0",
     organization := org,
     homepage     := Some(url("https://github.com/bilal-fazlani/swiftbar4s")),
     licenses := List(
@@ -45,7 +45,7 @@ lazy val myplugin = project
     resolvers += "jitpack" at "https://jitpack.io",
     version := "0.1.0-SNAPSHOT",
     libraryDependencies ++= Seq(
-      NonProdLibs.`entities-client`,
+      // NonProdLibs.`entities-client`,
       NonProdLibs.rainbowcli
     ),
     publish / skip := !(sys.env
