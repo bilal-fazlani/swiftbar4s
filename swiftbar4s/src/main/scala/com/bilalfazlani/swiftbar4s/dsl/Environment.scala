@@ -5,9 +5,11 @@ enum OSAppearance {
   case Dark
 }
 
-enum OSVersion(val major: Int, val minors: Seq[Int]):
-  case Catalina extends OSVersion(10, Seq(15))
-  case BigSur extends OSVersion(11, Seq(0, 1, 2))
+enum OSVersion(val major: Int):
+  case BigSur   extends OSVersion(11)
+  case Monterey extends OSVersion(12)
+  case Ventura  extends OSVersion(13)
+  case Sonoma   extends OSVersion(14)
 
 case class RetrievedOSVersion private[swiftbar4s] (
     major: Int,
@@ -15,10 +17,10 @@ case class RetrievedOSVersion private[swiftbar4s] (
     patch: Int
 ) {
   infix def is(version: OSVersion) =
-    this.major == version.major && version.minors.contains(this.minor)
+    this.major == version.major 
   infix def isNot(version: OSVersion) = !is(version)
   infix def <(version: OSVersion) =
-    this.major < version.major || (this.major == version.major && this.minor < version.minors.min)
+    this.major < version.major
   infix def <=(version: OSVersion) = is(version) || <(version)
   infix def >(version: OSVersion)  = !(<=(version))
   infix def >=(version: OSVersion) = is(version) || >(version)
