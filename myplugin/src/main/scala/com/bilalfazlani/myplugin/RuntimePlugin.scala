@@ -10,10 +10,9 @@ object RuntimePlugin extends PluginDsl {
       case Some(r) =>
         import r.*
 
-        osVersion <= OSVersion.Catalina
         osVersion > OSVersion.BigSur
-        osVersion isNot OSVersion.Catalina
-        osVersion is OSVersion.Catalina
+        osVersion isNot OSVersion.Monterey
+        osVersion is OSVersion.Ventura
 
         text(s"OS version: ${r.osVersion}")
         text(s"OS theme: ${r.osAppearance}")
