@@ -12,6 +12,9 @@ import com.bilalfazlani.swiftbar4s.utils.HttpClient
 
 import scala.sys.env
 import org.reactivestreams.{Processor, Publisher, Subscriber}
+import com.bilalfazlani.swiftbar4s.models.SfScale
+import com.bilalfazlani.swiftbar4s.models.SfWeight
+import com.bilalfazlani.swiftbar4s.models.SfRenderingMode
 
 type SimpleType = Text | Link | DispatchAction | ShellCommand
 
@@ -51,6 +54,28 @@ trait MenuDsl extends Plugin {
     case SFSymbolOnly
     case Disabled
   }
+
+  enum SfImageDsl:
+    case Palette(
+        name: String,
+        primaryColor: String,
+        secondaryColor: String,
+        scale: SfScale = SfScale.Large,
+        weight: SfWeight = SfWeight.Bold
+    )
+    case Hierarchical(
+        name: String,
+        color: String | DefaultValue.type = DefaultValue,
+        scale: SfScale = SfScale.Large,
+        weight: SfWeight = SfWeight.Bold
+    )
+    case Monochrome(
+        name: String,
+        color: String,
+        scale: SfScale = SfScale.Large,
+        weight: SfWeight = SfWeight.Bold
+    )
+    case None
 
   def build(items: Seq[AllowedType]): Menu = Menu(
     items.head.asInstanceOf,
@@ -101,8 +126,10 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
@@ -116,9 +143,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           false,
           ansi,
+          markdown,
           iconize,
           tooltip,
           DefaultValue,
@@ -138,9 +167,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
@@ -156,9 +187,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           checked,
           ansi,
+          markdown,
           iconize,
           tooltip,
           DefaultValue,
@@ -184,9 +217,11 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
+        sfImage: SfImageDsl = SfImageDsl.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
+        markdown: Boolean = false,
         iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         shortcut: ShortcutDsl = None
@@ -198,9 +233,11 @@ trait MenuDsl extends Plugin {
         font,
         length,
         image,
+        sfImage,
         templateImage,
         checked,
         ansi,
+        markdown,
         iconize,
         tooltip,
         DefaultValue,
@@ -216,9 +253,11 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
+        sfImage: SfImageDsl = SfImageDsl.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
+        markdown: Boolean = false,
         iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
@@ -232,9 +271,11 @@ trait MenuDsl extends Plugin {
         font,
         length,
         image,
+        sfImage,
         templateImage,
         checked,
         ansi,
+        markdown,
         iconize,
         tooltip,
         alternate,
@@ -252,9 +293,11 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
+        sfImage: SfImageDsl = SfImageDsl.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
+        markdown: Boolean = false,
         iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
@@ -272,9 +315,11 @@ trait MenuDsl extends Plugin {
         font,
         length,
         image,
+        sfImage,
         templateImage,
         checked,
         ansi,
+        markdown,
         iconize,
         tooltip,
         alternate,
@@ -293,9 +338,11 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
+        sfImage: SfImageDsl = SfImageDsl.None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
+        markdown: Boolean = false,
         iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
@@ -312,9 +359,11 @@ trait MenuDsl extends Plugin {
         font,
         length,
         image,
+        sfImage,
         templateImage,
         checked,
         ansi,
+        markdown,
         iconize,
         tooltip,
         alternate,
@@ -329,9 +378,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl,
       length: LengthDsl,
       image: Image,
+      sfImage: SfImageDsl,
       templateImage: Image,
       checked: Boolean,
       ansi: Boolean,
+      markdown: Boolean,
       iconize: Iconize,
       tooltip: ToolTipDsl,
       alternate: AlternateDsl,
@@ -358,9 +409,37 @@ trait MenuDsl extends Plugin {
     }
     if (checked) set = set + Checked(checked)
     if (ansi) set = set + ANSI(ansi)
+    if (markdown) set = set + Markdown(markdown)
     if (tooltip != None) set = set + ToolTip(tooltip.asInstanceOf)
     if (alternate != DefaultValue) set = set + Alternate(alternate.asInstanceOf)
     if (shortcut != None) set = set + Shortcut(shortcut.asInstanceOf)
+
+    sfImage match
+      case SfImageDsl.Palette(name, primary, secondary, scale, weight) =>
+        set ++= Seq(
+          SfImage(name),
+          SfConfig(
+            SfRenderingMode.Palette,
+            Seq(primary, secondary),
+            scale,
+            weight
+          )
+        )
+      case SfImageDsl.Hierarchical(name, color, scale, weight) =>
+        val colors = color match
+          case DefaultValue => Seq("primary")
+          case str: String  => Seq(str)
+        set ++= Seq(
+          SfImage(name),
+          SfConfig(SfRenderingMode.Hierarchical, colors, scale, weight)
+        )
+      case SfImageDsl.Monochrome(name, color, scale, weight) =>
+        set ++= Seq(
+          SfImage(name),
+          SfConfig(SfRenderingMode.Palette, Seq(color), scale, weight)
+        )
+      case SfImageDsl.None =>
+
     iconize match {
       case Iconize.EmojiOnly =>
         set = set ++ Seq(Symbolize(false))
@@ -380,9 +459,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
@@ -396,9 +477,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           checked,
           ansi,
+          markdown,
           iconize,
           tooltip,
           DefaultValue,
@@ -419,9 +502,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
@@ -437,9 +522,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           checked,
           ansi,
+          markdown,
           iconize,
           tooltip,
           alternate,
@@ -459,9 +546,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
@@ -481,9 +570,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           checked,
           ansi,
+          markdown,
           iconize,
           tooltip,
           alternate,
@@ -504,9 +595,11 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
+      sfImage: SfImageDsl = SfImageDsl.None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
+      markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
@@ -525,9 +618,11 @@ trait MenuDsl extends Plugin {
           font,
           length,
           image,
+          sfImage,
           templateImage,
           checked,
           ansi,
+          markdown,
           iconize,
           tooltip,
           alternate,
