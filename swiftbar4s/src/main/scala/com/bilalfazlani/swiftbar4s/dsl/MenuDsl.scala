@@ -18,24 +18,24 @@ import com.bilalfazlani.swiftbar4s.models.SfRenderingMode
 
 type SimpleType = Text | Link | DispatchAction | ShellCommand
 
-type AllowedType = Text | Link | DispatchAction | ShellCommand | MenuBuilder
-
 class MenuBuilder(textItem: Text) {
-  var items: Seq[AllowedType] = Seq.empty
+  var items: Seq[MenuItem] = Seq.empty
   add(textItem)
-  def add(item: AllowedType) = {
+  def add(item: MenuItem) = {
     items = items.appended(item)
   }
   override def toString =
-    items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
+    items
+      .map(_.toString)
+      .mkString(s"MenuBuilder($textItem, Children(", ",", "))")
 
   def build: Menu = Menu(
     items.head.asInstanceOf,
     items
       .drop(1)
       .map {
-        case x: MenuBuilder => x.build
-        case a: SimpleType  => a
+        case x: Menu       => x
+        case a: SimpleType => a
       }
       .toSeq
   )
@@ -112,8 +112,8 @@ trait MenuDsl extends Plugin {
 
   private var topMenu: Option[MenuBuilder | Publisher[MenuBuilder]] = None
 
-  def appMenu: Menu | Publisher[MenuBuilder] = topMenu match {
-    case Some(mb: MenuBuilder)                   => mb.build
+  def appMenu: MenuBuilder | Publisher[MenuBuilder] = topMenu match {
+    case Some(mb: MenuBuilder)                   => mb
     case Some(publisher: Publisher[MenuBuilder]) => publisher
     case None => throw new NotImplementedError("no menu")
   }
@@ -199,7 +199,7 @@ trait MenuDsl extends Plugin {
       )
     )
     // format: off
-    summon[MenuBuilder].add(innerMenu) 
+    summon[MenuBuilder].add(innerMenu.build)
     {
       given i: MenuBuilder = innerMenu
       init

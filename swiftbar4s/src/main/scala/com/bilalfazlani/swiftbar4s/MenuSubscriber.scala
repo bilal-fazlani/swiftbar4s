@@ -2,11 +2,11 @@ package com.bilalfazlani.swiftbar4s
 
 import com.bilalfazlani.swiftbar4s.models.*
 import com.bilalfazlani.swiftbar4s.models.MenuItem.*
-import com.bilalfazlani.swiftbar4s.parser.{MenuRenderer}
+import com.bilalfazlani.swiftbar4s.parser.{StreamingMenuRenderer}
 import com.bilalfazlani.swiftbar4s.dsl.*
 import org.reactivestreams.*
 
-class MenuSubscriber(menuRenderer: MenuRenderer)
+class MenuSubscriber(menuRenderer: StreamingMenuRenderer)
     extends Subscriber[MenuBuilder] {
   var sub: Option[Subscription] = None
 
