@@ -15,7 +15,7 @@ import org.reactivestreams.Publisher
 type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class Plugin {
-  def appMenu: Menu | Publisher[Menu]
+  def appMenu: Menu | Publisher[MenuBuilder]
   def appHandler: Handler = ???
   val parser = new Parser(
     new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", "."))
@@ -33,8 +33,8 @@ abstract class Plugin {
         appHandler(decode(action), Some(decode(metadata)))
       case _ =>
         appMenu match {
-          case mb: Menu          => menuRenderer.renderMenu(mb, false)
-          case mbp: Publisher[?] => mbp.subscribe(menuSubscriber.asInstanceOf)
+          case mb: Menu                    => menuRenderer.renderMenu(mb, false)
+          case mbp: Publisher[MenuBuilder] => mbp.subscribe(menuSubscriber)
         }
     }
   }

@@ -6,7 +6,8 @@ import com.bilalfazlani.swiftbar4s.parser.{MenuRenderer}
 import com.bilalfazlani.swiftbar4s.dsl.*
 import org.reactivestreams.*
 
-class MenuSubscriber(menuRenderer: MenuRenderer) extends Subscriber[Menu] {
+class MenuSubscriber(menuRenderer: MenuRenderer)
+    extends Subscriber[MenuBuilder] {
   var sub: Option[Subscription] = None
 
   override def onSubscribe(subscription: Subscription): Unit = {
@@ -14,14 +15,16 @@ class MenuSubscriber(menuRenderer: MenuRenderer) extends Subscriber[Menu] {
     sub.get.request(1)
   }
 
-  override def onNext(item: Menu): Unit = {
+  override def onNext(item: MenuBuilder): Unit = {
     sub.foreach { s =>
-      menuRenderer.renderMenu(item, true)
+      menuRenderer.renderMenu(item.build, true)
       s.request(1)
     }
   }
 
-  override def onError(t: Throwable): Unit = sys.exit(1)
+  override def onError(t: Throwable): Unit =
+    t.printStackTrace(System.err)
+    sys.exit(1)
 
   override def onComplete(): Unit = sys.exit(0)
 }

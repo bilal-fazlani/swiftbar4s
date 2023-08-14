@@ -28,6 +28,17 @@ class MenuBuilder(textItem: Text) {
   }
   override def toString =
     items.map(_.toString).mkString(s"MenuDsl($textItem, Children(", ",", "))")
+
+  def build: Menu = Menu(
+    items.head.asInstanceOf,
+    items
+      .drop(1)
+      .map {
+        case x: MenuBuilder => x.build
+        case a: SimpleType  => a
+      }
+      .toSeq
+  )
 }
 
 type ContextFunction[T] = T ?=> Unit
@@ -77,17 +88,6 @@ trait MenuDsl extends Plugin {
     )
     case None
 
-  def build(items: Seq[AllowedType]): Menu = Menu(
-    items.head.asInstanceOf,
-    items
-      .drop(1)
-      .map {
-        case x: MenuBuilder => build(x.items)
-        case a: SimpleType  => a
-      }
-      .toSeq
-  )
-
   extension [T](value: T)
     infix def ifDark[A <: T](value2: A)(using Option[SwiftBarRuntime]): T =
       summon[Option[SwiftBarRuntime]] match {
@@ -112,11 +112,10 @@ trait MenuDsl extends Plugin {
 
   private var topMenu: Option[MenuBuilder | Publisher[MenuBuilder]] = None
 
-  def appMenu: Menu | Publisher[Menu] = topMenu match {
-    case Some(mb: MenuBuilder) => build(mb.items)
-    case None                  => throw new NotImplementedError("no menu")
-    case _ =>
-      throw new NotImplementedError("Publisher[Menu] is not supported yet")
+  def appMenu: Menu | Publisher[MenuBuilder] = topMenu match {
+    case Some(mb: MenuBuilder)                   => mb.build
+    case Some(publisher: Publisher[MenuBuilder]) => publisher
+    case None => throw new NotImplementedError("no menu")
   }
 
   def menu(
