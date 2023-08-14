@@ -43,6 +43,8 @@ class MenuBuilder(textItem: Text) {
 
 type ContextFunction[T] = T ?=> Unit
 
+given Conversion[MenuBuilder, Menu] = _.build
+
 enum Image:
   case Resource(path: String)
   case Url(url: String)
@@ -110,11 +112,11 @@ trait MenuDsl extends Plugin {
     java.util.Base64.getEncoder.encodeToString(bytes)
   }
 
-  private var topMenu: Option[MenuBuilder | Publisher[MenuBuilder]] = None
+  private var topMenu: Option[MenuItem | Publisher[MenuItem]] = None
 
-  def appMenu: MenuBuilder | Publisher[MenuBuilder] = topMenu match {
-    case Some(mb: MenuBuilder)                   => mb
-    case Some(publisher: Publisher[MenuBuilder]) => publisher
+  def appMenu: MenuItem | Publisher[MenuItem] = topMenu match {
+    case Some(mb: MenuItem)                   => mb
+    case Some(publisher: Publisher[MenuItem]) => publisher
     case None => throw new NotImplementedError("no menu")
   }
 

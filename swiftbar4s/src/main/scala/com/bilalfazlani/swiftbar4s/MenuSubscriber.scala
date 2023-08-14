@@ -7,7 +7,7 @@ import com.bilalfazlani.swiftbar4s.dsl.*
 import org.reactivestreams.*
 
 class MenuSubscriber(menuRenderer: StreamingMenuRenderer)
-    extends Subscriber[MenuBuilder] {
+    extends Subscriber[MenuItem] {
   var sub: Option[Subscription] = None
 
   override def onSubscribe(subscription: Subscription): Unit = {
@@ -15,9 +15,9 @@ class MenuSubscriber(menuRenderer: StreamingMenuRenderer)
     sub.get.request(1)
   }
 
-  override def onNext(item: MenuBuilder): Unit = {
+  override def onNext(item: MenuItem): Unit = {
     sub.foreach { s =>
-      menuRenderer.renderMenu(item.build, true)
+      menuRenderer.renderMenu(item, true)
       s.request(1)
     }
   }
