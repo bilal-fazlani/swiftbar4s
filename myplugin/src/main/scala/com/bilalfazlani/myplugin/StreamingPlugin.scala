@@ -1,43 +1,27 @@
-// package com.bilalfazlani.myplugin
+package com.bilalfazlani.myplugin
 
-// import akka.actor.typed.scaladsl.Behaviors
-// import akka.actor.typed.ActorSystem
-// import com.bilalfazlani.EntityClient
-// import com.bilalfazlani.responses.Event
-// import com.bilalfazlani.swiftbar4s.dsl.*
-// import scala.concurrent.ExecutionContext.Implicits.global
+import zio.*
+import com.bilalfazlani.swiftbar4s.dsl.PluginDsl
+import org.reactivestreams.Publisher
+import zio.stream.ZStream
+import zio.interop.reactivestreams.*
+import com.bilalfazlani.swiftbar4s.models.MenuItem
+import scala.concurrent.duration.Duration
+import scala.concurrent.Await
 
-// object StreamingPlugin extends PluginDsl {
-//    given actorSystem: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "actorSystem")
-//    val client = EntityClient("localhost", 9090)
+object StreamingPlugin extends PluginDsl {
 
-//    def menuTitle(event:Event):String = event match {
-//        case Event.Init(data) if data.isEmpty => "empty"
-//        case Event.Added(_, data) if data.isEmpty => "empty"
-//        case Event.Deleted(_, data) if data.isEmpty => "empty"
-//        case Event.Reset(_) => "empty"
+  val effect: ZIO[Any, Nothing, Publisher[MenuItem]] =
+    ZStream
+      .tick(1.second)
+      .zipWithIndex
+      .map(item => topLevel.text(s"Item ${item._2}"))
+      .take(10)
+      .toPublisher
 
-//        case Event.Added(_, _) | Event.Init(_) | Event.Deleted(_, _) => "entities"
-//    }
+  val menuStream: Publisher[MenuItem] = Unsafe.unsafely {
+    zio.Runtime.default.unsafe.run(effect).getOrThrow()
+  }
 
-//    private def notification(event:Event) = event match {
-//        case Event.Added(entity,_ ) => notify("entity added", Some(entity.name), Some(entity.id.toString))
-//        case Event.Deleted(entity, _) => notify("entity deleted", Some(entity.name), Some(entity.id.toString))
-//        case Event.Reset(_) => notify("reset")
-//        case _ =>
-//    }
-
-//    client.subscribe.block.map(event => menu(menuTitle(event)){
-//        notification(event)
-
-//        def renderMenuItems(entities:Set[Entity]):Unit =
-//            entities.foreach(e => text(s"${e.id} - ${e.name}"))
-
-//        event match {
-//            case Event.Init(data) if data.nonEmpty => renderMenuItems(data)
-//            case Event.Added(_, data) if data.nonEmpty => renderMenuItems(data)
-//            case Event.Deleted(_, data) if data.nonEmpty => renderMenuItems(data)
-//            case _ =>
-//        }
-//    }).runWith(Sink.asPublisher(false))
-// }
+  stream(menuStream)
+}

@@ -5,9 +5,14 @@ import com.bilalfazlani.swiftbar4s.models.MenuItem.*
 import com.bilalfazlani.swiftbar4s.parser.{StreamingMenuRenderer}
 import com.bilalfazlani.swiftbar4s.dsl.*
 import org.reactivestreams.*
+import scala.concurrent.Promise
+import scala.util.Failure
+import scala.util.Success
 
-class MenuSubscriber(menuRenderer: StreamingMenuRenderer)
-    extends Subscriber[MenuItem] {
+class MenuSubscriber(
+    menuRenderer: StreamingMenuRenderer,
+    completionPromise: Promise[Unit]
+) extends Subscriber[MenuItem] {
   var sub: Option[Subscription] = None
 
   override def onSubscribe(subscription: Subscription): Unit = {
@@ -24,7 +29,10 @@ class MenuSubscriber(menuRenderer: StreamingMenuRenderer)
 
   override def onError(t: Throwable): Unit =
     t.printStackTrace(System.err)
+    completionPromise.complete(Failure(t))
     sys.exit(1)
 
-  override def onComplete(): Unit = sys.exit(0)
+  override def onComplete(): Unit =
+    completionPromise.complete(Success(()))
+    sys.exit(0)
 }

@@ -120,6 +120,8 @@ trait MenuDsl extends Plugin {
     case None => throw new NotImplementedError("no menu")
   }
 
+  def stream(publisher: Publisher[MenuItem]) = topMenu = Some(publisher)
+
   def menu(
       text: String,
       color: ColorDsl = DefaultValue,

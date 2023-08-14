@@ -47,7 +47,10 @@ lazy val myplugin = project
     version := "0.1.0-SNAPSHOT",
     libraryDependencies ++= Seq(
       // NonProdLibs.`entities-client`,
-      NonProdLibs.rainbowcli
+      NonProdLibs.rainbowcli,
+      NonProdLibs.zio,
+      NonProdLibs.streams,
+      NonProdLibs.interop,
     ),
     publish / skip := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
