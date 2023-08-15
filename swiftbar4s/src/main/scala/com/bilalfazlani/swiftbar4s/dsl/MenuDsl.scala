@@ -115,8 +115,8 @@ trait MenuDsl extends Plugin {
   private var topMenu: Option[MenuItem | Publisher[MenuItem]] = None
 
   def appMenu: MenuItem | Publisher[MenuItem] = topMenu match {
-    case Some(mb: MenuItem)                   => mb
-    case Some(publisher: Publisher[MenuItem]) => publisher
+    case Some(mb: MenuItem)            => mb
+    case Some(publisher: Publisher[?]) => publisher
     case None => throw new NotImplementedError("no menu")
   }
 

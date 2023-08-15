@@ -39,8 +39,8 @@ abstract class Plugin {
         appMenu match {
           case mb: MenuItem =>
             menuRenderer.renderMenu(mb, false)
-          case mbp: Publisher[MenuItem] =>
-            mbp.subscribe(menuSubscriber)
+          case mbp: Publisher[?] =>
+            mbp.subscribe(menuSubscriber.asInstanceOf)
             Await.result(promise.future, Duration.Inf)
         }
     }

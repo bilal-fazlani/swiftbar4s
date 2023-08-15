@@ -13,7 +13,7 @@ object StreamingPlugin extends PluginDsl {
 
   val effect: ZIO[Any, Nothing, Publisher[MenuItem]] =
     ZStream
-      .tick(1.second)
+      .tick(200.millis)
       .zipWithIndex
       .map(item => topLevel.text(s"Item ${item._2}"))
       .take(10)
