@@ -19,7 +19,7 @@ type Handler = PartialFunction[(String, Option[String]), Unit]
 
 abstract class Plugin {
   def appMenu: MenuItem | Publisher[MenuItem]
-  def appHandler: Handler = ???
+  def appHandler: Handler
   val parser = new Parser(
     new Renderer(sys.env.getOrElse("SWIFTBAR_PLUGIN_PATH", "."))
   )

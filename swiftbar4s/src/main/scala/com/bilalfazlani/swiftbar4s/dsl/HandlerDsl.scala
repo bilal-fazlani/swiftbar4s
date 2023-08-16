@@ -59,7 +59,7 @@ trait HandlerDsl extends Plugin {
     t
   }
 
-  override def appHandler = build()
+  override def appHandler: Handler = build()
 
   def handle(
       action: String
