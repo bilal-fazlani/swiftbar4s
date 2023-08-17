@@ -41,7 +41,7 @@ class MenuBuilder(textItem: Text) {
   )
 }
 
-type ContextFunction[T] = T ?=> Unit
+type MenuFunction = MenuBuilder ?=> Unit
 
 given Conversion[MenuBuilder, Menu] = _.build
 
@@ -60,6 +60,7 @@ trait MenuDsl extends Plugin {
   type ToolTipDsl   = String | None.type
   type AlternateDsl = Boolean | DefaultValue.type
   type ShortcutDsl  = String | None.type
+  type SFImageDsl   = SFImage | None.type
 
   enum Iconize {
     case Default
@@ -68,7 +69,7 @@ trait MenuDsl extends Plugin {
     case Disabled
   }
 
-  enum SfImageDsl:
+  enum SFImage:
     case Palette(
         name: String,
         primaryColor: String,
@@ -88,7 +89,6 @@ trait MenuDsl extends Plugin {
         scale: SfScale = SfScale.Large,
         weight: SfWeight = SfWeight.Bold
     )
-    case None
 
   extension [T](value: T)
     infix def ifDark[A <: T](value2: A)(using Option[SwiftBarRuntime]): T =
@@ -129,14 +129,14 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       ansi: Boolean = false,
       markdown: Boolean = false,
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
-  )(init: ContextFunction[MenuBuilder]): MenuBuilder = {
+  )(init: MenuFunction): MenuBuilder = {
     given t: MenuBuilder = MenuBuilder(
       Text(
         text,
@@ -170,7 +170,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
@@ -178,9 +178,7 @@ trait MenuDsl extends Plugin {
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
-  )(
-      init: ContextFunction[MenuBuilder]
-  )(using menuDsl: MenuBuilder): MenuBuilder = {
+  )(init: MenuFunction)(using menuDsl: MenuBuilder): MenuBuilder = {
     val innerMenu = MenuBuilder(
       Text(
         text,
@@ -203,16 +201,40 @@ trait MenuDsl extends Plugin {
       )
     )
     // format: off
-    summon[MenuBuilder].add(innerMenu.build)
     {
       given i: MenuBuilder = innerMenu
       init
     }
+    summon[MenuBuilder].add(innerMenu)
     // format: on
     innerMenu
   }
 
   object topLevel {
+    def sfSymbol(
+        symbol: SFImage,
+        tooltip: ToolTipDsl = None,
+        shortcut: ShortcutDsl = None
+    ): Text = Text(
+      "",
+      getAttributes(
+        DefaultValue,
+        DefaultValue,
+        DefaultValue,
+        DefaultValue,
+        Image.None,
+        symbol,
+        Image.None,
+        false,
+        false,
+        false,
+        Iconize.SFSymbolOnly,
+        tooltip,
+        DefaultValue,
+        shortcut
+      )
+    )
+
     def text(
         text: String,
         color: ColorDsl = DefaultValue,
@@ -220,7 +242,7 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
-        sfImage: SfImageDsl = SfImageDsl.None,
+        sfImage: SFImageDsl = None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
@@ -228,25 +250,28 @@ trait MenuDsl extends Plugin {
         iconize: Iconize = Iconize.Default,
         tooltip: ToolTipDsl = None,
         shortcut: ShortcutDsl = None
-    ): Text = Text(
-      text,
-      getAttributes(
-        color,
-        textSize,
-        font,
-        length,
-        image,
-        sfImage,
-        templateImage,
-        checked,
-        ansi,
-        markdown,
-        iconize,
-        tooltip,
-        DefaultValue,
-        shortcut
+    ): Text =
+      val t = Text(
+        text,
+        getAttributes(
+          color,
+          textSize,
+          font,
+          length,
+          image,
+          sfImage,
+          templateImage,
+          checked,
+          ansi,
+          markdown,
+          iconize,
+          tooltip,
+          DefaultValue,
+          shortcut
+        )
       )
-    )
+      topMenu = Some(t)
+      t
 
     def link(
         text: String,
@@ -256,7 +281,7 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
-        sfImage: SfImageDsl = SfImageDsl.None,
+        sfImage: SFImageDsl = None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
@@ -265,26 +290,29 @@ trait MenuDsl extends Plugin {
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None
-    ): Link = Link(
-      text,
-      url,
-      getAttributes(
-        color,
-        textSize,
-        font,
-        length,
-        image,
-        sfImage,
-        templateImage,
-        checked,
-        ansi,
-        markdown,
-        iconize,
-        tooltip,
-        alternate,
-        shortcut
+    ): Link =
+      val l = Link(
+        text,
+        url,
+        getAttributes(
+          color,
+          textSize,
+          font,
+          length,
+          image,
+          sfImage,
+          templateImage,
+          checked,
+          ansi,
+          markdown,
+          iconize,
+          tooltip,
+          alternate,
+          shortcut
+        )
       )
-    )
+      topMenu = Some(l)
+      l
 
     def shellCommand(
         text: String,
@@ -296,7 +324,7 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
-        sfImage: SfImageDsl = SfImageDsl.None,
+        sfImage: SFImageDsl = None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
@@ -306,29 +334,32 @@ trait MenuDsl extends Plugin {
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None,
         params: String*
-    ): ShellCommand = ShellCommand(
-      text,
-      executable,
-      params,
-      showTerminal,
-      refresh,
-      getAttributes(
-        color,
-        textSize,
-        font,
-        length,
-        image,
-        sfImage,
-        templateImage,
-        checked,
-        ansi,
-        markdown,
-        iconize,
-        tooltip,
-        alternate,
-        shortcut
+    ): ShellCommand =
+      val s = ShellCommand(
+        text,
+        executable,
+        params,
+        showTerminal,
+        refresh,
+        getAttributes(
+          color,
+          textSize,
+          font,
+          length,
+          image,
+          sfImage,
+          templateImage,
+          checked,
+          ansi,
+          markdown,
+          iconize,
+          tooltip,
+          alternate,
+          shortcut
+        )
       )
-    )
+      topMenu = Some(s)
+      s
 
     def actionDispatch(
         text: String,
@@ -341,7 +372,7 @@ trait MenuDsl extends Plugin {
         font: FontDsl = DefaultValue,
         length: LengthDsl = DefaultValue,
         image: Image = Image.None,
-        sfImage: SfImageDsl = SfImageDsl.None,
+        sfImage: SFImageDsl = None,
         templateImage: Image = Image.None,
         checked: Boolean = false,
         ansi: Boolean = false,
@@ -350,29 +381,32 @@ trait MenuDsl extends Plugin {
         tooltip: ToolTipDsl = None,
         alternate: AlternateDsl = DefaultValue,
         shortcut: ShortcutDsl = None
-    ): DispatchAction = DispatchAction(
-      text,
-      action,
-      metadata,
-      showTerminal,
-      refresh,
-      getAttributes(
-        color,
-        textSize,
-        font,
-        length,
-        image,
-        sfImage,
-        templateImage,
-        checked,
-        ansi,
-        markdown,
-        iconize,
-        tooltip,
-        alternate,
-        shortcut
+    ): DispatchAction =
+      val d = DispatchAction(
+        text,
+        action,
+        metadata,
+        showTerminal,
+        refresh,
+        getAttributes(
+          color,
+          textSize,
+          font,
+          length,
+          image,
+          sfImage,
+          templateImage,
+          checked,
+          ansi,
+          markdown,
+          iconize,
+          tooltip,
+          alternate,
+          shortcut
+        )
       )
-    )
+      topMenu = Some(d)
+      d
   }
 
   private def getAttributes(
@@ -381,7 +415,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl,
       length: LengthDsl,
       image: Image,
-      sfImage: SfImageDsl,
+      sfSymbol: SFImageDsl,
       templateImage: Image,
       checked: Boolean,
       ansi: Boolean,
@@ -417,8 +451,8 @@ trait MenuDsl extends Plugin {
     if (alternate != DefaultValue) set = set + Alternate(alternate.asInstanceOf)
     if (shortcut != None) set = set + Shortcut(shortcut.asInstanceOf)
 
-    sfImage match
-      case SfImageDsl.Palette(name, primary, secondary, scale, weight) =>
+    sfSymbol match {
+      case SFImage.Palette(name, primary, secondary, scale, weight) =>
         set ++= Seq(
           SfImage(name),
           SfConfig(
@@ -428,7 +462,7 @@ trait MenuDsl extends Plugin {
             weight
           )
         )
-      case SfImageDsl.Hierarchical(name, color, scale, weight) =>
+      case SFImage.Hierarchical(name, color, scale, weight) =>
         val colors = color match
           case DefaultValue => Seq("primary")
           case str: String  => Seq(str)
@@ -436,12 +470,14 @@ trait MenuDsl extends Plugin {
           SfImage(name),
           SfConfig(SfRenderingMode.Hierarchical, colors, scale, weight)
         )
-      case SfImageDsl.Monochrome(name, color, scale, weight) =>
+      case SFImage.Monochrome(name, color, scale, weight) =>
         set ++= Seq(
           SfImage(name),
           SfConfig(SfRenderingMode.Palette, Seq(color), scale, weight)
         )
-      case SfImageDsl.None =>
+
+      case None =>
+    }
 
     iconize match {
       case Iconize.EmojiOnly =>
@@ -462,7 +498,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
@@ -470,7 +506,7 @@ trait MenuDsl extends Plugin {
       iconize: Iconize = Iconize.Default,
       tooltip: ToolTipDsl = None,
       shortcut: ShortcutDsl = None
-  ): ContextFunction[MenuBuilder] = {
+  ): MenuFunction = {
     summon[MenuBuilder].add(
       Text(
         text,
@@ -494,7 +530,7 @@ trait MenuDsl extends Plugin {
     )
   }
 
-  infix def --- : ContextFunction[MenuBuilder] =
+  infix def --- : MenuFunction =
     summon[MenuBuilder].add(Text("---"))
 
   def link(
@@ -505,7 +541,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
@@ -514,7 +550,7 @@ trait MenuDsl extends Plugin {
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None
-  ): ContextFunction[MenuBuilder] = {
+  ): MenuFunction = {
     summon[MenuBuilder].add(
       Link(
         text,
@@ -549,7 +585,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
@@ -559,7 +595,7 @@ trait MenuDsl extends Plugin {
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None,
       params: String*
-  ): ContextFunction[MenuBuilder] = {
+  ): MenuFunction = {
     summon[MenuBuilder].add(
       ShellCommand(
         text,
@@ -598,7 +634,7 @@ trait MenuDsl extends Plugin {
       font: FontDsl = DefaultValue,
       length: LengthDsl = DefaultValue,
       image: Image = Image.None,
-      sfImage: SfImageDsl = SfImageDsl.None,
+      sfImage: SFImageDsl = None,
       templateImage: Image = Image.None,
       checked: Boolean = false,
       ansi: Boolean = false,
@@ -607,7 +643,7 @@ trait MenuDsl extends Plugin {
       tooltip: ToolTipDsl = None,
       alternate: AlternateDsl = DefaultValue,
       shortcut: ShortcutDsl = None
-  ): ContextFunction[MenuBuilder] = {
+  ): MenuFunction = {
     summon[MenuBuilder].add(
       DispatchAction(
         text,

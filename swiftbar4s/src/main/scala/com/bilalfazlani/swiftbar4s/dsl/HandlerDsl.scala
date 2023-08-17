@@ -39,6 +39,8 @@ trait HandlerDsl extends Plugin {
     )
     .orElse(PartialFunction.fromFunction(_ => ()))
 
+  type HandlerContextFunction = HandlerBuilder ?=> Unit
+
   class HandlerBuilder {
     def add(item: HandlerFunction) = {
       item match {
@@ -53,7 +55,7 @@ trait HandlerDsl extends Plugin {
       s"${handlers.size} handler(s)${handlers.keys.mkString(": [", ",", "]")}"
   }
 
-  def handler(init: ContextFunction[HandlerBuilder]): HandlerBuilder = {
+  def handler(init: HandlerContextFunction): HandlerBuilder = {
     given t: HandlerBuilder = HandlerBuilder()
     init
     t
@@ -63,12 +65,12 @@ trait HandlerDsl extends Plugin {
 
   def handle(
       action: String
-  )(metadataF: MetadataFunction): ContextFunction[HandlerBuilder] = {
+  )(metadataF: MetadataFunction): HandlerContextFunction = {
     val handlerBuilder: HandlerBuilder = summon[HandlerBuilder]
     handlerBuilder.add(MetadataHandlerFunction(action, metadataF))
   }
 
-  def handle(action: String)(f: => Unit): ContextFunction[HandlerBuilder] = {
+  def handle(action: String)(f: => Unit): HandlerContextFunction = {
     summon[HandlerBuilder].add(SimpleHandlerFunction(action, () => f))
   }
 }

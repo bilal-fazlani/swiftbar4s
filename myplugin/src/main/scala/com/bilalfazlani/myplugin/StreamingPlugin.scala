@@ -2,26 +2,36 @@ package com.bilalfazlani.myplugin
 
 import zio.*
 import com.bilalfazlani.swiftbar4s.dsl.PluginDsl
-import org.reactivestreams.Publisher
 import zio.stream.ZStream
-import zio.interop.reactivestreams.*
 import com.bilalfazlani.swiftbar4s.models.MenuItem
-import scala.concurrent.duration.Duration
-import scala.concurrent.Await
+import com.bilalfazlani.swiftbar4s.dsl.MenuBuilder
 
-object StreamingPlugin extends PluginDsl {
-
-  val effect: ZIO[Any, Nothing, Publisher[MenuItem]] =
+object StreamingPlugin extends PluginDsl, ZStreamSupport {
+  stream {
     ZStream
-      .tick(200.millis)
+      .tick(500.millis)
       .zipWithIndex
-      .map(item => topLevel.text(s"Item ${item._2}"))
+      .map(item =>
+        menu(s"Item ${item._2}") {
+          subMenu("Hello") {
+            text("World")
+          }
+        }
+      )
       .take(10)
-      .toPublisher
-
-  val menuStream: Publisher[MenuItem] = Unsafe.unsafely {
-    zio.Runtime.default.unsafe.run(effect).getOrThrow()
   }
+}
 
-  stream(menuStream)
+trait ZStreamSupport {
+  import zio.interop.reactivestreams.streamToPublisher
+  import org.reactivestreams.Publisher
+
+  given a[A]: Conversion[ZStream[Any, Throwable, A], Publisher[A]] = stream =>
+    Unsafe.unsafely {
+      zio.Runtime.default.unsafe.run(stream.toPublisher).getOrThrow()
+    }
+
+  given b
+      : Conversion[ZStream[Any, Throwable, MenuBuilder], Publisher[MenuItem]] =
+    stream => stream.map(_.build)
 }

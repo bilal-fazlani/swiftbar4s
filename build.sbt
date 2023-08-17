@@ -50,7 +50,7 @@ lazy val myplugin = project
       NonProdLibs.rainbowcli,
       NonProdLibs.zio,
       NonProdLibs.streams,
-      NonProdLibs.interop,
+      NonProdLibs.interop
     ),
     publish / skip := !(sys.env
       .getOrElse("PUBLISH_PLUGIN", "false") == "true")
