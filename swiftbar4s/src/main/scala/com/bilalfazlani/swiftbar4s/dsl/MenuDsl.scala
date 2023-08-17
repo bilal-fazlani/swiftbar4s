@@ -215,25 +215,28 @@ trait MenuDsl extends Plugin {
         symbol: SFImage,
         tooltip: ToolTipDsl = None,
         shortcut: ShortcutDsl = None
-    ): Text = Text(
-      "",
-      getAttributes(
-        DefaultValue,
-        DefaultValue,
-        DefaultValue,
-        DefaultValue,
-        Image.None,
-        symbol,
-        Image.None,
-        false,
-        false,
-        false,
-        Iconize.SFSymbolOnly,
-        tooltip,
-        DefaultValue,
-        shortcut
+    ): Text =
+      val t = Text(
+        "",
+        getAttributes(
+          DefaultValue,
+          DefaultValue,
+          DefaultValue,
+          DefaultValue,
+          Image.None,
+          symbol,
+          Image.None,
+          false,
+          false,
+          false,
+          Iconize.SFSymbolOnly,
+          tooltip,
+          DefaultValue,
+          shortcut
+        )
       )
-    )
+      topMenu = Some(t)
+      t
 
     def text(
         text: String,
