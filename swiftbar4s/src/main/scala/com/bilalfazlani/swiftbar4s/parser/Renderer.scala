@@ -44,7 +44,7 @@ class Renderer(selfPath: String) {
       case Shortcut(value)  => s"""shortcut=${value.replace(" ", "")}"""
       case Checked(value)   => s"checked=$value"
       case ANSI(value)      => s"ansi=$value"
-      case Markdown(value)  => s"markdown=$value"
+      case Markdown(value)  => s"md=$value"
       case Href(url)        => s"""href="$url""""
       case Executable("$0") => s"""bash="$selfPath""""
       case Executable(path) => s"""bash="$path""""
