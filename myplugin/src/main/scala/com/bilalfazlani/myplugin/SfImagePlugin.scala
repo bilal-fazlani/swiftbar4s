@@ -3,7 +3,7 @@ package com.bilalfazlani.myplugin
 import com.bilalfazlani.swiftbar4s.dsl.*
 
 object SfImagePlugin extends PluginDsl {
-  menu("Jobs", sfImage = SFImage.Monochrome("gear", "white")) {
+  menu("Jobs", sfImage = SFImage.Primary("gear")) {
     text(
       "Job 1 success",
       sfImage = SFImage.Palette("checkmark.circle.fill", "white", "green")

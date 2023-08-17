@@ -83,12 +83,7 @@ trait MenuDsl extends Plugin {
         scale: SfScale = SfScale.Large,
         weight: SfWeight = SfWeight.Bold
     )
-    case Monochrome(
-        name: String,
-        color: String,
-        scale: SfScale = SfScale.Large,
-        weight: SfWeight = SfWeight.Bold
-    )
+    case Primary(name: String)
 
   extension [T](value: T)
     infix def ifDark[A <: T](value2: A)(using Option[SwiftBarRuntime]): T =
@@ -467,16 +462,15 @@ trait MenuDsl extends Plugin {
         )
       case SFImage.Hierarchical(name, color, scale, weight) =>
         val colors = color match
-          case DefaultValue => Seq("primary")
+          case DefaultValue => Seq.empty
           case str: String  => Seq(str)
         set ++= Seq(
           SfImage(name),
           SfConfig(SfRenderingMode.Hierarchical, colors, scale, weight)
         )
-      case SFImage.Monochrome(name, color, scale, weight) =>
+      case SFImage.Primary(name) =>
         set ++= Seq(
-          SfImage(name),
-          SfConfig(SfRenderingMode.Palette, Seq(color), scale, weight)
+          SfImage(name)
         )
 
       case None =>

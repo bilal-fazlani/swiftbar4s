@@ -35,6 +35,8 @@ class Renderer(selfPath: String) {
         val configStr = new String(base64, "UTF-8")
         s"""sfconfig="$configStr""""
       }
+      case SfColor(name)    => s"sfcolor=$name"
+      case SfSize(name)     => s"sfsize=$name"
       case Emojize(value)   => s"emojize=${value.toString.toLowerCase}"
       case Symbolize(value) => s"symbolize=${value.toString.toLowerCase}"
       case ToolTip(value)   => s"""tooltip="$value""""

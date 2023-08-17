@@ -42,4 +42,7 @@ object Attribute {
   private[swiftbar4s] case class Params(values: Seq[String]) extends Attribute
   private[swiftbar4s] case class Refresh(enable: Boolean)    extends Attribute
   private[swiftbar4s] case class Terminal(enable: Boolean)   extends Attribute
+  // SF
+  private[swiftbar4s] case class SfColor(name: String) extends Attribute
+  private[swiftbar4s] case class SfSize(name: Int)     extends Attribute
 }
