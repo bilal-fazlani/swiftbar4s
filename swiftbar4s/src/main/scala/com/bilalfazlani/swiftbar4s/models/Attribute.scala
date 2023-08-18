@@ -38,6 +38,7 @@ object Attribute {
 
   // privates
   private[swiftbar4s] case class Href(url: String)           extends Attribute
+  private[swiftbar4s] case object SelfExecutable             extends Attribute
   private[swiftbar4s] case class Executable(path: String)    extends Attribute
   private[swiftbar4s] case class Params(values: Seq[String]) extends Attribute
   private[swiftbar4s] case class Refresh(enable: Boolean)    extends Attribute

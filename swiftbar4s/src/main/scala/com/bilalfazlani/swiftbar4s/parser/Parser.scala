@@ -46,7 +46,7 @@ class Parser(renderer: Renderer) {
         def encode(str: String): String =
           Base64.getEncoder.encodeToString(str.getBytes)
         val additionalAttributes = Seq(
-          Executable("$0"),
+          SelfExecutable,
           Params(
             Seq(
               Some("dispatch"),

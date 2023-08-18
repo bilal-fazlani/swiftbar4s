@@ -46,7 +46,7 @@ class Renderer(selfPath: String) {
       case ANSI(value)      => s"ansi=$value"
       case Markdown(value)  => s"md=$value"
       case Href(url)        => s"""href="$url""""
-      case Executable("$0") => s"""bash="$selfPath""""
+      case SelfExecutable   => s"""bash="$selfPath""""
       case Executable(path) => s"""bash="$path""""
       case Refresh(enable)  => s"refresh=${enable.toString.toLowerCase}"
       case Terminal(enable) => s"terminal=${enable.toString.toLowerCase}"

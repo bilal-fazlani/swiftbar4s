@@ -43,15 +43,13 @@ class MenuBuilder(textItem: Text) {
 
 type MenuFunction = MenuBuilder ?=> Unit
 
-given Conversion[MenuBuilder, Menu] = _.build
-
 enum Image:
   case Resource(path: String)
   case Url(url: String)
   case Base64(value: String)
   case None
 
-trait MenuDsl extends Plugin {
+trait MenuDsl {
   case object DefaultValue
   type ColorDsl     = String | DefaultValue.type
   type TextSizeDsl  = Int | DefaultValue.type
@@ -61,6 +59,8 @@ trait MenuDsl extends Plugin {
   type AlternateDsl = Boolean | DefaultValue.type
   type ShortcutDsl  = String | None.type
   type SFImageDsl   = SFImage | None.type
+
+  given Conversion[MenuBuilder, Menu] = _.build
 
   enum Iconize {
     case Default
@@ -359,10 +359,10 @@ trait MenuDsl extends Plugin {
       topMenu = Some(s)
       s
 
-    def actionDispatch(
+    def action(
         text: String,
         action: String,
-        metadata: Option[String],
+        metadata: Option[String] = None,
         showTerminal: Boolean = false,
         refresh: Boolean = true,
         color: ColorDsl = DefaultValue,
