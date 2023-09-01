@@ -1,5 +1,7 @@
 package com.bilalfazlani.swiftbar4s.dsl
 
+import java.nio.file.Path
+
 enum OSAppearance {
   case Light
   case Dark
@@ -17,7 +19,7 @@ case class RetrievedOSVersion private[swiftbar4s] (
     patch: Int
 ) {
   infix def is(version: OSVersion) =
-    this.major == version.major 
+    this.major == version.major
   infix def isNot(version: OSVersion) = !is(version)
   infix def <(version: OSVersion) =
     this.major < version.major
@@ -31,13 +33,15 @@ case class RetrievedOSVersion private[swiftbar4s] (
 case class SwiftBarRuntime(
     swiftbarVersion: String,
     swiftbarBuild: String,
-    pluginsPath: String,
-    selfPath: String,
+    pluginsPath: Path,
+    selfPath: Path,
+    cacheDir: Path,
+    dataDir: Path,
     osAppearance: OSAppearance,
     osVersion: RetrievedOSVersion
 ) {
   lazy val pluginFileName: String =
-    java.nio.file.Paths.get(selfPath).getFileName.toString
+    selfPath.getFileName.toString
 }
 
 trait Environment {
@@ -48,8 +52,10 @@ trait Environment {
         SwiftBarRuntime(
           get("SWIFTBAR_VERSION"),
           get("SWIFTBAR_BUILD"),
-          get("SWIFTBAR_PLUGINS_PATH"),
-          get("SWIFTBAR_PLUGIN_PATH"),
+          Path.of(get("SWIFTBAR_PLUGINS_PATH")),
+          Path.of(get("SWIFTBAR_PLUGIN_PATH")),
+          Path.of(get("SWIFTBAR_PLUGIN_CACHE_PATH")),
+          Path.of(get("SWIFTBAR_PLUGIN_DATA_PATH")),
           if get("OS_APPEARANCE") == "Light" then OSAppearance.Light
           else OSAppearance.Dark,
           RetrievedOSVersion(
