@@ -76,6 +76,7 @@ extra_css:
   - stylesheets/extra.css
 
 extra:
+  generator: false
   social:
     - icon: fontawesome/brands/github
       link: "https://github.com/bilal-fazlani"
@@ -83,3 +84,5 @@ extra:
       link: "https://twitter.com/bilal_fazlani"
     - icon: fontawesome/brands/linkedin
       link: "https://www.linkedin.com/in/bilal-fazlani/"
+
+copyright: Copyright &copy 2024 &nbsp;<b><a href="https://bilal-fazlani.com">Bilal Fazlani</a></b>
